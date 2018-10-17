@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+    <meta charset="UTF-8"/>
+    <title>d3sparql.js</title>
+    <link rel="stylesheet" type="text/css" href="$nav-base/resources/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="relationships.css"/>
+    <link rel="stylesheet" href="pygment_trac.css"/>
+    <script type="text/javascript" src="$nav-base/resources/js/jquery.min.js"/>
+    <script type="text/javascript" src="http://d3js.org/d3.v3.js"/>
+    <script src="d3sparql.js"/>
+    <script src="sankey.js"/>
+    <script>
+         $(document).ready(function () {
+            /* Subimt form */
+            $("#query").on('click', function(e){
+             e.preventDefault();
+             var $form = $("#RDF"),
+                url = $form.find("#endpoint").val(),
+                type = $form.select("#type").find(":selected").text();
+                if (type === "JSON" || type === "XML") {
+                /* If JSON/XML submit the form with the appropriate/requested format */
+                     $("#format").val(type);
+                     $('form').submit();
+                } else {
+                /* Otherwise send to d3 visualization, set format to json.  */
+                    $("#format").val('json');
+                    $.post(url, $form.serialize(), function(data) {
+                        d3sparql.graphType(data, type);
+                    }).fail( function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus);
+                    });
+                }
+             });
+            });
+            
+            /* Toggle textarea */
+            function toggle() {
+                d3sparql.toggle()
+            }
+    </script>
+    <style>
+      .bundle-node {
+                  font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+                  fill: #bbb;
+                }
+                
+                .bundle-node:hover {
+                  fill: #000;
+                }
+            
+
+               .bundle-link {
+                  stroke: steelblue;
+                  stroke-opacity: .4;
+                  fill: none;
+                  pointer-events: none;
+                }
+
+                .bundle-node:hover,
+                .bundle-node--source,
+                .bundle-node--target {
+                  font-weight: 700;
+                }
+            
+                .bundle-node--source {
+                  fill: #ff7f0e;
+                }
+            
+                .bundle-node--target {
+                  fill: #1F77B4;
+                }
+            
+                .bundle-link--source,
+                .bundle-link--target {
+                  stroke-opacity: 1;
+                  stroke-width: 2px;
+                }
+                
+                .bundle-link--source {
+                  stroke: #ff7f0e;
+                }
+                
+                .bundle-link--target {
+                  stroke: #1F77B4;
+                }
+    </style>
+    <body>
+        <div class="container" style="margin-top:2em;">
+            <h1>SPARQL Queries</h1>
+            <form class="form-inline" id="RDF" action="/exist/apps/srophe/api/sparql" method="post">
+                <div class="input-append">
+                    <div class="form-group">
+                        <label for="endpoint">SPARQL endpoint: </label>
+                        <input id="endpoint" style="width:400px;" value="/exist/apps/srophe/api/sparql" type="text"/>
+                        <label for="endpoint">Format:  </label>
+                        <select id="type" name="type">
+                            <option id="Tabel">Table</option>
+                           <!-- <option id="HTMLHash">HTML Hash</option>
+                            <option id="barchart">Bar Chart</option>
+                            <option id="piechart">Pie Chart</option>-->
+                            <option id="Force">Force</option>
+                            <!--<option id="Bundle">Bundle</option>-->
+                            <option id="Sankey">Sankey</option>
+                            <!--<option id="Bubble">Bubble</option>-->
+                            <option id="xml">XML</option>
+                            <option id="json">JSON</option>
+                        </select>     
+                        <input type="hidden" name="format" id="format" value="json"/>
+                        <button class="btn btn-default" type="button" id="query">Query</button>
+                        <button class="btn btn-default" type="button" id="hide" onclick="toggle()">
+                            <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"/>
+                        </button>
+                    </div>
+                </div>
+                <br/>
+                <textarea id="sparql" class="span9" rows="15" cols="150" name="sparql">
+                    <![CDATA[
+                    prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+                    prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+                                                                    
+                    SELECT *
+                    WHERE {?r ?s ?o}
+                    LIMIT 25
+                    ]]>
+                </textarea>
+            </form>
+        
+             <h2>Query Results</h2>
+             <div id="result"/>
+        </div>
+    </body>
+</html>

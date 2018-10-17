@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<div xmlns="http://www.w3.org/1999/xhtml" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
+    <div class="container top-padding">
+        <small class="pull-right">(<a class="togglelink text-info" data-toggle="collapse" data-target="#showSearch" href="#showSearch" data-text-swap="+ Show"> - Hide </a>)</small>
+        <div class="row collapse in" id="showSearch">
+            <!-- <form data-template="search:search-form" data-template-collection="OPTIONAL: COLLECTION NAME"/>--> 
+            <form data-template="search:search-form"/>
+        </div>
+        <div data-template="search:search-data">
+            <div data-template="app:pageination" data-template-search-string="yes" data-template-sort-options="title,author,pubDate"/>
+            <div data-template="app:display-map"/>
+            <div class="row">
+                <div class="col-md-8 col-md-push-4">
+                    <div data-template="search:show-hits" data-template-kwic="yes"/>
+                </div>
+                <div class="col-md-4 col-md-pull-8">
+                    <div data-template="app:display-facets"/>
+                </div>
+            </div>
+            <div data-template="app:pageination"/>
+        </div>
+    </div>
+</div>

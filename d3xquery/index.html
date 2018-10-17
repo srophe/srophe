@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+    <meta charset="UTF-8"/>
+    <title>d3sparql.js</title>
+    <link rel="stylesheet" type="text/css" href="$nav-base/resources/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="relationships.css"/>
+    <link rel="stylesheet" href="pygment_trac.css"/>
+    <script type="text/javascript" src="$nav-base/resources/js/jquery.min.js"/>
+    <script type="text/javascript" src="http://d3js.org/d3.v3.js"/>
+    <script src="d3sparql.js"/>
+    <script src="sankey.js"/>
+    <script src="relationship.js"/>
+    <style>
+      .bundle-node {
+                  font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+                  fill: #bbb;
+                }
+                
+                .bundle-node:hover {
+                  fill: #000;
+                }
+            
+
+               .bundle-link {
+                  stroke: steelblue;
+                  stroke-opacity: .4;
+                  fill: none;
+                  pointer-events: none;
+                }
+
+                .bundle-node:hover,
+                .bundle-node--source,
+                .bundle-node--target {
+                  font-weight: 700;
+                }
+            
+                .bundle-node--source {
+                  fill: #ff7f0e;
+                }
+            
+                .bundle-node--target {
+                  fill: #1F77B4;
+                }
+            
+                .bundle-link--source,
+                .bundle-link--target {
+                  stroke-opacity: 1;
+                  stroke-width: 2px;
+                }
+                
+                .bundle-link--source {
+                  stroke: #ff7f0e;
+                }
+                
+                .bundle-link--target {
+                  stroke: #1F77B4;
+                }
+    </style>
+    <body>
+        <div>
+            <h1>Build a Query</h1>
+            <form class="form-inline" id="RDF" action="relationships.xql">
+                <div class="input-append">
+                    <div class="form-group" style="display:block; width:80%">
+                        <label for="id">Entity ID:  </label>
+                        <input type="text" name="id" id="id" size="50" placeholder="ex: http://syriaca.org/person/51"/>
+                        <hint style="font-size:small;font-style:italic;"> *Use to get relationships for specific TEI entity . </hint>
+                        <br/>
+                    </div>
+                    <!--
+                    <div class="form-group" style="display:block; width:80%">
+                        <label for="id">Record ID:  </label>
+                        <input type="text" name="recordID" id="recordID" size="50" placeholder="ex: http://syriaca.org/person/51"/>
+                        <hint style="font-size:small;font-style:italic;"> * Use to get all the relationships in a specified TEI record. </hint>
+                        <br/>
+                    </div>
+                    -->
+                    <div class="form-group">
+                        <label for="relationship">Relationship Type:  </label>
+                        <select id="relationship" name="relationship">
+                            <option> --- Select relationship --- </option>
+                        </select>  
+                        <label for="type">Visualization Type:  </label>
+                        <select id="type" name="type">
+                            <option id="Tabel">Table</option>
+                            <option id="barchart">Bar Chart</option>
+                            <option id="piechart">Pie Chart</option>
+                            <option id="Force">Force</option>
+                            <!--<option id="Bundle">Bundle</option>-->
+                            <option id="Sankey">Sankey</option>
+                            <!--
+                                <option id="RoundTree">Round Tree</option>                            
+                                <option id="CirclePack">Circle Pack</option>
+                            -->
+                            <option id="Bubble">Bubble</option>
+                            <option id="xml">XML</option>
+                            <option id="json">JSON</option>
+                        </select>         
+                        <input type="hidden" name="format" id="format" value="json"/>
+                        <input type="hidden" name="collection" id="collection" value="/db/apps/srophe-data/data/spear"/>
+                        <button class="btn btn-default" type="button" id="query">Query</button>
+                        <!--
+                        <button class="btn btn-default" type="button" id="hide" onclick="toggle()">
+                            <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"/>
+                        </button>
+                        -->
+                    </div>
+                </div>
+            </form>
+        </div>
+        <h2>Query Results</h2>
+        <div id="result"/>
+    </body>
+</html>

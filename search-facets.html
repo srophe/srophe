@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<div xmlns="http://www.w3.org/1999/xhtml" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
+    <div class="container top-padding">
+        <small class="pull-right">(<a class="togglelink text-info" data-toggle="collapse" data-target="#showSearch" href="#showSearch" data-text-swap="+ Show"> - Hide </a>)</small>
+        <div data-template="search:search-data" data-template-collection="places">
+            <div class="row collapse in" id="showSearch"> 
+                <form data-template="search:search-form"/>
+            </div>
+            <div data-template="app:pageination" data-template-search-string="yes" data-template-sort-options="title,author,pubDate"/>
+            <div data-template="app:display-map"/>
+            <div data-template="search:show-hits" data-template-kwic="yes"/>
+            <div data-template="app:pageination"/>
+        </div>
+    </div>
+</div>

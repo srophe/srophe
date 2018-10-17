@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" data-template="app:get-work">
+    <head>
+        <title data-template="config:app-title">App Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta data-template="config:app-meta"/>
+        <!--<link rel="shortcut icon" href="$shared/resources/images/exist_icon_16x16.ico"/>-->
+        <!-- Bootstrap 3 -->
+        <link rel="stylesheet" type="text/css" href="$nav-base/resources/bootstrap/css/bootstrap.min.css"/>
+        <!-- Srophe styles -->
+        <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/syr-icon-fonts.css"/>
+        <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/lang.css"/>
+        <link rel="stylesheet" type="text/css" media="print" href="$nav-base/resources/css/print.css"/>
+        <!-- Leaflet -->
+        <link rel="stylesheet" href="$nav-base/resources/leaflet/leaflet.css"/>
+        <link rel="stylesheet" href="$nav-base/resources/leaflet/leaflet.awesome-markers.css"/>
+        <!-- JQuery -->
+        <link href="$nav-base/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet"/>
+        <script type="text/javascript" src="$nav-base/resources/js/jquery.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/jquery-ui/jquery-ui.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/js/jquery.smartmenus.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/js/clipboard.min.js"/>
+        <!-- Bootstrap -->
+        <script type="text/javascript" src="$nav-base/resources/bootstrap/js/bootstrap.min.js"/>
+        <!-- ReCaptcha -->
+        <script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"/>
+        <!-- keyboard widget css & script -->
+        <link href="$nav-base/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
+        <link href="$nav-base/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet"/>
+        <link href="$nav-base/resources/keyboard/syr/syr.css" rel="stylesheet"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/syr/jquery.keyboard.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/syr/keyboardSupport.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/syr/syr.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Greek.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Russian.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Arabic.min.js"/>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
+
+                $('.keyboard').keyboard({
+                    openOn: null,
+                    stayOpen: false,
+                    alwaysOpen: false,
+                    autoAccept: true,
+                    usePreview: false,
+                    initialFocus: true,
+                    rtl : true,
+                    layout: 'syriac-phonetic',
+                    hidden: function(event, keyboard, el){
+                       //  keyboard.destroy();
+                     }
+                });
+
+                $('.keyboard-select').click(function () {
+                    var keyboardID = '#' + $(this).data("keyboard-id")
+                    var kb = $(keyboardID).getkeyboard();
+                    //var kb = $('#searchField').getkeyboard();
+                    // change layout based on link ID
+                    kb.options.layout = this.id
+                    // open keyboard if layout is different, or time from it last closing is &gt; 200 ms
+                    if (kb.last.layout !== kb.options.layout || (new Date().getTime() - kb.last.eventTime) &gt; 200) {
+                        kb.reveal();
+                    }
+                });
+                //Change fonts
+                $('.swap-font').on('click', function(){
+                    var selectedFont = $(this).data("font-id")
+                    $('.selectableFont').not('.syr').css('font-family', selectedFont);
+                    $("*:lang(syr)").css('font-family', selectedFont)
+                });
+
+            })
+        </script>
+    </head>
+    <body id="body">
+        <nav class="navbar navbar-default" role="navigation" data-template="app:fix-links">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"/>
+                    <span class="icon-bar"/>
+                    <span class="icon-bar"/>
+                </button>
+                <a class="navbar-brand banner-container" href="$nav-base/index.html"> 
+                    <span class="syriaca-icon syriaca-syriaca banner-icon" data-template="app:logo"/>
+                    <span class="banner-text" data-template="config:app-title">App Title</span>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="$nav-base/documentation/index.html" style="margin-top:.5em;">
+                            <span class="icon-text">Documentation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="$nav-base/browse.html" style="margin-top:.5em;">
+                            <span class="icon-text">Browse</span>
+                        </a>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-left navbar-input-group" role="search" action="$nav-base/search.html" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control keyboard" placeholder="search" name="keyword" id="keywordNav"/>
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit" data-toggle="tooltip" title="Search" data-placement="bottom">
+                                  <span class="glyphicon glyphicon-search"/>
+                            </button>
+                        </div><!-- /btn-group -->
+                    </div>
+                </form>
+                <ul class="nav navbar-nav navbar-right keboard-btn">
+                    <li>
+                        <div class="btn-nav navbar-btn">
+                            <span data-template="app:keyboard-select-menu" data-template-input-id="keywordNav"/>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="btn-nav">
+                            <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                                Font <span class="caret"/>
+                            </a>
+                            <ul class="dropdown-menu" id="swap-font">
+                                <li>
+                                    <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="swap-font" id="SertoBatnanSelect" data-font-id="SertoBatnan">Serto Batnan</a>
+                                </li>
+                                <li>
+                                    <a href="$app-root/documentation/wiki.html?wiki-page=/How-to-view-Syriac-script&amp;wiki-uri=https://github.com/srophe/srophe-app-data/wiki">Help <span class="glyphicon glyphicon-question-sign"/>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div id="content" class="text"/>
+        <footer>
+            <a class="poweredby" href="http://srophe.org">
+                <img src="$nav-base/resources/images/srophe.svg" alt="Srophe"/>
+            </a>
+        </footer>
+    </body>
+    <!-- Additional Javascript -->
+    <script type="text/javascript" src="$nav-base/resources/js/jquery.validate.min.js"/>
+    <script type="text/javascript" src="$nav-base/resources/js/srophe.js"/>
+</html>

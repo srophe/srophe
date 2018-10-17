@@ -1,0 +1,21 @@
+/* Syriaca.org keyboard css customizations */
+/* keyboard classes: ui-keyboard ui-widget-content ui-widget ui-corner-all ui-helper-clearfix ui-keyboard-has-focus */
+
+.ui-keyboard{
+  /* display:block;
+    border:1px solid red;
+    background:rgb(34, 34, 34);
+    background:rgba(34, 34, 34, 0.55);
+    padding-top:1.5em;
+    width:100%;
+    height:200px;
+
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    z-index: 99000;
+    */  
+}
+.ui-keyboard span {font-size: .95em; font-weight:normal}
+/*.ui-keyboard-button { height: 2em; width: 2em; margin: .1em; cursor: pointer; }*/
+.ui-keyboard-button{margin:0;}

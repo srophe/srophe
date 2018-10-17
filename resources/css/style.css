@@ -1,0 +1,88 @@
+/* Application styles */
+/*
+ * Colors:
+ *  
+ */
+  
+ 
+/* A */
+.alpha-pages {margin:-1.5em 0 1em 0;}
+
+#advancedSearch {padding:2em 1em; background-color:#F7F7F9;}
+
+/* B */
+.banner-icon img{height:40px; overflow:hidden; padding-left: 1em; vertical-align: middle; margin:-.25em .5em 0 .5em; padding:0;}
+
+/* browse menus*/
+.browse-alpha {border-bottom:1px solid #ccc; padding:.5em 1em; margin:1em 0; text-align: justify;}
+.browse-alpha li + li {padding-left: .75em;}
+.browse-alpha li.syr-menu + li.syr-menu {padding-left: .5em;}
+.browse-alpha li.ar-menu + li.ar-menu {padding-left: .15em;}
+.browse-alpha li.selected a{color:white; padding-right:.25em;}
+
+/* C */
+.clipboard {padding:.25em; margin-left:.75em;}
+.container {margin:1em 2em; padding: .5em 1em; }
+
+/* F */
+footer .poweredby { float: right; margin: 33px 10px 0 0;}
+footer .poweredby img { width: 120px; }
+
+/* facets */
+.facet-label {
+    margin-left:.5em; 
+    display:block; 
+    text-align:left; 
+    white-space: normal;
+    }
+.facet-label.remove {background-color:#eee; color:#666; font-weight:normal; margin:.25em; display:inline-block;}
+
+/* I */
+.indent {margin-left: 1em;}
+img{ margin:0px }
+/* M */
+.map-lg #map {height:500px !important;}
+.map-md #map {height:300px !important;}
+.map-sm #map {height:250px !important;}
+#map {height:325px !important;}
+.map-pop-title {display:block;font-weight:600; font-size:1.2em; margin-bottom:0; padding-bottom:0;}
+.map-pop-desc {display:block; padding:.5em;}
+
+/* P */
+.paging {display:block; clear:both;}
+.param {font-weight:500;}
+.param-string {margin-right:.75em;}
+
+/* R */
+.result {border-bottom:1px dotted #eee; padding-top:.5em; padding-bottom: 1em;}
+.results-list-desc {display:block;}
+.relationship-type {font-color:#666666; display:block;}
+/* S */
+.search-box input, .search-box textarea{
+    background-color:#FFF;
+    color: #666;
+}
+#sources ul {
+	list-style-type: none;
+	padding-left: -0.1em;
+	text-indent: -1em;
+}
+
+/* T */
+.tab-content {padding-top:.25em;}
+.text {margin:0 4em;};
+
+/* TEI styles */
+.tei-event {display:block;}
+.tei-footnote-refs, .tei-footnote-tgt {
+    font-size: .7em;
+    line-height: 0.5em;
+    vertical-align: baseline;
+    position: relative;
+    top: -0.4em;
+
+}
+.tei-footnote-tgt {
+    margin-left:-1.5em;
+    padding-right:.5em;    
+}

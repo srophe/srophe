@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
+    <xi:include href="../banner.html"/>
+    <div class="row container top-padding">
+        <div class="col-md-3">
+            <h3>Available APIs </h3>
+            <ul class="nav nav-tabs nav-stacked pull-left type-nav">
+                <li>
+                    <a href="#search">Search API</a>
+                </li>
+                <li>
+                    <a href="#geo">Geographic API</a>
+                </li>
+                <li>
+                    <a href="#oai">OAI-PMH Provider API</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div>
+                <h1>Syriaca.org API documentation</h1>
+                <!--<p>Note about API policies (if we have any)</p>-->
+                <hr/>
+                <h3 id="search">Search API</h3>
+                <p>Base url: <pre>http://syriaca.org/api/search</pre>
+                </p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="api-path">Path</th>
+                            <th class="api-param">Parameters</th>
+                            <th class="api-desc">Description</th>
+                            <th class="api-method">Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <pre>/persName</pre>
+                                <pre>/placeName</pre>
+                                <pre>/title</pre>
+                                <pre>/author</pre>
+                                <pre>/desc</pre>
+                                <pre>/note</pre>
+                                <pre>/event</pre>
+                                <pre>/body</pre>
+                            </td>
+                            <td>
+                                <strong>q</strong>
+                                <p>Accepts simple text string.</p>
+                                <strong>collection</strong>
+                                <p>Limits by collection.</p>
+                                <ul>
+                                    <li>Gateway to the Syriac Saints</li>
+                                    <li>The Syriac Biographical Dictionary</li>
+                                    <li>A Guide to Syriac Authors</li>
+                                    <li>Qadishe: A Guide to the Syriac Saints</li>
+                                    <li>The Syriac Gazetteer</li>
+                                    <li>Bibliotheca Hagiographica Syriaca Electronica</li>
+                                    <li>SPEAR: Syriac Persons, Events, and Relations</li>
+                                </ul>
+                                <strong>lang</strong>
+                                <p>Limits by xml:lang attribute.</p>
+                                <ul>
+                                    <li/>
+                                </ul>
+                                <strong>author</strong>
+                                <p>Accepts simple text string. Used only with '/title' search.</p>
+                            </td>
+                            <td>
+                                <p>Performs a simple keyword search across all Syriaca.org collections.</p>
+                                <p>Provides results as JSON.</p>
+                                <p>Example:<pre>/api/search/persName?q=aaron&amp;collection=The Syriac Biographical Dictionary</pre>
+                                </p>
+                                <p>Example:<pre>/api/search/placeName?q=edessa</pre>
+                                </p>
+                                <p>Example:<pre>/api/title?q=mary&amp;author=ephrem</pre>
+                                </p>
+                                <p>Example:<pre>/api/search/title?q=mari&amp;lang=fr</pre>
+                                </p>
+                                <p>Example results for:</p>
+                                <pre>/api/search/title?q=mary
+&amp;collection=Bibliotheca Hagiographica Syriaca Electronica
+&amp;lang=en&amp;author=ephrem</pre>
+                                <pre>
+[
+    {
+        "id": "http://syriaca.org/work/1002",
+        "title": "Mary Mother of God (text)"
+    },
+    {
+        "id": "http://syriaca.org/work/1001",
+        "title": "Mary Mother of God (text)"
+    },
+    {
+        "id": "http://syriaca.org/work/1000",
+        "title": "Mary Mother of God (text)"
+    }
+]
+                                </pre>
+                            </td>
+                            <td>GET</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr/>
+                <h3 id="geo">Geographic API</h3>
+                <p>Base url: <pre>http://syriaca.org/api/geo</pre>
+                </p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="api-path">Path</th>
+                            <th class="api-param">Parameters</th>
+                            <th class="api-desc">Description</th>
+                            <th class="api-method">Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <pre>/json</pre>
+                            </td>
+                            <td>
+                                <strong>type</strong>
+                                <p>accepted values:</p>
+                                <ul>
+                                    <li>building</li>
+                                    <li>church</li>
+                                    <li>diocese</li>
+                                    <li>fortification</li>
+                                    <li>island</li>
+                                    <li>monastery</li>
+                                    <li>mountain</li>
+                                    <li>open-water</li>
+                                    <li>parish</li>
+                                    <li>province</li>
+                                    <li>quarter</li>
+                                    <li>region</li>
+                                    <li>river</li>
+                                    <li>settlement</li>
+                                    <li>state</li>
+                                    <li>temple</li>
+                                    <li>unknown</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <p>Provides geoJSON results for all places within the gazetteer with geographic data. Places can be filtered by place type.</p>
+                                <p>Example return all locations:<pre>http://syriaca.org/api/geo/json</pre>
+                                </p>
+                                <p>Example return only churches:<pre>http://syriaca.org/api/geo/json?type=church</pre>
+                                </p>
+                                <p>Example return churches and rivers:<pre>http://syriaca.org/api/geo/json?type=church,river</pre>
+                                </p>
+                            </td>
+                            <td>GET</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre>/kml</pre>
+                            </td>
+                            <td>
+                                <strong>type</strong>
+                                <p>accepted values:</p>
+                                <ul>
+                                    <li>building</li>
+                                    <li>church</li>
+                                    <li>diocese</li>
+                                    <li>fortification</li>
+                                    <li>island</li>
+                                    <li>monastery</li>
+                                    <li>mountain</li>
+                                    <li>open-water</li>
+                                    <li>parish</li>
+                                    <li>province</li>
+                                    <li>quarter</li>
+                                    <li>region</li>
+                                    <li>river</li>
+                                    <li>settlement</li>
+                                    <li>state</li>
+                                    <li>temple</li>
+                                    <li>unknown</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <p>Provides KML results for all places within the gazetteer with geographic data. Places can be filtered by place type.</p>
+                                <p>Example return all locations:<pre>http://syriaca.org/api/geo/kml</pre>
+                                </p>
+                                <p>Example return only churches:<pre>http://syriaca.org/api/geo/kml?type=church</pre>
+                                </p>
+                                <p>Example return churches and rivers:<pre>http://syriaca.org/api/geo/kml?type=church,river</pre>
+                                </p>
+                            </td>
+                            <td>GET</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3 id="oai">OAI-PMH Provider API</h3>
+                <p>Base url: <pre>http://syriaca.org/api/oai</pre>
+                </p>
+                <p>Full OAI-PMH documentation can be found: <a href="http://www.openarchives.org/OAI/2.0/openarchivesprotocol.htm">http://www.openarchives.org/OAI/2.0/openarchivesprotocol.htm</a>
+                </p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="api-path">Path</th>
+                            <th class="api-param">Parameters</th>
+                            <th class="api-desc">Description</th>
+                            <th class="api-method">Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                none
+                            </td>
+                            <td>
+                                <strong>verb</strong>
+                                <p>OAI-PMH verb.</p>
+                                <strong>identifier</strong>
+                                <p>Syriaca.org record identifier. ex: http://syriaca.org/place/78</p>
+                                <strong>from</strong>
+                                <p>Date to start harvesting from. Uses publication/last modified date of record.</p>
+                                <strong>until</strong>
+                                <p>Date to end harvesting from. Uses publication/last modified date of record.</p>
+                                <strong>set</strong>
+                                <p>Syriaca.org sets are based on Syriaca.org submodules. Use verb=ListSets to view available sets.</p>
+                                <strong>resumptionToken</strong>
+                                <p>Where to start results list.</p>
+                                <strong>metadataPrefix</strong>
+                                <p>What type of data to return.</p>
+                                <p>Syriaca.org currently supports OAI_DC and TEI. Use values: oai_dc or tei</p>
+                                <p/>
+                            </td>
+                            <td>
+                                <p>Description of service</p>
+                                <p>List Sets.</p>
+                                <p>Example:<pre>http://syriaca.org/modules/oai.xql?verb=ListSets</pre>
+                                </p>
+                                <p>List records (Dublin Core)</p>
+                                <p>Example:<pre>http://syriaca.org/modules/oai.xql?verb=ListRecords&amp;metadataPrefix=oai_dc</pre>
+                                </p>
+                                <p>List records (TEI)</p>
+                                <p>Example:<pre>http://syriaca.org/modules/oai.xql?verb=ListRecords&amp;metadataPrefix=tei</pre>
+                                </p>
+                                <p>Get a single record</p>
+                                <p>Example:<pre>http://syriaca.org/modules/oai.xql?verb=GetRecord&amp;identifier=http://syriaca.org/place/78</pre>
+                                </p>
+                            </td>
+                            <td>GET</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

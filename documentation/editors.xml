@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title xml:lang="en">Syriaca.org Editors</title>
+                <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
+                <funder>The Andrew W. Mellon Foundation</funder>
+                <funder>The National Endowment for the Humanities</funder>
+                <funder>The International Balzan Prize Foundation</funder>
+                <principal>David A. Michelson</principal>
+                <editor role="general" ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</editor>
+                <editor role="general" ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</editor>
+                <editor role="creator" ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</editor>
+                <respStmt>
+                    <resp>List compiled and expanded by</resp>
+                    <name ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</name>
+                </respStmt>
+                <respStmt>
+                    <resp>List expanded by</resp>
+                    <name ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</name>
+                </respStmt>
+                <respStmt>
+                    <resp>List expanded by</resp>
+                    <name ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
+                <respStmt>
+                    <resp>List expanded by</resp>
+                    <name ref="http://syriaca.org/documentation/editors.xml#dschwartz">Daniel L. Schwartz</name>
+                </respStmt>                
+            </titleStmt>
+            <editionStmt>
+                <edition n="1.0"/>
+            </editionStmt>
+            <publicationStmt>
+                <authority>Syriaca.org: The Syriac Reference Portal</authority>
+                <idno type="URI">http://syriaca.org/documentation/editors.xml</idno>
+                <availability>
+                    <licence target="http://creativecommons.org/licenses/by/3.0/">
+                        Distributed under a Creative Commons Attribution 3.0 Unported License
+                    </licence>
+                </availability>
+                <date>2017-08-08</date>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Born digital.</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <editorialDecl>
+                <p>A list of editors for Syriaca.org, in no particular order.</p>
+            </editorialDecl>
+        </encodingDesc>
+        <revisionDesc>
+            <change type="reminder">Please be sure to update the publication date when changes are made here!</change>
+            <change when="2017-08-08" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Mario Kozah, Haya Al Thani, Saif al-Murikhi, Abdul Rahman Chamseddine, Abdulrahim Abu-Husayn, and resp statements for other editors who ahve modified this file</change>
+            <change when="2017-06-23" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: André Binggeli, Françoise Briquel-Chatonnet, Alain Desreumaux, Emilie Villey, Youssef Dergham, Margherita Farina, Simone I. M. Pratelli, Flavia Ruani, Eleonora Serra</change>
+            <change when="2017-05-09" who="http://syriaca.org/documentation/editors.xml#dschwartz">ADDED: Edward Keogh, Jimmy Daccache, Katayoun Torabi, Reyhan Dumaz, Ashoor Yousif, Simcha Gross, Ralph Barczok, Maria E. Doerfler, Kelli Gibson, Jeffrey Wickes, Joshua Falconer, Ute Possekel, Eric Garret, Erin Galgay Walsh, Muriel Debie, Joshua McManaway, and Nick Elder</change>
+            <change when="2017-03-02" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Griogry Kessel and Nicolas Bamballi</change>
+            <change when="2016-08-03" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Ugo Zanetti and Claude Detienne</change>
+            <change when="2016-08-03" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: J. M. Fiey as contributor</change>
+            <change when="2016-07-29" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Sergey Minov, Daniel Salem, and Kristian Heal as contributors</change>
+            <change when="2015-07-10" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Andrea Schmidt and Philip Forness as area editors</change>
+            <change when="2015-06-29" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Dina Boero as contributor</change>
+            <change when="2015-05-12" who="http://syriaca.org/documentation/editors.xml#dmichelson">ADDED: More MSS editors list</change>
+            <change when="2015-05-12" who="http://syriaca.org/documentation/editors.xml#dmichelson">ADDED: MSS editors list</change>
+            <change when="2015-05-06" who="http://syriaca.org/documentation/editors.xml#dmichelson">ADDED: MSS editors list</change>
+            <change when="2014-07-29" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Adam Carter McCollum</change>
+            <change when="2014-07-18" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Luke Yarbrough</change>
+            <change when="2013-03-25" who="http://syriaca.org/documentation/editors.xml#tcarlson">CREATED: editors list</change>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <listPerson>
+                <person xml:id="dmichelson">
+                    <persName xml:lang="en">
+                        <forename>David</forename>
+                        <addName type="middle-initial">A.</addName>
+                        <surname>Michelson</surname>
+                    </persName>
+                </person>
+                <person xml:id="jnsaint-laurent">
+                    <persName xml:lang="en">
+                        <forename>Jeanne-Nicole</forename>
+                        <surname>Saint-Laurent</surname>
+                    </persName>
+                </person>
+                <person xml:id="dschwartz">
+                    <persName xml:lang="en">
+                        <forename>Daniel</forename>
+                        <addName type="middle-initial">L.</addName>
+                        <surname>Schwartz</surname>
+                    </persName>
+                </person>
+                <person xml:id="tcarlson">
+                    <persName xml:lang="en">
+                        <forename>Thomas</forename>
+                        <addName type="middle-initial">A.</addName>
+                        <surname>Carlson</surname>
+                    </persName>
+                </person>
+                <person xml:id="ngibson">
+                    <persName xml:lang="en">
+                        <forename>Nathan</forename>
+                        <addName type="middle-initial">P.</addName>
+                        <surname>Gibson</surname>
+                    </persName>
+                </person>
+                <person xml:id="raydin">
+                    <persName xml:lang="en">
+                        <forename>Robert</forename>
+                        <surname>Aydin</surname>
+                    </persName>
+                </person>
+                <person xml:id="rakhrass">
+                    <persName xml:lang="en">
+                        <title>Dayroyo</title>
+                        <forename>Roger-Youssef</forename>
+                        <surname>Akhrass</surname>
+                    </persName>
+                </person>
+                <person xml:id="jwalters">
+                    <persName xml:lang="en">
+                        <forename>James</forename>
+                        <addName type="middle-initial">E.</addName>
+                        <surname>Walters</surname>
+                    </persName>
+                </person>
+                <person xml:id="pkirlles">
+                    <persName xml:lang="en">
+                        <forename>Philemon</forename>
+                        <surname>Kirlles</surname>
+                    </persName>
+                </person>
+                <person xml:id="jkaado">
+                    <persName xml:lang="en">
+                        <forename>Jad</forename>
+                        <surname>Kaado</surname>
+                    </persName>
+                </person>
+                <person xml:id="avawter">
+                    <persName xml:lang="en">
+                        <forename>Alex</forename>
+                        <surname>Vawter</surname>
+                    </persName>
+                </person>
+                <person xml:id="cjohnson">
+                    <persName xml:lang="en">
+                        <forename>Christopher</forename>
+                        <surname>Johnson</surname>
+                    </persName>
+                </person>
+                <person xml:id="adavis">
+                    <persName xml:lang="en">
+                        <forename>Anthony</forename>
+                        <surname>Davis</surname>
+                    </persName>
+                </person>
+                <person xml:id="thannah">
+                    <persName xml:lang="en">
+                        <forename>Tucker</forename>
+                        <addName type="middle-initial">D.</addName>
+                        <surname>Hannah</surname>
+                    </persName>
+                </person>
+                <person xml:id="dgreeson">
+                    <persName xml:lang="en">
+                        <forename>Daniel</forename>
+                        <addName type="middle-initial">J.</addName>
+                        <surname>Greeson</surname>
+                    </persName>
+                </person>
+                <person xml:id="ewalston">
+                    <persName xml:lang="en">
+                        <forename>Elizabeth</forename>
+                        <surname>Walston</surname>
+                    </persName>
+                </person>
+                <person xml:id="wsalesky">
+                    <persName xml:lang="en">
+                        <forename>Winona</forename>
+                        <surname>Salesky</surname>
+                    </persName>
+                </person>
+                <person xml:id="skhader">
+                    <persName xml:lang="en">
+                        <forename>Samer</forename>
+                        <surname>Khader</surname>
+                    </persName>
+                </person>
+                <person xml:id="lyarbrough">
+                    <persName xml:lang="en">
+                        <forename>Luke</forename>
+                        <surname>Yarbrough</surname>
+                    </persName>
+                </person>
+                <person xml:id="amccollum">
+                    <persName xml:lang="en">
+                        <forename>Adam</forename>
+                        <addName>Carter</addName>
+                        <surname>McCollum</surname>
+                    </persName>
+                </person>
+                <person xml:id="fdickerson">
+                    <persName xml:lang="en">
+                        <forename>Febbie</forename>
+                        <addName>C.</addName>
+                        <surname>Dickerson</surname>
+                    </persName>
+                </person>
+                <person xml:id="schoi">
+                    <persName xml:lang="ko">
+                        <forename>성현</forename>
+                        <surname>최</surname>
+                    </persName>
+                    <persName xml:lang="en">
+                        <forename>Seonghyun</forename>
+                        <surname>Choi</surname>
+                    </persName>
+                </person>
+                <person xml:id="adoenges">
+                    <persName xml:lang="en">
+                        <forename>Aaron</forename>
+                        <addName>H.</addName>
+                        <surname>Doenges</surname>
+                    </persName>
+                </person>
+                <person xml:id="jnquiroz">
+                    <persName xml:lang="en">
+                        <forename>Julia</forename>
+                        <addName>C.</addName>
+                        <surname>Nations-Quiroz</surname>
+                    </persName>
+                </person>
+                <person xml:id="jarnwine">
+                    <persName xml:lang="en">
+                        <forename>Justin</forename>
+                        <addName>A.</addName>
+                        <surname>Arnwine</surname>
+                    </persName>
+                </person>
+                <person xml:id="pgmiller">
+                    <persName xml:lang="en">
+                        <forename>Peter</forename>
+                        <addName>G.</addName>
+                        <surname>Miller</surname>
+                    </persName>
+                </person>
+                <person xml:id="lcollins">
+                    <persName xml:lang="en">
+                        <forename>Lewis</forename>
+                        <surname>Collins</surname>
+                    </persName>
+                </person>
+                <person xml:id="dboero">
+                    <persName xml:lang="en">
+                        <forename>Dina</forename>
+                        <surname>Boero</surname>
+                    </persName>
+                </person>
+                <person xml:id="aschmidt">
+                    <persName xml:lang="en">
+                        <forename>Andrea</forename>
+                        <surname>Schmidt</surname>
+                    </persName>
+                </person>
+                <person xml:id="pforness">
+                    <persName xml:lang="en">
+                        <forename>Philip</forename>
+                        <surname>Forness</surname>
+                    </persName>
+                </person>
+                <person xml:id="esmith">
+                    <persName xml:lang="en">
+                        <forename>Eileen</forename>
+                        <surname>Smith</surname>
+                    </persName>
+                </person>
+                <person xml:id="sminov">
+                    <persName xml:lang="en">
+                        <forename>Sergey</forename>
+                        <surname>Minov</surname>
+                    </persName>
+                </person>
+                <person xml:id="dsalem">
+                    <persName xml:lang="en">
+                        <forename>Daniel</forename>
+                        <surname>Salem</surname>
+                    </persName>
+                </person>
+                <person xml:id="kheal">
+                    <persName xml:lang="en">
+                        <forename>Kristian</forename>
+                        <surname>Heal</surname>
+                    </persName>
+                </person>
+                <person xml:id="jmfiey">
+                    <persName xml:lang="en">
+                        <forename>J. M.</forename>
+                        <surname>Fiey</surname>
+                    </persName>
+                </person>
+                <person xml:id="uzanetti">
+                    <persName xml:lang="en">
+                        <forename>Ugo</forename>
+                        <surname>Zanetti</surname>
+                    </persName>
+                </person>
+                <person xml:id="cdetienne">
+                    <persName xml:lang="en">
+                        <forename>Claude</forename>
+                        <surname>Detienne</surname>
+                    </persName>
+                </person>
+                <person xml:id="dkiger">
+                    <persName xml:lang="en">
+                        <forename>David</forename>
+                        <surname>Kiger</surname>
+                    </persName>
+                </person>
+                <person xml:id="gkessel">
+                    <persName xml:lang="en">
+                        <forename>Grigory</forename>
+                        <surname>Kessel</surname>
+                    </persName>
+                </person>
+                <person xml:id="nbamballi">
+                    <persName xml:lang="en">
+                        <forename>Nicolas</forename>
+                        <surname>Bamballi</surname>
+                    </persName>
+                </person>
+                <person xml:id="klindtner">
+                    <persName xml:lang="en">
+                        <forename>K.</forename>
+                        <surname>Lindtner</surname>
+                    </persName>
+                </person>
+                <person xml:id="ekeogh">
+                    <persName xml:lang="en">
+                        <forename>Edward</forename>
+                        <surname>Keogh</surname>
+                    </persName>
+                </person>
+                <person xml:id="jdaccache">
+                    <persName xml:lang="en">
+                        <forename>Jimmy</forename>
+                        <surname>Daccache</surname>
+                    </persName>
+                </person>
+                <person xml:id="ktorabi">
+                    <persName xml:lang="en">
+                        <forename>Katayoun</forename>
+                        <surname>Torabi</surname>
+                    </persName>
+                </person>
+                <person xml:id="ayousif">
+                    <persName xml:lang="en">
+                        <forename>Ashoor</forename>
+                        <surname>Yousif</surname>
+                    </persName>
+                </person>
+                <person xml:id="rdumaz">
+                    <persName xml:lang="en">
+                        <forename>Reyhan</forename>
+                        <surname>Dumaz</surname>
+                    </persName>
+                </person>
+                <person xml:id="sgross">
+                    <persName xml:lang="en">
+                        <forename>Simcha</forename>
+                        <surname>Gross</surname>
+                    </persName>
+                </person>
+                <person xml:id="rbarczok">
+                    <persName xml:lang="en">
+                        <forename>Ralph</forename>
+                        <surname>Barczok</surname>
+                    </persName>
+                </person>
+                <person xml:id="mdoerfler">
+                    <persName xml:lang="en">
+                        <forename>Maria</forename>
+                        <addName>E.</addName>
+                        <surname>Doerfler</surname>
+                    </persName>
+                </person>
+                <person xml:id="kgibson">
+                    <persName xml:lang="en">
+                        <forename>Kelli</forename>
+                        <surname>Gibson</surname>
+                    </persName>
+                </person>
+                <person xml:id="jwickes">
+                    <persName xml:lang="en">
+                        <forename>Jeffrey</forename>
+                        <surname>Wickes</surname>
+                    </persName>
+                </person>
+                <person xml:id="jfalconer">
+                    <persName xml:lang="en">
+                        <forename>Joshua</forename>
+                        <surname>Falconer</surname>
+                    </persName>
+                </person>
+                <person xml:id="upossekel">
+                    <persName xml:lang="en">
+                        <forename>Ute</forename>
+                        <surname>Possekel</surname>
+                    </persName>
+                </person>
+                <person xml:id="egarret">
+                    <persName xml:lang="en">
+                        <forename>Eric</forename>
+                        <surname>Garret</surname>
+                    </persName>
+                </person>
+                <person xml:id="ewalsh">
+                    <persName xml:lang="en">
+                        <forename>Erin</forename>
+                        <addName>Galgay</addName>
+                        <surname>Walsh</surname>
+                    </persName>
+                </person>
+                <person xml:id="mdebie">
+                    <persName xml:lang="en">
+                        <forename>Muriel</forename>
+                        <surname>Debie</surname>
+                    </persName>
+                </person>
+                <person xml:id="jmcmanaway">
+                    <persName xml:lang="en">
+                        <forename>Joshua</forename>
+                        <surname>McManaway</surname>
+                    </persName>
+                </person>
+                <person xml:id="nelder">
+                    <persName xml:lang="en">
+                        <forename>Nick</forename>
+                        <surname>Elder</surname>
+                    </persName>
+                </person>
+                <person xml:id="abinggeli">
+                    <persName xml:lang="en">
+                        <forename>André</forename>
+                        <surname>Binggeli</surname>
+                    </persName>
+                </person>
+                <person xml:id="fbriquelchatonnet">
+                    <persName xml:lang="en">
+                        <forename>Françoise</forename>
+                        <surname>Briquel-Chatonnet</surname>
+                    </persName>
+                </person>
+                <person xml:id="adesreumaux">
+                    <persName xml:lang="en">
+                        <forename>Alain</forename>
+                        <surname>Desreumaux</surname>
+                    </persName>
+                </person>
+                <person xml:id="evilley">
+                    <persName xml:lang="en">
+                        <forename>Emilie</forename>
+                        <surname>Villey</surname>
+                    </persName>
+                </person>
+                <person xml:id="ydergham">
+                    <persName xml:lang="en">
+                        <forename>Youssef</forename>
+                        <surname>Dergham</surname>
+                    </persName>
+                </person>
+                <person xml:id="mfarina">
+                    <persName xml:lang="en">
+                        <forename>Margherita</forename>
+                        <surname>Farina</surname>
+                    </persName>
+                </person>
+                <person xml:id="spratelli">
+                    <persName xml:lang="en">
+                        <forename>Simone I. M.</forename>
+                        <surname>Pratelli</surname>
+                    </persName>
+                </person>
+                <person xml:id="fruani">
+                    <persName xml:lang="en">
+                        <forename>Flavia</forename>
+                        <surname>Ruani</surname>
+                    </persName>
+                </person>
+                <person xml:id="eserra">
+                    <persName xml:lang="en">
+                        <forename>Eleonora</forename>
+                        <surname>Serra</surname>
+                    </persName>
+                </person>
+                <person xml:id="mkozah">
+                    <persName xml:lang="en">
+                        <forename>Mario</forename>
+                        <surname>Kozah</surname>
+                    </persName>
+                </person>
+                <person xml:id="halthani">
+                    <persName xml:lang="en">
+                        <forename>Haya</forename>
+                        <surname>Al Thani</surname>
+                    </persName>
+                </person>
+                <person xml:id="sal-murikhi">
+                    <persName xml:lang="en">
+                        <forename>Saif</forename>
+                        <surname>al-Murikhi</surname>
+                    </persName>
+                </person>
+                <person xml:id="achamseddine">
+                    <persName xml:lang="en">
+                        <forename>Abdul Rahman</forename>
+                        <surname>Chamseddine</surname>
+                    </persName>
+                </person>
+                <person xml:id="aabu-husayn">
+                    <persName xml:lang="en">
+                        <forename>Abdulrahim</forename>
+                        <surname>Abu-Husayn</surname>
+                    </persName>
+                </person>
+                <org xml:id="uasyriacresearchgroup">
+                    <name xml:lang="en">The Syriac Research Group, University of Alabama</name>
+                </org>
+            </listPerson>
+        </body>
+    </text>
+</TEI>

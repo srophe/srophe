@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facets xmlns="http://expath.org/ns/facet">
+    <!-- A simple facet for browsing by Syriaca.org series -->
+    <facet-definition name="Series">
+        <group-by>
+            <sub-path>descendant::tei:seriesStmt/tei:title</sub-path>
+        </group-by>
+        <max-values show="10">60</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <!-- A simple facet for browsing by Syriaca.org place names (filtering on English) -->
+    <facet-definition name="Places">
+        <group-by>
+            <sub-path>descendant::tei:placeName[@xml:lang='en']</sub-path>
+        </group-by>
+        <max-values show="10">60</max-values>
+        <order-by direction="descending">count</order-by>
+    </facet-definition>
+    <!-- A simple facet for browsing by Syriaca.org person names (filtering on English) -->
+    <facet-definition name="Persons">
+        <group-by>
+            <sub-path>descendant::tei:persName[@xml:lang='en']</sub-path>
+        </group-by>
+        <max-values show="10">60</max-values>
+        <order-by direction="descending">count</order-by>
+    </facet-definition>
+    <facet-definition name="Sources">
+        <group-by>
+            <sub-path>descendant::tei:body/descendant::tei:bibl/tei:ptr/@target</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>
+    <!-- Range example filters on Syriaca.org dates -->
+    <facet-definition name="Century">
+        <range type="xs:year">
+            <bucket lt="0001" name="BC dates" order="22"/>
+            <bucket gt="0001-01-01" lt="0100-01-01" name="1-100" order="21"/>
+            <bucket gt="0100-01-01" lt="0200-01-01" name="100-200" order="20"/>
+            <bucket gt="0200-01-01" lt="0300-01-01" name="200-300" order="19"/>
+            <bucket gt="0300-01-01" lt="0400-01-01" name="300-400" order="18"/>
+            <bucket gt="0400-01-01" lt="0500-01-01" name="400-500" order="17"/>
+            <bucket gt="0500-01-01" lt="0600-01-01" name="500-600" order="16"/>
+            <bucket gt="0600-01-01" lt="0700-01-01" name="600-700" order="15"/>
+            <bucket gt="0700-01-01" lt="0800-01-01" name="700-800" order="14"/>
+            <bucket gt="0800-01-01" lt="0900-01-01" name="800-900" order="13"/>
+            <bucket gt="0900-01-01" lt="1000-01-01" name="900-1000" order="12"/>
+            <bucket gt="1000-01-01" lt="1100-01-01" name="1000-1100" order="11"/>
+            <bucket gt="1100-01-01" lt="1200-01-01" name="1100-1200" order="10"/>
+            <bucket gt="1200-01-01" lt="1300-01-01" name="1200-1300" order="9"/>
+            <bucket gt="1300-01-01" lt="1400-01-01" name="1300-1400" order="8"/>
+            <bucket gt="1400-01-01" lt="1500-01-01" name="1400-1500" order="7"/>
+            <bucket gt="1500-01-01" lt="1600-01-01" name="1500-1600" order="6"/>
+            <bucket gt="1600-01-01" lt="1700-01-01" name="1600-1700" order="5"/>
+            <bucket gt="1700-01-01" lt="1800-01-01" name="1700-1800" order="4"/>
+            <bucket gt="1800-01-01" lt="1900-01-01" name="1800-1900" order="3"/>
+            <bucket gt="1900-01-01" lt="2000-01-01" name="1900-2000" order="2"/>
+            <bucket gt="2000-01-01" name="2000 +" order="1"/>
+        </range>
+        <group-by type="xs:date">
+            <sub-path>/@syriaca-computed-start</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="descending">order</order-by>
+    </facet-definition>
+</facets>
