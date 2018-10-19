@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facets xmlns="http://expath.org/ns/facet">
+    <!-- A simple facet for browsing by Syriaca.org series -->
+    <facet-definition name="Type">
+        <group-by>
+            <sub-path>descendant::tei:place/@type</sub-path>
+        </group-by>
+        <max-values show="10">60</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <!-- A simple facet for browsing by Syriaca.org place names (filtering on English) -->
+    <facet-definition name="Places">
+        <group-by>
+            <sub-path>descendant::tei:placeName[@xml:lang='en']</sub-path>
+        </group-by>
+        <max-values show="10">60</max-values>
+        <order-by direction="descending">count</order-by>
+    </facet-definition>
+    <!-- A simple facet for browsing by Syriaca.org person names (filtering on English) -->
+    <facet-definition name="Persons">
+        <group-by>
+            <sub-path>descendant::tei:persName[@xml:lang='en']</sub-path>
+        </group-by>
+        <max-values show="10">60</max-values>
+        <order-by direction="descending">count</order-by>
+    </facet-definition>
+    <facet-definition name="Sources">
+        <group-by>
+            <sub-path>descendant::tei:body/descendant::tei:bibl/tei:ptr/@target</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>
+</facets>

@@ -197,7 +197,6 @@ declare function cntneg:content-negotiation-restxq($data as item()*, $content-ty
 };
 
 (: Utility functions to set media type-dependent values :)
-
 (: Functions used to set media type-specific values :)
 declare function cntneg:determine-extension($header){
     if (contains(string-join($header),"application/rdf+xml") or $header = 'rdf') then "rdf"

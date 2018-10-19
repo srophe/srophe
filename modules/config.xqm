@@ -68,6 +68,7 @@ declare variable $config:document-id := $config:get-config//repo:document-ids/te
 declare variable $config:app-map-option := $config:get-config//repo:maps/repo:option[@selected='true']/text();
 declare variable $config:map-api-key := $config:get-config//repo:maps/repo:option[@selected='true']/@api-key;
 
+
 (: Recaptcha Key :)
 declare variable $config:recaptcha := 
     if($config:get-access-config//recaptcha/site-key-variable != '') then 
@@ -84,6 +85,7 @@ declare function config:collection-vars($collection as xs:string?) as node()?{
     for $collection in $collection-config/repo:collection[@name = $collection]
     return $collection
 };
+
 
 (:~
  : Resolve the given path using the current application context.
