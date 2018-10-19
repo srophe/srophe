@@ -83,6 +83,8 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
  : @note Additional Search forms can be developed to replace the default search form. 
 :)
 declare function search:search-form($node as node(), $model as map(*), $collection as xs:string?){
+if(exists(request:get-parameter-names())) then ()
+else 
     let $search-config := 
         if($collection != '') then concat($config:app-root, '/', string(config:collection-vars($collection)/@app-root),'/','search-config.xml')
         else concat($config:app-root, '/','search-config.xml')

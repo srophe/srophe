@@ -35,7 +35,12 @@ declare function tei2html:tei2html($nodes as node()*) as item()* {
             }
             case element(tei:category) return element ul {tei2html:tei2html($node/node())}
             case element(tei:catDesc) return element li {tei2html:tei2html($node/node())}
-            
+            case element(tei:foreign) return element span 
+                {(
+                if($node/@xml:lang) then attribute lang { $node/@xml:lang } else (),
+                if($node/@xml:lang = ('syr','ar','he')) then attribute dir { 'rtl' } else (),
+                tei2html:tei2html($node/node())
+                )}
             case element(tei:imprint) return element span {
                     if($node/tei:pubPlace/text()) then $node/tei:pubPlace[1]/text() else (),
                     if($node/tei:pubPlace/text() and $node/tei:publisher/text()) then ': ' else (),
@@ -90,11 +95,7 @@ declare function tei2html:tei2html($nodes as node()*) as item()* {
                 return  
                     <span class="tei-title {$titleType}"> {
                         (if($node/@xml:lang) then attribute lang { $node/@xml:lang } else (),
-                        if($node/child::*) then 
-                            ($node/text(),
-                            for $part in $node/child::*
-                            return tei2html:tei2html($part/node()))
-                        else tei2html:tei2html($node/node()))                 
+                        tei2html:tei2html($node/node()))                 
                     }</span>
             default return tei2html:tei2html($node/node())
 };

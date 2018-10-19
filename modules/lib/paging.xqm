@@ -45,12 +45,23 @@ let $pagination-links :=
             if($search-string = ('yes','Yes')) then  
                 if(page:display-search-params($collection) != '') then 
                 <div class="col-sm-5 search-string">
-                    <h3 class="hit-count paging">Search results:</h3>
-                    <p class="col-md-offset-1 hit-count">{$total-result-count} matches for {page:display-search-params($collection)}</p>
-                    <p class="col-md-offset-1 hit-count note">
-                        You may wish to expand your search by using using wildcard characters to increase results. See  
+                    <h3 class="hit-count paging">Search results: </h3>
+                    <p class="col-md-offset-1 hit-count">{$total-result-count} matches for {page:display-search-params($collection)} </p>
+                    <p class="col-md-offset-1 hit-count note small">
+                        You may wish to expand your search by using wildcard characters to increase results. See  
                         <a href="#" data-toggle="collapse" data-target="#searchTips">search tips</a> for more details.
-                    </p>
+                    </p> 
+                    <div id="searchTips" class="panel panel-default collapse">
+                        {
+                        let $search-config := 
+                            if($collection != '') then concat($config:app-root, '/', string(config:collection-vars($collection)/@app-root),'/','search-config.xml')
+                            else concat($config:app-root, '/','search-config.xml')
+                        return 
+                            if(doc-available($search-config)) then 
+                                doc($search-config)//*:search-tips
+                            else ()
+                        }
+                    </div>
                  </div>
                 else ()
              else ()

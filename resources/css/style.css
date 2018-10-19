@@ -11,6 +11,19 @@
 #advancedSearch {padding:2em 1em; background-color:#F7F7F9;}
 
 /* B */
+.banner {
+    position:relative;
+    margin-top:-1em;
+    padding-top:0;
+	background-image:url('../images/banner.png');
+	background-size:cover;
+	background-position:top;
+    height:250px;
+    width:100%;
+    border-bottom:4px solid #456889;
+}
+.banner-container {display:inline-block; line-height:2.5em;}
+.banner-text {color: #888; display:inline-block; margin-top:-.95em; vertical-align: middle; letter-spacing: -1px; font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}
 .banner-icon img{height:40px; overflow:hidden; padding-left: 1em; vertical-align: middle; margin:-.25em .5em 0 .5em; padding:0;}
 
 /* browse menus*/
@@ -24,7 +37,11 @@
 .clipboard {padding:.25em; margin-left:.75em;}
 .container {margin:1em 2em; padding: .5em 1em; }
 
+/* D */
+
+
 /* F */
+footer {border-top:4px solid #456889;}
 footer .poweredby { float: right; margin: 33px 10px 0 0;}
 footer .poweredby img { width: 120px; }
 
@@ -37,9 +54,36 @@ footer .poweredby img { width: 120px; }
     }
 .facet-label.remove {background-color:#eee; color:#666; font-weight:normal; margin:.25em; display:inline-block;}
 
+/* G */
+.geo-home {margin-top:4em !important;}
+.geo-home #map {border-bottom:4px solid #456889}
+
 /* I */
 .indent {margin-left: 1em;}
 img{ margin:0px }
+.img-credit{
+    position:absolute;
+    bottom:0;
+    right:0;
+    width:100%;
+    text-align:right;
+    font-size: smaller;
+    font-weight:200;
+    background: rgb(34,34,34); /* for IE */
+    background: rgba(34,34,34,0.55);
+    color: white; 
+    display: inline;
+    padding: 0.5em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+/* K */
+.keboard-btn {margin-left:-1em;}
+
+/* L */
+
+
 /* M */
 .map-lg #map {height:500px !important;}
 .map-md #map {height:300px !important;}
@@ -48,20 +92,41 @@ img{ margin:0px }
 .map-pop-title {display:block;font-weight:600; font-size:1.2em; margin-bottom:0; padding-bottom:0;}
 .map-pop-desc {display:block; padding:.5em;}
 
+/* N */
+.navbar {padding-right:2em;}
+.navbar {border-bottom:4px solid #456889 !important;}
+.navbar .dropdown {margin-top:.5em;}
+
+/* O */
+.overlay {
+    font-weight:200;
+    background: rgb(34,34,34); /* for IE */
+    background: rgba(34,34,34,0.65);
+    color: white; 
+    display: inline;
+    padding: 1.5em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
 /* P */
 .paging {display:block; clear:both;}
 .param {font-weight:500;}
 .param-string {margin-right:.75em;}
 
 /* R */
+.record {padding-top: 2em; margin:4em;}
+.results {margin-top:4em;}
 .result {border-bottom:1px dotted #eee; padding-top:.5em; padding-bottom: 1em;}
 .results-list-desc {display:block;}
 .relationship-type {font-color:#666666; display:block;}
+
 /* S */
 .search-box input, .search-box textarea{
     background-color:#FFF;
     color: #666;
 }
+
 #sources ul {
 	list-style-type: none;
 	padding-left: -0.1em;
@@ -70,7 +135,8 @@ img{ margin:0px }
 
 /* T */
 .tab-content {padding-top:.25em;}
-.text {margin:0 4em;};
+.text {margin:0}
+.title {border-bottom:1px solid grey}
 
 /* TEI styles */
 .tei-event {display:block;}
@@ -85,4 +151,13 @@ img{ margin:0px }
 .tei-footnote-tgt {
     margin-left:-1.5em;
     padding-right:.5em;    
+}
+
+.top-padding {margin-top:4.5em !important;}
+
+/* W */
+.white-link{color:white;}
+.white-link:focus, .white-link:active:focus, .white-link.active:focus {
+    outline: 0 none;
+    color:white;
 }

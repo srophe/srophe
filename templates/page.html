@@ -78,7 +78,7 @@
         </script>
     </head>
     <body id="body">
-        <nav class="navbar navbar-default" role="navigation" data-template="app:fix-links">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
@@ -94,13 +94,30 @@
             <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="$nav-base/documentation/index.html" style="margin-top:.5em;">
-                            <span class="icon-text">Documentation</span>
+                        <a href="$nav-base/index.html" style="margin-top:.5em;">
+                            <span class="icon-text">Home</span>
                         </a>
                     </li>
                     <li>
                         <a href="$nav-base/browse.html" style="margin-top:.5em;">
-                            <span class="icon-text">Browse</span>
+                            <span class="icon-text">Browse All</span>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle lonely-caret" data-toggle="dropdown">
+                            <span class="mobile-submenu">Publications</span>  <b class="caret"/>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="$nav-base/geo/index.html">
+                                    <span class="icon-text">Gazetteer</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="$nav-base/documentation/index.html" style="margin-top:.5em;">
+                            <span class="icon-text">Documentation</span>
                         </a>
                     </li>
                 </ul>
@@ -108,10 +125,22 @@
                     <div class="input-group">
                         <input type="text" class="form-control keyboard" placeholder="search" name="keyword" id="keywordNav"/>
                         <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit" data-toggle="tooltip" title="Search" data-placement="bottom">
-                                  <span class="glyphicon glyphicon-search"/>
+                            <button class="btn btn-default" type="submit" data-toggle="tooltip" title="Search">
+                                <span class="glyphicon glyphicon-search"/>
                             </button>
-                        </div><!-- /btn-group -->
+                            <button type="button" class="btn btn-default">
+                                <span class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <b class="caret"/>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="$nav-base/search.html">Advanced Search</a>
+                                        </li>
+                                    </ul>
+                                </span>
+                            </button>
+                        </div>
                     </div>
                 </form>
                 <ul class="nav navbar-nav navbar-right keboard-btn">

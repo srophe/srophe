@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <search-config>
-    <label>Advanced Search </label>
+    <label>Advanced Search for the Gazetteer</label>
     <desc>Search all TEI data.</desc>
     <!-- Uses Lucene full text search make sure any elements used in the search-config.xml 
         are added to the collection.xconf file in your data repository. -->                            
