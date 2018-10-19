@@ -4,12 +4,24 @@
         <title data-template="config:app-title">App Title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta data-template="config:app-meta"/>
+        <!-- DC -->
+        <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"/>
+        <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/"/>
+        <meta name="DC.subject" property="dc.subject" content="Geography, Ancient"/>
+        <meta name="DC.type" property="dc.type" content="Text"/>
+        <meta name="DC.isPartOf" property="dc.ispartof" content="Syriaca.org: The Syriac Reference Portal"/>
+        <meta name="DC.isPartOf" property="dc.ispartof" content="The Syriac Gazetteer"/>
+        <link rel="shortcut icon" href="$nav-base/resources/img/fav-icons/geo-favicon.ico"/>
         <!--<link rel="shortcut icon" href="$shared/resources/images/exist_icon_16x16.ico"/>-->
         <!-- Bootstrap 3 -->
         <link rel="stylesheet" type="text/css" href="$nav-base/resources/bootstrap/css/bootstrap.min.css"/>
+        <!-- Smart menus -->
+        <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/sm-core-css.css"/>
         <!-- Srophe styles -->
         <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/syr-icon-fonts.css"/>
         <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/style.css"/>
+        <!-- Syriaca.org, Geo -->
+        <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/geo.css"/>
         <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/lang.css"/>
         <link rel="stylesheet" type="text/css" media="print" href="$nav-base/resources/css/print.css"/>
         <!-- Leaflet -->
@@ -87,39 +99,36 @@
                     <span class="icon-bar"/>
                 </button>
                 <a class="navbar-brand banner-container" href="$nav-base/geo/index.html"> 
-                    <span class="syriaca-icon syriaca-syriaca banner-icon" data-template="app:logo"/>
+                    <span class="syriaca-icon syriaca-geo banner-icon">
+                        <span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/>
+                    </span>
                     <span class="banner-text" data-template="config:collection-title" data-template-collection="places">Collection Title</span>
                 </a>
             </div>
             <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="$nav-base/geo/index.html" style="margin-top:.5em;">
-                            <span class="icon-text">About the Gazetteer</span>
-                        </a>
+                        <a href="$app-root/geo/browse.html" class="nav-text">Browse</a>
                     </li>
                     <li>
-                        <a href="$nav-base/geo/browse.html" style="margin-top:.5em;">
-                            <span class="icon-text">Browse</span>
+                        <a href="$app-root/geo/about.html" class="nav-text">About</a>
+                    </li>
+                    <li>
+                        <a href="$app-root/geo/help/index.html" class="nav-text">Help</a>
+                    </li>
+                    <li>
+                        <a href="$app-root/geo/howtoadd.html" class="nav-text">Add new place</a>
+                    </li>
+                    <li>
+                        <a href="$app-root/index.html" class="icon-container">
+                            <span class="syriaca-icon syriaca-syriaca icon-nav">
+                                <span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/>
+                            </span>
+                            <span class="icon-text">Syriaca.org</span>
                         </a>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle lonely-caret" data-toggle="dropdown">
-                            <span class="mobile-submenu">All Publications</span>  <b class="caret"/>
-                        </a>
-                        <ul class="dropdown-menu pull-right">
-                            <li>
-                                <a href="$nav-base/index.html">
-                                    <span class="icon-text">All</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="$nav-base/geo/index.html">
-                                    <span class="icon-text">Gazetteer</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    <!-- Shared drop-down menu of all submodules -->
+                    <li data-template="app:shared-content" data-template-path="/templates/shared-links.html"/>
                 </ul>
                 <form class="navbar-form navbar-left navbar-input-group" role="search" action="$nav-base/geo/search.html" method="get">
                     <div class="input-group">

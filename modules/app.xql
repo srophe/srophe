@@ -353,6 +353,17 @@ declare function app:wiki-links($nodes as node()*, $wiki) {
                 $node               
 };
 
+(:~ 
+ : Enables shared content with template expansion.  
+ : Used for shared menus in navbar where relative links can be problematic 
+ : @param $node
+ : @param $model
+ : @param $path path to html content file, relative to app root. 
+:)
+declare function app:shared-content($node as node(), $model as map(*), $path as xs:string){
+    let $links := doc($global:app-root || $path)
+    return templates:process(global:fix-links($links/node()), $model)
+};
 
 (:~
  : Call app:fix-links for HTML pages. 
