@@ -406,23 +406,50 @@ declare %private function app:fix-links($nodes as node()*) {
                 $node
 };
 
-(: Syriaca.org specific functions :)
-(:~
- : Grabs latest news for Syriaca.org home page
- : http://syriaca.org/feed/
- :) 
-declare %templates:wrap function app:get-feed($node as node(), $model as map(*)){
-    try {
-        if(doc('http://syriaca.org/blog/feed/')/child::*) then 
-            let $news := doc('http://syriaca.org/blog/feed/')/child::*
-            for $latest at $n in subsequence($news//item, 1, 3)
-            return 
-                <li>
-                     <a href="{$latest/link/text()}">{$latest/title/text()}</a>
-                </li>
-        else ()
-       } catch * {
-           <error>Caught error {$err:code}: {$err:description}</error>
-    }     
+(:~ 
+ : Used by teiDocs
+:)
+declare %templates:wrap function app:set-data($node as node(), $model as map(*), $doc as xs:string){
+    teiDocs:generate-docs($config:data-root || '/places/tei/78.xml')
 };
 
+(:~
+ : Generic output documentation from xml
+ : @param $doc as string
+:)
+declare %templates:wrap function app:build-documentation($node as node(), $model as map(*), $doc as xs:string?){
+    let $doc := doc($config:app-root || '/documentation/' || $doc)//tei:encodingDesc
+    return tei2html:tei2html($doc)
+};
+
+(:~   
+ : get editors as distinct values
+:)
+declare function app:get-editors(){
+distinct-values(
+    (for $editors in collection($config:data-root || '/places/tei')//tei:respStmt/tei:name/@ref
+     return substring-after($editors,'#'),
+     for $editors-change in collection($config:data-root || '/places/tei')//tei:change/@who
+     return substring-after($editors-change,'#'))
+    )
+};
+
+(:~
+ : Build editor list. Sort alphabeticaly
+:)
+declare %templates:wrap function app:build-editor-list($node as node(), $model as map(*)){
+    let $editors := doc($config:app-root || '/documentation/editors.xml')//tei:listPerson
+    for $editor in app:get-editors()
+    let $name := 
+        for $editor-name in $editors//tei:person[@xml:id = $editor]
+        return concat($editor-name/tei:persName/tei:forename,' ',$editor-name/tei:persName/tei:addName,' ',$editor-name/tei:persName/tei:surname)
+    let $sort-name :=
+        for $editor-name in $editors//tei:person[@xml:id = $editor] return $editor-name/tei:persName/tei:surname
+    order by $sort-name
+    return
+        if($editor != '') then 
+            if(normalize-space($name) != '') then 
+            <li>{normalize-space($name)}</li>
+            else ''
+        else ''  
+};

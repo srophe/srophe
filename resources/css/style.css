@@ -26,7 +26,7 @@
 .banner-container {display:inline-block; line-height:2.5em;}
 .banner-text {color: #888; display:inline-block; margin-top:-.95em; vertical-align: middle; letter-spacing: -1px; font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}
 .banner-icon img{height:40px; overflow:hidden; padding-left: 1em; vertical-align: middle; margin:-.25em .5em 0 .5em; padding:0;}
-
+body {font-family: arial, sans-serif; background-color:#385978;}
 /* browse menus*/
 .browse-alpha {border-bottom:1px solid #ccc; padding:.5em 1em; margin:1em 0; text-align: justify;}
 .browse-alpha li + li {padding-left: .75em;}
@@ -121,6 +121,7 @@ img{ margin:0px }
 .result {border-bottom:1px dotted #eee; padding-top:.5em; padding-bottom: 1em;}
 .results-list-desc {display:block;}
 .relationship-type {font-color:#666666; display:block;}
+.row { margin-left: 0px; margin-right: 0px;}
 
 /* S */
 .search-box input, .search-box textarea{
