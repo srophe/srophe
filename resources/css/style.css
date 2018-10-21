@@ -94,7 +94,7 @@ img{ margin:0px }
 .map-pop-desc {display:block; padding:.5em;}
 
 /* N */
-.navbar {padding-right:2em;}
+.navbar {padding:0 2em;}
 .navbar {border-bottom:4px solid #456889 !important;}
 .navbar .dropdown {margin-top:.5em;}
 
