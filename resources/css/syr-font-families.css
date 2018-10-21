@@ -1,0 +1,179 @@
+@CHARSET "ISO-8859-1";
+
+@font-face {
+	font-family: 'EastSyriacAdiabene';
+	src: local('East Syriac Adiabene');
+	src: url('../fonts/syrcomadiabene.eot');
+	src: url('../fonts/syrcomadiabene.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcomadiabene.woff') format('woff'), url('../fonts/syrcomadiabene.ttf') format('truetype'), url('../fonts/syrcomadiabene.svg#syrcomadiabene') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'EastSyriacCtesiphon';
+	src: local('East Syriac Ctesiphon');
+	src: url('../fonts/syrcomctesiphon.eot');
+	src: url('../fonts/syrcomctesiphon.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcomctesiphon.woff') format('woff'), url('../fonts/syrcomctesiphon.ttf') format('truetype'), url('../fonts/syrcomctesiphon.svg#syrcomctesiphon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'EstrangeloEdessa';
+	src: local('Estrangelo Edessa');
+	src: url('../fonts/syrcomedessa.eot');
+	src: url('../fonts/syrcomedessa.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcomedessa.woff') format('woff'), url('../fonts/syrcomedessa.ttf') format('truetype'), url('../fonts/syrcomedessa.svg#syrcomedessa') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'EstrangeloAntioch';
+	src: local('Estrangelo Antioch');
+	src: url('../fonts/syrcomantioch.eot');
+	src: url('../fonts/syrcomantioch.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcomantioch.woff') format('woff'), url('../fonts/syrcomantioch.ttf') format('truetype'), url('../fonts/syrcomantioch.svg#syrcomantioch') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SertoBatnan';
+	src: local('Serto Batnan');
+	src: url('../fonts/syrcombatnan.eot');
+	src: url('../fonts/syrcombatnan.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcombatnan.woff') format('woff'), url('../fonts/syrcombatnan.ttf') format('truetype'), url('../fonts/syrcombatnan.svg#syrcombatnan') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SertoBatnan';
+	src: local('Serto Batnan Bold');
+	src: url('../fonts/syrcombatnanbold.eot');
+	src: url('../fonts/syrcombatnanbold.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcombatnanbold.woff') format('woff'), url('../fonts/syrcombatnanbold.ttf') format('truetype'), url('../fonts/syrcombatnanbold.svg#syrcombatnanbold') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SertoJerusalem';
+	src: local('Serto Jerusalem');
+	src: url('../fonts/syrcomjerusalem.eot');
+	src: url('../fonts/syrcomjerusalem.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcomjerusalem.woff') format('woff'), url('../fonts/syrcomjerusalem.ttf') format('truetype'), url('../fonts/syrcomjerusalem.svg#syrcomjerusalem') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SertoJerusalem';
+	src: local('Serto Jerusalem Bold');
+	src: url('../fonts/syrcomjerusalembold.eot');
+	src: url('../fonts/syrcomjerusalembold.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcomjerusalembold.woff') format('woff'), url('../fonts/syrcomjerusalembold.ttf') format('truetype'), url('../fonts/syrcomjerusalembold.svg#syrcomjerusalembold') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SertoJerusalem';
+	src: local('Serto Jerusalem Italic');
+	src: url('../fonts/syrcomjerusalemitalic.eot');
+	src: url('../fonts/syrcomjerusalemitalic.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcomjerusalemitalic.woff') format('woff'), url('../fonts/syrcomjerusalemitalic.ttf') format('truetype'), url('../fonts/syrcomjerusalemitalic.svg#syrcomjerusalemitalic') format('svg');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'SertoKharput';
+	src: local('Serto Kharput');
+	src: url('../fonts/syrcomkharput.eot');
+	src: url('../fonts/syrcomkharput.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcomkharput.woff') format('woff'), url('../fonts/syrcomkharput.ttf') format('truetype'), url('../fonts/syrcomkharput.svg#syrcomkharput') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SertoMalankara';
+	src: local('Serto Malankara');
+	src: url('../fonts/syrcommalankara.eot');
+	src: url('../fonts/syrcommalankara.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcommalankara.woff') format('woff'), url('../fonts/syrcommalankara.ttf') format('truetype'), url('../fonts/syrcommalankara.svg#syrcommalankara') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SertoMardin';
+	src: local('Serto Mardin');
+	src: url('../fonts/syrcommardin.eot');
+	src: url('../fonts/syrcommardin.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcommardin.woff') format('woff'), url('../fonts/syrcommardin.ttf') format('truetype'), url('../fonts/syrcommardin.svg#syrcommardin') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'SertoMardin';
+	src: local('Serto Mardin Bold');
+	src: url('../fonts/syrcommardinbold.eot');
+	src: url('../fonts/syrcommardinbold.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcommardinbold.woff') format('woff'), url('../fonts/syrcommardinbold.ttf') format('truetype'), url('../fonts/syrcommardinbold.svg#syrcommardinbold') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'EstrangeloMidyat';
+	src: local('Estrangelo Midyat');
+	src: url('../fonts/syrcommidyat.eot');
+	src: url('../fonts/syrcommidyat.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcommidyat.woff') format('woff'), url('../fonts/syrcommidyat.ttf') format('truetype'), url('../fonts/syrcommidyat.svg#syrcommidyat') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'EstrangeloNisibin';
+	src: local('Estrangelo Nisibin');
+	src: url('../fonts/syrcomnisibin.eot');
+	src: url('../fonts/syrcomnisibin.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcomnisibin.woff') format('woff'), url('../fonts/syrcomnisibin.ttf') format('truetype'), url('../fonts/syrcomnisibin.svg#syrcomnisibin') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'EstrangeloQuenneshrin';
+	src: local('Estrangelo Quenneshrin');
+	src: url('../fonts/syrcomqenneshrin.eot');
+	src: url('../fonts/syrcomqenneshrin.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcomqenneshrin.woff') format('woff'), url('../fonts/syrcomqenneshrin.ttf') format('truetype'), url('../fonts/syrcomqenneshrin.svg#syrcomqenneshrin') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'EstrangeloTalada';
+	src: local('Estrangelo Talada');
+	src: url('../fonts/syrcomtalada.eot');
+	src: url('../fonts/syrcomtalada.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcomtalada.woff') format('woff'), url('../fonts/syrcomtalada.ttf') format('truetype'), url('../fonts/syrcomtalada.svg#syrcomtalada') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'EstrangeloTurAbdin';
+	src: local('Estrangelo TurAbdin');
+	src: url('../fonts/syrcomturabdin.eot');
+	src: url('../fonts/syrcomturabdin.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcomturabdin.woff') format('woff'), url('../fonts/syrcomturabdin.ttf') format('truetype'), url('../fonts/syrcomturabdin.svg#syrcomturabdin') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'SertoUrhoy';
+	src: local('Serto Urhoy');
+	src: url('../fonts/syrcomurhoy.eot');
+	src: url('../fonts/syrcomurhoy.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcomurhoy.woff') format('woff'), url('../fonts/syrcomurhoy.ttf') format('truetype'), url('../fonts/syrcomurhoy.svg#syrcomurhoy') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SertoUrhoy';
+	src: local('Serto Urhoy Bold');
+	src: url('../fonts/syrcomurhoybold.eot');
+	src: url('../fonts/syrcomurhoybold.eot?#iefix') format('embedded-opentype'), url('../fonts/syrcomurhoybold.woff') format('woff'), url('../fonts/syrcomurhoybold.ttf') format('truetype'), url('../fonts/syrcomurhoybold.svg#syrcomurhoybold') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}

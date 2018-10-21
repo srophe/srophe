@@ -80,13 +80,16 @@ declare function app:display-nodes($node as node(), $model as map(*), $paths as 
  : Used by templating module, not needed if full record is being displayed 
 :)
 declare function app:h1($node as node(), $model as map(*)){
-    let $title := tei2html:tei2html($model("hits")/descendant::tei:titleStmt/tei:title[1])
-    return   
-        <div class="title">
-            <h1>{$title}</h1>
-        </div>
-};
-
+ global:tei2html(
+ <srophe-title xmlns="http://www.tei-c.org/ns/1.0">{(
+    if($model("data")/descendant::*[@syriaca-tags='#syriaca-headword']) then
+        $model("data")/descendant::*[@syriaca-tags='#syriaca-headword']
+    else $model("data")/descendant::tei:titleStmt[1]/tei:title[1], 
+    $model("data")/descendant::tei:idno[1]
+    )}
+ </srophe-title>)
+}; 
+  
 (:~ 
  : Data formats and sharing
  : to replace app-link
@@ -362,7 +365,7 @@ declare function app:wiki-links($nodes as node()*, $wiki) {
 :)
 declare function app:shared-content($node as node(), $model as map(*), $path as xs:string){
     let $links := doc($global:app-root || $path)
-    return templates:process(global:fix-links($links/node()), $model)
+    return templates:process(app:fix-links($links/node()), $model)
 };
 
 (:~
@@ -402,3 +405,24 @@ declare %private function app:fix-links($nodes as node()*) {
             default return
                 $node
 };
+
+(: Syriaca.org specific functions :)
+(:~
+ : Grabs latest news for Syriaca.org home page
+ : http://syriaca.org/feed/
+ :) 
+declare %templates:wrap function app:get-feed($node as node(), $model as map(*)){
+    try {
+        if(doc('http://syriaca.org/blog/feed/')/child::*) then 
+            let $news := doc('http://syriaca.org/blog/feed/')/child::*
+            for $latest at $n in subsequence($news//item, 1, 3)
+            return 
+                <li>
+                     <a href="{$latest/link/text()}">{$latest/title/text()}</a>
+                </li>
+        else ()
+       } catch * {
+           <error>Caught error {$err:code}: {$err:description}</error>
+    }     
+};
+
