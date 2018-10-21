@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
     <!-- =================================================================== -->
@@ -95,39 +94,41 @@
     
     <!-- Q -->
     <xsl:template match="t:quote">
-        <xsl:choose>
-            <xsl:when test="@xml:lang">
-                <span dir="ltr">
+        <span class="tei-quote" dir="ltr" lang="en">
+            <xsl:choose>
+                <xsl:when test="@xml:lang">
+                    <span dir="ltr">
+                        <xsl:text> “</xsl:text>
+                    </span>
+                    <span>
+                        <xsl:sequence select="local:attributes(.)"/>
+                        <xsl:call-template name="rend"/>
+                    </span>
+                    <span dir="ltr">
+                        <xsl:text>”  </xsl:text>
+                    </span>
+                </xsl:when>
+                <xsl:when test="parent::*/@xml:lang">
+                    <!-- Quotes need to be outside langattr for Syriac and arabic characters to render correctly.  -->
+                    <span dir="ltr">
+                        <xsl:text> “</xsl:text>
+                    </span>
+                    <span class="langattr">
+                        <xsl:sequence select="local:attributes(parent::*[@xml:lang])"/>
+                        <xsl:call-template name="rend"/>
+                    </span>
+                    <span dir="ltr">
+                        <xsl:text>”  </xsl:text>
+                    </span>
+                </xsl:when>
+                <xsl:otherwise>
                     <xsl:text> “</xsl:text>
-                </span>
-                <span>
-                    <xsl:sequence select="local:attributes(.)"/>
-                    <xsl:call-template name="rend"/>
-                </span>
-                <span dir="ltr">
-                    <xsl:text>”  </xsl:text>
-                </span>
-            </xsl:when>
-            <xsl:when test="parent::*/@xml:lang">
-                <!-- Quotes need to be outside langattr for Syriac and arabic characters to render correctly.  -->
-                <span dir="ltr">
-                    <xsl:text> “</xsl:text>
-                </span>
-                <span class="langattr">
-                    <xsl:sequence select="local:attributes(parent::*[@xml:lang])"/>
-                    <xsl:call-template name="rend"/>
-                </span>
-                <span dir="ltr">
-                    <xsl:text>”  </xsl:text>
-                </span>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:text> “</xsl:text>
-                <xsl:apply-templates/>
-                <xsl:text>” </xsl:text>
-            </xsl:otherwise>
-        </xsl:choose>
-        <xsl:sequence select="local:add-footnotes(@source,ancestor::t:*[@xml:lang][1])"/>
+                    <xsl:apply-templates/>
+                    <xsl:text>” </xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:sequence select="local:add-footnotes(@source,ancestor::t:*[@xml:lang][1])"/> 
+        </span>
     </xsl:template>
     
     <!-- R -->
