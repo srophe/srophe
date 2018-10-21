@@ -1207,7 +1207,7 @@
                 <img src="{$nav-base}/resources/images/worldCat-logo.jpg" alt="Link to Worldcat Bibliographic record" height="18px"/>
             </xsl:when>
             <xsl:when test="contains($ref,'hathitrust.org/')">
-                <img src="{$nav-base}/resources/images/htrc_logo.jpg" alt="Link to HathiTrust Bibliographic record" height="18px"/>
+                <img src="{$nav-base}/resources/images/htrc_logo.png" alt="Link to HathiTrust Bibliographic record" height="18px"/>
             </xsl:when>
             <xsl:when test="contains($ref,'archive.org')">
                 <img src="{$nav-base}/resources/images/ialogo.jpg" alt="Link to Archive.org Bibliographic record" height="18px"/>
