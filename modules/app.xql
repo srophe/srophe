@@ -410,7 +410,7 @@ declare %private function app:fix-links($nodes as node()*) {
  : Used by teiDocs
 :)
 declare %templates:wrap function app:set-data($node as node(), $model as map(*), $doc as xs:string){
-    teiDocs:generate-docs($config:data-root || '/places/tei/78.xml')
+    teiDocs:generate-docs($config:data-root || $doc)
 };
 
 (:~
