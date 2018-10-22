@@ -99,6 +99,16 @@ declare function app:metadata($node as node(), $model as map(*)) {
     else ()
 };
 
+(:~ 
+ : Adds google analytics from repo-config.xml
+ : @param $node
+ : @param $model 
+:)
+declare  
+    %templates:wrap 
+function app:google-analytics($node as node(), $model as map(*)){
+  $config:get-config//google_analytics/text()
+};
 
 (:~  
  : Display any TEI nodes passed to the function via the paths parameter
