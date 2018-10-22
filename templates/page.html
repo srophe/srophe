@@ -128,22 +128,20 @@
                             <button class="btn btn-default" type="submit" data-toggle="tooltip" title="Search">
                                 <span class="glyphicon glyphicon-search"/>
                             </button>
-                            <button type="button" class="btn btn-default">
-                                <span class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <b class="caret"/>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="$nav-base/search.html">Advanced Search</a>
-                                        </li>
-                                    </ul>
-                                </span>
-                            </button>
                         </div>
                     </div>
                 </form>
                 <ul class="nav navbar-nav navbar-right keboard-btn">
+                    <li>
+                        <div class="btn-nav">
+                            <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font"><b class="caret"/></a>
+                            <ul class="dropdown-menu" id="swap-font">
+                                <li>
+                                    <a href="$nav-base/search.html">Advanced Search</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                     <li>
                         <div class="btn-nav navbar-btn">
                             <span data-template="app:keyboard-select-menu" data-template-input-id="keywordNav"/>
