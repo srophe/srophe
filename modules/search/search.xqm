@@ -34,7 +34,7 @@ declare variable $search:perpage {request:get-parameter('perpage', 20) cast as x
 declare %templates:wrap function search:search-data($node as node(), $model as map(*), $collection as xs:string?){
     let $queryExpr := data:create-query($collection)                        
     return
-        if(empty($queryExpr) or $queryExpr = "") then ()
+        if(empty($queryExpr) or $queryExpr = "" or empty(request:get-parameter-names())) then ()
         else 
             let $hits := data:search($collection)
             return
