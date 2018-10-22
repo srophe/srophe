@@ -146,6 +146,17 @@ return
     else ()
 };
 
+(:~  
+ : Record status to be displayed in HTML sidebar 
+ : Data from tei:teiHeader/tei:revisionDesc/@status
+:)
+declare %templates:wrap  function app:rec-status($node as node(), $model as map(*), $collection as xs:string?){
+let $status := string($model("hits")/descendant::tei:revisionDesc/@status)
+return
+    if($status = 'published' or $status = '') then ()
+    else <span class="rec-status {$status} btn btn-info">Status: {$status}</span>
+};
+
 (:~
  : Display paging functions in html templates
  : Used by browse and search pages. 
