@@ -7,7 +7,7 @@ module namespace timeline="http://syriaca.org/srophe/timeline";
  : @author Winona Salesky <wsalesky@gmail.com>
  : @authored 2014-08-05
 :)
-import module namespace global="http://syriaca.org/global" at "global.xqm";
+import module namespace global="http://syriaca.org/srophe/global" at "global.xqm";
 
 declare namespace output="http://www.w3.org/2010/xslt-xquery-serialization";
 declare namespace json = "http://www.json.org";
