@@ -34,7 +34,7 @@ let $data :=
     if(request:get-parameter('id', '') != '' or request:get-parameter('doc', '') != '') then
         data:get-document()
     else if(request:get-parameter-names() != '') then 
-        let $hits := data:search('')
+        let $hits := data:search('','')
         return 
             if(count($hits) gt 0) then 
                 <root>

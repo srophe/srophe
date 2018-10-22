@@ -36,7 +36,7 @@ declare %templates:wrap function search:search-data($node as node(), $model as m
     return
         if(empty($queryExpr) or $queryExpr = "" or empty(request:get-parameter-names())) then ()
         else 
-            let $hits := data:search($collection)
+            let $hits := data:search($collection,'')
             return
                 map {
                         "hits" := $hits,

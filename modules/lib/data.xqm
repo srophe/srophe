@@ -139,8 +139,9 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
  : Build a search XPath based on search parameters. 
  : Add sort options. 
 :)
-declare function data:search($collection as xs:string*) {                      
-    let $eval-string := concat(data:build-collection-path($collection), data:create-query($collection),facet:facet-filter(global:facet-definition-file($collection)))
+declare function data:search($collection as xs:string*, $queryString as xs:string?) {                      
+    let $eval-string := if($queryString != '') then $queryString 
+                        else concat(data:build-collection-path($collection), data:create-query($collection),facet:facet-filter(global:facet-definition-file($collection)))
     return 
         if(request:get-parameter('sort-element', '') != ('','relevance')) then 
             for $hit in util:eval($eval-string)
@@ -150,7 +151,7 @@ declare function data:search($collection as xs:string*) {
             for $hit in util:eval($eval-string)
             order by ft:score($hit) descending
             return $hit 
-}; 
+};
 
 (:~   
  : Builds general search string.
