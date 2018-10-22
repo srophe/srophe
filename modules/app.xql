@@ -59,6 +59,47 @@ declare function app:get-work($node as node(), $model as map(*)) {
     else map {"hits" := 'Output plain HTML page'}
 };
 
+
+(:~
+ : Dynamically build html title based on TEI record and/or sub-module. 
+ : @param request:get-parameter('id', '') if id is present find TEI title, otherwise use title of sub-module
+:)
+declare %templates:wrap function app:record-title($node as node(), $model as map(*), $collection as xs:string?){
+    if(request:get-parameter('id', '')) then
+       if(contains($model("hits")/descendant::tei:titleStmt[1]/tei:title[1]/text(),' — ')) then
+            substring-before($model("data")/descendant::tei:titleStmt[1]/tei:title[1],' — ')
+       else $model("hits")/descendant::tei:titleStmt[1]/tei:title[1]/text()
+    else if($collection != '') then
+        string(config:collection-vars($collection)/@title)
+    else $global:app-title
+};  
+
+
+(:~ 
+ : Add header links for alternative formats.
+ : Add additional metadata tags here 
+:)
+declare function app:metadata($node as node(), $model as map(*)) {
+    if(request:get-parameter('id', '')) then 
+    (
+    (: some rdf examples
+    <link type="application/rdf+xml" href="id.rdf" rel="alternate"/>
+    <link type="text/turtle" href="id.ttl" rel="alternate"/>
+    <link type="text/plain" href="id.nt" rel="alternate"/>
+    <link type="application/json+ld" href="id.jsonld" rel="alternate"/>
+    :)
+    <meta name="DC.title " property="dc.title " content="{$model("data")/ancestor::tei:TEI/descendant::tei:title[1]/text()}"/>,
+    if($model("data")/ancestor::tei:TEI/descendant::tei:desc or $model("data")/ancestor::tei:TEI/descendant::tei:note[@type="abstract"]) then 
+        <meta name="DC.description " property="dc.description " content="{$model("data")/ancestor::tei:TEI/descendant::tei:desc[1]/text() | $model("data")/ancestor::tei:TEI/descendant::tei:note[@type="abstract"]}"/>
+    else (),
+    <link xmlns="http://www.w3.org/1999/xhtml" type="text/html" href="{request:get-parameter('id', '')}.html" rel="alternate"/>,
+    <link xmlns="http://www.w3.org/1999/xhtml" type="text/xml" href="{request:get-parameter('id', '')}/tei" rel="alternate"/>,
+    <link xmlns="http://www.w3.org/1999/xhtml" type="application/atom+xml" href="{request:get-parameter('id', '')}/atom" rel="alternate"/>
+    )
+    else ()
+};
+
+
 (:~  
  : Display any TEI nodes passed to the function via the paths parameter
  : Used by templating module, defaults to tei:body if no nodes are passed. 
