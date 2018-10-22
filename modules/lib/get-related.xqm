@@ -153,7 +153,7 @@ declare function rel:decode-relationship($relationship as xs:string?){
  : @param $node all relationship elements
  : @param $idno record idno
 :)
-declare function rel:build-relationships($node as item()*,$idno as xs:string?, $display as xs:string?){ 
+declare function rel:build-relationships($node as item()*,$idno as xs:string?, $display as xs:string?, $map as xs:string?){ 
     <div class="panel panel-default relationships" xmlns="http://www.w3.org/1999/xhtml">
         <div class="panel-heading"><h3 class="panel-title">Relationships </h3></div>
         <div class="panel-body">
@@ -168,7 +168,7 @@ declare function rel:build-relationships($node as item()*,$idno as xs:string?, $
                 where map:get($related-map,$record)//tei:geo
                 return map:get($related-map,$record)
             return
-                (if($related-geo != '') then
+                (if($map = 'map' and  $related-geo != '') then
                     maps:build-map($related-geo,count($related-geo//tei:geo))
                 else (),
                 for $related in $node/descendant-or-self::tei:relation
@@ -179,14 +179,27 @@ declare function rel:build-relationships($node as item()*,$idno as xs:string?, $
                     try{
                         if($display = 'list-description') then
                             let $names := string-join(($related/@active/string(),$related/@passive/string(),$related/@mutual/string()),' ')
-                            let $count := count($names)
+                            let $count := count(tokenize($names,' ')[not(. = $idno)])
                             let $relationship-type := rel:translate-relationship-type($rel-type)
                             return 
-                                (<span class="relationship-type"> {$relationship-type} ({$count})</span>,
-                                 for $r in tokenize($names,' ')
+                                (<span class="relationship-type">{rel:get-names($idno, $related-map)}&#160;{$relationship-type} ({$count})</span>,
+                                 <div class="indent">
+                                 {(
+                                 for $r in subsequence(tokenize($names,' ')[not(. = $idno)],1,2)
                                  let $data := $related-map($r)
                                  where not(empty($data))
-                                 return tei2html:summary-view($data, '', $r)
+                                 return tei2html:summary-view($data, '', $r),
+                                 if($count gt 2) then
+                                        <span>
+                                            <span class="collapse" id="showRel-{$rel-id}">{
+                                                for $r in subsequence(tokenize($names,' ')[not(. = $idno)],3,$count)
+                                                let $data := $related-map($r)
+                                                return tei2html:summary-view($data, '', $r)
+                                            }</span>
+                                            <a class="togglelink btn btn-info" style="width:100%; margin-bottom:1em;" data-toggle="collapse" data-target="#showRel-{$rel-id}" data-text-swap="Hide"> See all {$count} &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+                                        </span>
+                                    else ()
+                                 )}</div>
                                 )
                          else <div>{rel:relationship-sentence($related,$related-map)}</div>    
                      } catch * { $related }   
