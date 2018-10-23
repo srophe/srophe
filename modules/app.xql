@@ -71,7 +71,7 @@ declare %templates:wrap function app:record-title($node as node(), $model as map
        else $model("hits")/descendant::tei:titleStmt[1]/tei:title[1]/text()
     else if($collection != '') then
         string(config:collection-vars($collection)/@title)
-    else $global:app-title
+    else $config:app-title
 };  
 
 
