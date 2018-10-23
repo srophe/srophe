@@ -162,9 +162,7 @@ return
 };
 
 (:~ 
- : Parse persNames to take advantage of sort attribute in display. 
- : Returns a sorted string
- : @param $name persName element 
+ : Expand dates to make iso dates YYYY-MM-DD 
  :)
 declare function global:make-iso-date($date as xs:string?) as xs:date* {
 xs:date(
@@ -175,4 +173,17 @@ xs:date(
     else if(matches($date,'\d{2}')) then concat('00',$date,'-01-01')
     else if(matches($date,'\d{1}')) then concat('000',$date,'-01-01')
     else '0100-01-01')
+};
+
+(:~ 
+ : Parse persNames to take advantage of sort attribute in display. 
+ : Returns a sorted string
+ : @param $name persName element 
+ :)
+declare function global:parse-name($name as node()*) as xs:string* {
+if($name/child::*) then 
+    string-join(for $part in $name/child::*
+    order by $part/@sort ascending, string-join($part/descendant-or-self::text(),' ') descending
+    return $part/text(),' ')
+else $name/text()
 };
