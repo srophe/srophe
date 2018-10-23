@@ -8,8 +8,11 @@
 
 /* A */
 .alpha-pages {margin:-1.5em 0 1em 0;}
-
 #advancedSearch {padding:2em 1em; background-color:#F7F7F9;}
+.api-path {width:15%}
+.api-param {width:20%}
+.api-desc {width:55%}
+.api-method {width:10%}
 
 /* B */
 .image-banner {
@@ -37,9 +40,36 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 /* C */
 .clipboard {padding:.25em; margin-left:.75em;}
 .container {margin:1em 2em; padding: .5em 1em; }
-
+.code-grp {width:100%;}
+.code {
+    text-align:left;
+    border:1px solid #ccc;
+	border-left: 11px solid #ccc;
+	overflow: auto;
+	max-width:inherit;
+    background-color: #F5F5F5;
+    width:90%;
+}
+code.inline{
+    display:inline;
+	padding: 0.1em 0.5em 0.3em 0.7em;
+	border-left: 11px solid #ccc;
+	margin: 1.7em 0 1.7em 0.3em;
+	overflow: auto;
+	max-width:inherit;
+	white-space: pre-wrap;       /* CSS 3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+	}
 /* D */
-
+dt {
+	margin-top: 1.5em;
+}
+dd {
+	margin-top: 0.5em;
+}
 
 /* F */
 footer {border-top:4px solid #456889;}
@@ -117,8 +147,6 @@ img{ margin:0px }
  line-height:1em;
 }
 
-
-
 /* M */
 .map-lg #map {height:500px !important;}
 .map-md #map {height:300px !important;}
@@ -128,9 +156,65 @@ img{ margin:0px }
 .map-pop-desc {display:block; padding:.5em;}
 
 /* N */
-.navbar {padding:0 2em;}
-.navbar {border-bottom:4px solid #456889 !important;}
+/* Navbar styles*/
+.navbar {padding:0 2em; border-bottom:4px solid #456889 !important;}
 .navbar .dropdown {margin-top:.5em;}
+.navbar {border-bottom:4px solid #456889 !important;}
+.navbar-inner {border-bottom:.5em solid #456889 !important;}
+.navbar-inner .container{height: 45px !important; padding-top:.5em; margin-left:.5em;}
+.navbar-inner {border-bottom:.5em solid #456889 !important;}
+.navbar-inner .container{height: 45px !important; padding-top:.5em; margin-left:.5em;}
+.navbar-brand {margin-top:-.75em; padding-left:0; margin-left:0; margin-right:-2em;}
+.navbar-brand img {padding:0; margin:0; }
+.navbar .brand {margin-top:-.75em; margin-left:40px;padding-left:0;}
+.navbar .brand img {margin-left:1.5em;padding-left:0;}
+.navbar-inner .nav > li > a:hover, .advanced-search > a:hover {
+        border-bottom: 4px solid #DDEAF1 !important;  
+}
+.navbar-inner > .container > .nav > li.selected {border-bottom: 4px solid #E69849 !important; }
+.navbar.advanced-search > a {color:#999; text-decoration:none;}
+.navbar .advanced-search{margin-top:-.5em;}
+.navbar-form {overflow:hidden;}
+.navbar .keboard-btn {margin-left:-1em;}
+.navbar-input-group {
+  font-size: 0px; /*removes whitespace between button and input*/
+}
+/* Nav submenus*/
+.navbar .dropdown-submenu {position: relative;}
+.navbar .dropdown-submenu > .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+}
+.navbar .dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}
+.navbar .dropdown-submenu:hover > a:after {
+  border-left-color: #fff;
+}
+.navbar .dropdown-submenu.pull-left {
+  float: none;
+}
+.navbar .dropdown-submenu.pull-left > .dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+}
+/* Nav bar icons for submodules */
+.navbar .dropdown-menu li a{margin-left:.5em;}
+/* Used for dropdowns next to syriaca.org icon, so both icon and caret are "clickable" */
+.navbar .lonely-caret {margin-left:-2em; padding-left:0;margin-top:-.35em;}
+.navbar .nav-icons {
+    background-position: left center;
+    background-repeat: no-repeat;
+    text-indent:14px;
+}
+.navbar .sub-menu .nav-icons{margin-left:2em;}
+.navbar .icon-container {display:inline-block; line-height:1.5em;}
+.navbar .submodule {margin-left:.75em;}
+.navbar .icon-nav {font-size:1.75em; display:inline-block; margin-right:.15em;}
+.navbar .icon-text {display:inline-block; margin-top:-.85em; vertical-align: middle; font-weight:500;}
+.navbar .nav-text {display:inline-block; line-height:1.5em; margin-top:.25em;}
 
 /* O */
 .overlay {
@@ -148,6 +232,24 @@ img{ margin:0px }
 .paging {display:block; clear:both;}
 .param {font-weight:500;}
 .param-string {margin-right:.75em;}
+/* API documentation */
+pre code {
+	line-height: 1.6em;
+	font-size: 11px;
+	}
+pre {
+	padding: 0.1em 0.5em 0.3em 0.7em;
+	border-left: 11px solid #ccc;
+	margin: 1.7em 0 1.7em 0.3em;
+	overflow: auto;
+	width: 93%;
+	max-width:inherit;
+	white-space: pre-wrap;       /* CSS 3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+	}
 
 /* R */
 .record {padding-top: 2em; margin:4em;}
@@ -173,7 +275,17 @@ img{ margin:0px }
 .tab-content {padding-top:.25em;}
 .text {margin:0}
 .title {border-bottom:1px solid grey}
-
+.title-journal, .title-monographic{font-style:italic;}
+.tooltip {
+      padding:.25em;
+      overflow:visible;
+  }
+.tooltip-inner {
+    padding:.25em;
+    padding-left:1.5em;
+    overflow:visible;
+    text-align:center;
+    }
 /* TEI styles */
 .tei-event {display:block;}
 .tei-footnote-refs, .tei-footnote-tgt {
@@ -196,4 +308,16 @@ img{ margin:0px }
 .white-link:focus, .white-link:active:focus, .white-link.active:focus {
     outline: 0 none;
     color:white;
+}
+
+/* Special styles for small screens */
+@media screen and (max-width: 480px) {
+.navbar-collapse, .dropdown-menu {float:none; width:100% !important;}
+.navbar-nav li {width:100% !important; float:none;}
+.mobile-submenu {
+    display: block;
+    float:left;
+    margin-left:3em;
+    }
+.caret {float:left; margin-left:.5em; margin-top:.5em;}    
 }
