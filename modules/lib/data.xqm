@@ -108,7 +108,8 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
                 data:element-filter($element))    
     let $hits := util:eval($eval-string)
     return 
-        if(request:get-parameter('view', '') = 'map') then 
+        (: Generic :)             
+        else if(request:get-parameter('view', '') = 'map') then 
             for $hit in $hits
             let $root := root($hit)
             let $id := $root/descendant::tei:publicationStmt/tei:idno[1]
@@ -121,17 +122,17 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
             let $sort := global:build-sort-string($hit,'')
             let $id := $root/descendant::tei:publicationStmt/tei:idno[1]
             group by $facet-grp := $id
-            order by $sort[1]
+            order by $sort[1] collation 'http://www.w3.org/2013/collation/UCA'
             return <browse xmlns="http://www.tei-c.org/ns/1.0" sort="{$sort[1]}">{$root[1]}</browse>              
         else 
             for $hit in $hits
             let $root := root($hit)
             let $sort := global:build-sort-string($hit,'')
-            let $id := $root/descendant::tei:publicationStmt/tei:idno[1]
-            group by $facet-grp := $id
-            order by $sort[1]
+            (:let $id := $root/descendant::tei:publicationStmt/tei:idno[1]
+              group by $facet-grp := $id:)
+            order by $sort collation 'http://www.w3.org/2013/collation/UCA'
             where matches($sort,global:get-alpha-filter())
-            return <browse xmlns="http://www.tei-c.org/ns/1.0" sort="{$sort[1]}">{$root[1]}</browse>            
+            return <browse xmlns="http://www.tei-c.org/ns/1.0" sort="{$sort}">{$root}</browse>             
 };
 
 (:~
