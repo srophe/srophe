@@ -76,7 +76,7 @@
    <xsl:param name="editoruriprefix">http://syriaca.org/documentation/editors.xml#</xsl:param>
    <xsl:variable name="editorssourcedoc">
        <xsl:if test="doc-available(concat('xmldb:exist://',$app-root,'/documentation/editors.xml'))">
-           <xsl:value-of select="doc(concat('xmldb:exist://',$app-root,'/documentation/editors.xml'))"/>
+           <xsl:sequence select="doc(concat('xmldb:exist://',$app-root,'/documentation/editors.xml'))"/>
        </xsl:if>
    </xsl:variable>
    

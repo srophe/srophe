@@ -4,6 +4,12 @@
     <!-- =================================================================== -->
     <!-- Helper Functions  -->
     <!-- =================================================================== -->
+    <xsl:variable name="odd">
+        <xsl:if test="doc-available(concat('xmldb:exist://',$app-root,'/documentation/syriaca-tei-main.odd'))">
+            <xsl:sequence select="doc(concat('xmldb:exist://',$app-root,'/documentation/syriaca-tei-main.odd'))"/>
+        </xsl:if>
+    </xsl:variable>
+    
     <!-- Add a lang attribute to HTML elements -->
     <xsl:function name="local:attributes">
         <xsl:param name="node"/>
@@ -354,8 +360,6 @@
     <xsl:function name="local:translate-label">
         <xsl:param name="label"/>
         <xsl:param name="count"/>
-        <xsl:variable name="odd" select="doc(concat('xmldb:exist://',$app-root,'/documentation/syriaca-tei-main.odd'))"/>
-        <!--<xsl:variable name="odd" select="doc('http://syriaca.org/documentation/syriaca-tei-main.odd')"/>-->
         <xsl:choose>
             <xsl:when test="$odd/descendant::t:valItem[@ident=$label]/t:gloss">
                 <xsl:choose>
@@ -385,8 +389,6 @@
         <xsl:param name="element"/>
         <xsl:param name="label"/>
         <xsl:param name="count"/>
-        <xsl:variable name="odd" select="doc(concat('xmldb:exist://',$app-root,'/documentation/syriaca-tei-main.odd'))"/>
-        <!--<xsl:variable name="odd" select="doc('http://syriaca.org/documentation/syriaca-tei-main.odd')"/>-->
         <xsl:variable name="element" select="$odd/descendant::t:elementSpec[@ident = name($element)]"/>
         <xsl:choose>
             <xsl:when test="$element/descendant::t:valItem[@ident=$label]/t:gloss">
