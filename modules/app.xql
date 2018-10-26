@@ -219,9 +219,9 @@ declare %templates:wrap function app:pageination($node as node()*, $model as map
 (:~
  : Builds list of related records based on tei:relation  
 :)                   
-declare function app:internal-relationships($node as node(), $model as map(*), $display as xs:string?){
+declare function app:internal-relationships($node as node(), $model as map(*), $display as xs:string?, $map as xs:string?){
     if($model("hits")//tei:relation) then 
-        rel:build-relationships($model("hits")//tei:relation,request:get-parameter('id', ''), $display)
+        rel:build-relationships($model("hits")//tei:relation,request:get-parameter('id', ''), $display, $map)
     else ()
 };
 
