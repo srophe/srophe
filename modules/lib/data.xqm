@@ -109,7 +109,7 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
     let $hits := util:eval($eval-string)
     return 
         (: Generic :)             
-        else if(request:get-parameter('view', '') = 'map') then 
+        if(request:get-parameter('view', '') = 'map') then 
             for $hit in $hits
             let $root := root($hit)
             let $id := $root/descendant::tei:publicationStmt/tei:idno[1]
