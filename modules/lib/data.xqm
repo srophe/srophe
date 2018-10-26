@@ -287,6 +287,29 @@ declare function data:relation-search(){
     else ()
 };
 
+(:~
+ : Generic URI search
+ : Searches record URIs and also references to record ids.
+:)
+declare function data:uri() as xs:string? {
+    if(request:get-parameter('uri', '') != '') then 
+        let $q := request:get-parameter('uri', '')
+        return 
+        concat("
+        [ft:query(descendant::*,'&quot;",$q,"&quot;',data:search-options()) or 
+            .//@passive[matches(.,'",$q,"(\W.*)?$')]
+            or 
+            .//@mutual[matches(.,'",$q,"(\W.*)?$')]
+            or 
+            .//@active[matches(.,'",$q,"(\W.*)?$')]
+            or 
+            .//@ref[matches(.,'",$q,"(\W.*)?$')]
+            or 
+            .//@target[matches(.,'",$q,"(\W.*)?$')]
+        ]")
+    else ''    
+};
+
 (:
  : General search function to pass in any TEI element. 
  : @param $element element name must have a lucene index defined on the element
