@@ -1,6 +1,6 @@
 xquery version "3.0";
 
-module namespace teiDocs = "http://syriaca.org/teiDocs";
+module namespace teiDocs = "http://syriaca.org/srophe/teiDocs";
 
 declare namespace functx = "http://www.functx.com";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
