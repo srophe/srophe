@@ -81,7 +81,7 @@ declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:in
                                                 });
                                         
             var geojson = L.geoJson(placesgeo, {onEachFeature: function (feature, layer){
-                            var typeText 
+                            var typeText = feature.properties.type
                             var popupContent = 
                                 "<a href='" + feature.properties.uri + "' class='map-pop-title'>" +
                                 feature.properties.name + "</a>" + (feature.properties.type ? "Type: " + typeText : "") +
