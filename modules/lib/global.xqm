@@ -187,3 +187,20 @@ if($name/child::*) then
     return $part/text(),' ')
 else $name/text()
 };
+
+(: Architectura Sinica functions :)
+(:~
+ : Syriaca.org specific function to label URI's with human readable labels. 
+ : @param $uri Syriaca.org uri to be used for lookup. 
+ : URI can be a record or a keyword
+ : NOTE: this function will probably slow down the facets.
+:)
+declare function global:get-label($uri as item()*){
+if(starts-with($uri,$config:base-uri)) then  
+      let $doc := collection($config:data-root)//tei:idno[@type='URI'][. = concat($uri,"/tei")]
+      return 
+          if(exists($doc)) then
+            string-join(root($doc)//tei:titleStmt[1]/tei:title[1]/text()[1],' ')
+          else $uri 
+else $uri
+};

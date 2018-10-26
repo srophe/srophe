@@ -14,7 +14,9 @@ import module namespace kwic="http://exist-db.org/xquery/kwic";
 import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
 import module namespace data="http://syriaca.org/srophe/data" at "../lib/data.xqm";
 import module namespace global="http://syriaca.org/srophe/global" at "../lib/global.xqm";
+import module namespace facet="http://expath.org/ns/facet" at "facet.xqm";
 import module namespace page="http://syriaca.org/srophe/page" at "../lib/paging.xqm";
+import module namespace slider = "http://syriaca.org/srophe/slider" at "../lib/date-slider.xqm";
 import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -32,16 +34,55 @@ declare variable $search:perpage {request:get-parameter('perpage', 20) cast as x
  data:search($collection)
 :)
 declare %templates:wrap function search:search-data($node as node(), $model as map(*), $collection as xs:string?){
-    let $queryExpr := data:create-query($collection)                        
+    let $queryExpr := search:query-string($collection)                        
     return
         if(empty($queryExpr) or $queryExpr = "" or empty(request:get-parameter-names())) then ()
         else 
-            let $hits := data:search($collection,'')
+            let $hits := data:search($collection,$queryExpr)
             return
                 map {
                         "hits" := $hits,
                         "query" := $queryExpr
                     } 
+};
+
+
+declare function search:group-results($node as node(), $model as map(*), $collection as xs:string?){
+    let $hits := $model("hits")
+    let $groups := distinct-values($hits//tei:relation[@ref="schema:containedInPlace"]/@passive)
+    return 
+        map {"group-by-sites" :=            
+            for $place in $hits 
+            let $site := $place/descendant::tei:relation[@ref="schema:containedInPlace"]/@passive
+            group by $facet-grp-p := $site[1]
+            (:let $label := string-join($model("hits")[//tei:idno[. = $site[1]]]//tei:title[1]/text(),''):)
+            let $label := global:get-label($site[1])
+            order by $label
+            return  
+                if($site != '') then 
+                    <div class="indent" xmlns="http://www.w3.org/1999/xhtml" style="margin-bottom:1em;">
+                            <a class="togglelink text-info" 
+                            data-toggle="collapse" data-target="#show{replace($label,' ','')}" 
+                            href="#show{replace($label,' ','')}" data-text-swap=" + "> - </a>&#160; 
+                            <a href="{replace($facet-grp-p,$global:base-uri,$global:nav-base)}">{$label}</a> (contains {count($place)} buildings)
+                            <div class="indent collapse in" style="background-color:#F7F7F9;" id="show{replace($label,' ','')}">{
+                                for $p in $place
+                                let $id := replace($p/descendant::tei:idno[1],'/tei','')
+                                return 
+                                    <div class="indent" style="border-bottom:1px dotted #eee; padding:1em">{tei2html:summary-view(root($p), '', $id)}</div>
+                            }</div>
+                    </div>
+                else if($site = '' or not($site)) then
+                    for $p in $place
+                    let $id := replace($p/descendant::tei:idno[1],'/tei','')
+                    return
+                        if($groups[. = $id]) then () 
+                        else 
+                            <div class="col-md-11" style="margin-right:-1em; padding-top:.5em;">
+                                 {tei2html:summary-view(root($p), '', $id)}
+                            </div>                        
+                else ()
+        } 
 };
 
 (:~ 
@@ -52,27 +93,24 @@ declare
 function search:show-hits($node as node()*, $model as map(*), $collection as xs:string?, $kwic as xs:string?) {
 <div class="indent" id="search-results" xmlns="http://www.w3.org/1999/xhtml">
     {
-        let $hits := $model("hits")
-        for $hit at $p in subsequence($hits, $search:start, $search:perpage)
-        let $id := $hit//tei:idno[1]
-        let $expanded := kwic:expand($hit)
-        return 
-            <div class="result row">
-                <div class="col-md-12">
-                      <div class="col-md-1" style="margin-right:-1em; padding-top:.25em;">
-                        <span class="badge">{$search:start + $p - 1}</span>
-                      </div>
-                      <div class="col-md-9" xml:lang="en">
-                        {(tei2html:summary-view($hit, (), $id[1])) }
-                        {
-                            if($expanded//exist:match) then 
-                                tei2html:output-kwic($expanded, $id)
-                            else ()
-                        }
-                      </div>
-                </div>
-            </div>
-    } 
+        if($collection = 'places') then 
+            let $hits := $model("group-by-sites")
+            for $hit at $p in subsequence($hits, $search:start, $search:perpage)
+            return $hit
+        else 
+            let $hits := $model("hits")
+            for $hit at $p in subsequence($hits, $search:start, $search:perpage)
+            let $id := replace($hit/descendant::tei:idno[1],'/tei','')
+            return 
+             <div class="row record" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
+                 <div class="col-md-1" style="margin-right:-1em; padding-top:.25em;">        
+                     <span class="badge" style="margin-right:1em;">{$search:start + $p - 1}</span>
+                 </div>
+                 <div class="col-md-11" style="margin-right:-1em; padding-top:.25em;">
+                     {tei2html:summary-view(root($hit), '', $id)}
+                 </div>
+             </div>   
+   }  
 </div>
 };
 
@@ -206,4 +244,136 @@ declare function search:default-search-form() {
             <br class="clearfix"/><br/>
         </div>
     </form>
+};
+
+(: Architectura Sinica functions :)
+(:
+ : TCADRT - display architectural features select lists
+:)
+declare %templates:wrap function search:architectural-features($node as node()*, $model as map(*)){ 
+    <div class="row">{
+        let $features := collection($global:data-root || '/keywords')/tei:TEI[descendant::tei:entryFree/@type='architectural-feature']
+        for $feature in $features
+        let $type := string($feature/descendant::tei:relation[@ref = 'skos:broadMatch'][1]/@passive)
+        group by $group-type := $type
+        return  
+            <div class="col-md-6">
+                <h4 class="indent">{string($group-type)}</h4>
+                {
+                    for $f in $feature
+                    let $title := string-join($f/descendant::tei:titleStmt/tei:title[1]//text(),' ')
+                    let $id := replace($f/descendant::tei:idno[1],'/tei','')
+                    return 
+                        <div class="form-group row">
+                            <div class="col-sm-4 col-md-3" style="text-align:right;">
+                                  { if($f/descendant::tei:entryFree/@sub-type='numeric') then
+                                    <select name="{concat('feature-num:',$id)}" class="inline">
+                                      <option value="">No.</option>
+                                      <option value="1">1</option>
+                                      <option value="2">2</option>
+                                      <option value="3">3</option>
+                                      <option value="4">4</option>
+                                      <option value="5">5</option>
+                                      <option value="6">6</option>
+                                      <option value="7">7</option>
+                                      <option value="8">8</option>
+                                      <option value="9">9</option>
+                                      <option value="10">10</option>
+                                    </select>
+                                    else ()}
+                            </div>    
+                            <div class="checkbox col-sm-8 col-md-9" style="text-align:left;margin:0;padding:0">
+                                <label><input type="checkbox" value="true" name="{concat('feature:',$id)}"/>{$title}</label>
+                            </div>
+                        </div>
+                    }
+                </div>                    
+    }</div>
+};
+
+(: TCADRT terms:)
+declare function search:terms(){
+    if(request:get-parameter('term', '')) then 
+        data:element-search('term',request:get-parameter('term', '')) 
+    else '' 
+};
+
+(: TCADRT architectural feature search functions :)
+declare function search:features(){
+    string-join(for $feature in request:get-parameter-names()[starts-with(., 'feature:' )]
+    let $name := substring-after($feature,'feature:')
+    let $number := 
+        for $feature-number in request:get-parameter-names()[starts-with(., 'feature-num:' )][substring-after(.,'feature-num:') = $name]
+        let $num-value := request:get-parameter($feature-number, '')
+        return
+            if($num-value != '' and $num-value != '0') then 
+               concat("[descendant::tei:num[. = '",$num-value,"']]")
+           else ()
+    return 
+        if(request:get-parameter($feature, '') = 'true') then 
+            concat("[descendant::tei:relation[@ana='architectural-feature'][@passive = '",$name,"']",$number,"]")
+        else ())          
+};
+
+(: TCADRT architectural feature search functions :)
+declare function search:features(){
+    string-join(for $feature in request:get-parameter-names()[starts-with(., 'feature:' )]
+    let $name := substring-after($feature,'feature:')
+    let $number := 
+        for $feature-number in request:get-parameter-names()[starts-with(., 'feature-num:' )][substring-after(.,'feature-num:') = $name]
+        let $num-value := request:get-parameter($feature-number, '')
+        return
+            if($num-value != '' and $num-value != '0') then 
+               concat("[descendant::tei:num[. = '",$num-value,"']]")
+           else ()
+    return 
+        if(request:get-parameter($feature, '') = 'true') then 
+            concat("[descendant::tei:relation[@ana='architectural-feature'][@passive = '",$name,"']",$number,"]")
+        else ())          
+};
+
+(:~   
+ : Builds general search string from main syriaca.org page and search api.
+:)
+declare function search:query-string($collection as xs:string?) as xs:string?{
+let $search-config := concat($global:app-root, '/', string(config:collection-vars($collection)/@app-root),'/','search-config.xml')
+return
+    if($collection != '') then 
+        if(doc-available($search-config)) then 
+           concat("collection('",$global:data-root,"/",$collection,"')//tei:body",facet:facet-filter(global:facet-definition-file($collection)),slider:date-filter(()),data:dynamic-paths($search-config))
+        else if($collection = 'places') then  
+            concat("collection('",$global:data-root,"')//tei:TEI",
+            facet:facet-filter(global:facet-definition-file($collection)),
+            slider:date-filter(()),
+            data:keyword-search(),
+            data:element-search('placeName',request:get-parameter('placeName', '')),
+            data:element-search('title',request:get-parameter('title', '')),
+            data:element-search('bibl',request:get-parameter('bibl', '')),
+            data:uri(),
+            search:terms(),
+            data:element-search('term',request:get-parameter('term', '')),
+            search:features()
+          )
+        else
+            concat("collection('",$global:data-root,"/",$collection,"')//tei:TEI",
+            facet:facet-filter(global:facet-definition-file($collection)),
+            slider:date-filter(()),
+            data:keyword-search(),
+            data:element-search('placeName',request:get-parameter('placeName', '')),
+            data:element-search('title',request:get-parameter('title', '')),
+            data:element-search('bibl',request:get-parameter('bibl', '')),
+            data:uri(),
+            search:terms(),
+            search:features()
+          )
+    else concat("collection('",$global:data-root,"')//tei:TEI",
+        facet:facet-filter(global:facet-definition-file($collection)),
+        slider:date-filter(()),
+        data:keyword-search(),
+        data:element-search('placeName',request:get-parameter('placeName', '')),
+        data:element-search('title',request:get-parameter('title', '')),
+        data:element-search('bibl',request:get-parameter('bibl', '')),
+        data:uri(),
+        search:features()
+        )
 };

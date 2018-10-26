@@ -5,6 +5,7 @@ xquery version "3.0";
  :) 
 module namespace page="http://syriaca.org/srophe/page";
 import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
+import module namespace global="http://syriaca.org/srophe/global" at "global.xqm";
 
 import module namespace functx="http://www.functx.com";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -155,26 +156,19 @@ declare function page:sort($param-string as xs:string?, $start as xs:integer?, $
  : Filters out $start, $sort-element and $perpage parameters. 
 :)
 declare function page:display-search-params($collection as xs:string?){
-    <span xmlns="http://www.w3.org/1999/xhtml">
-    {(
-        let $parameters :=  request:get-parameter-names()
-        let $search-config := 
-            if($collection != '') then concat($config:app-root, '/', string(config:collection-vars($collection)/@app-root),'/','search-config.xml')
-            else concat($config:app-root, '/','search-config.xml')
-        let $search-config :=  
-            if(doc-available($search-config)) then 
-                doc($search-config) 
-            else ()
-        for  $parameter in $parameters
-        return 
-            if(request:get-parameter($parameter, '') != '') then
-                if($parameter = ('start','sort-element','perpage')) then ()
-                else if($parameter = $search-config//input/@name) then
-                   (<span class="param">{string($search-config//input[@name = $parameter]/@name)}: </span>,<span class="param-string">{request:get-parameter($parameter, '')}</span>) 
-                else if($parameter = 'q') then 
-                    (<span class="param">Keyword: </span>,<span class="param-string">{request:get-parameter($parameter, '')}</span>)
-                else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="param-string">{request:get-parameter($parameter, '')}</span>)    
-            else ())
-            }
-    </span>
+<span xmlns="http://www.w3.org/1999/xhtml">: 
+{(
+    let $parameters :=  request:get-parameter-names()
+    for  $parameter in $parameters
+    return 
+        if(request:get-parameter($parameter, '') != '') then
+            if($parameter = 'start' or $parameter = 'sort-element' or $parameter = 'fq') then ()
+            else if(starts-with($parameter,'feature-num:')) then request:get-parameter($parameter, '')
+            else if(starts-with($parameter,'feature:')) then global:get-label(substring-after($parameter,'feature:'))
+            else if($parameter = 'q') then 
+                (<span class="param">Keyword: </span>,<span class="match">{$parameter}&#160;</span>)
+            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
+        else ())
+        }
+</span>
 };
