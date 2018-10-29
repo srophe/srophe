@@ -256,7 +256,7 @@ declare function tei2rdf:desc($rec)  {
  : @param $rec
 :)
 declare function tei2rdf:bibl-citation($rec){
-let $citation := bibl2html:citation(root($rec))
+let $citation := bibl2html:citation($rec/ancestor::tei:TEI)
 return 
     <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/">{normalize-space(string-join($citation))}</dcterms:bibliographicCitation>
 };
@@ -429,6 +429,8 @@ declare function tei2rdf:spear-related-triples($rec, $id){
 };
 
 declare function tei2rdf:spear($rec, $id){
+    let $header := $rec/ancestor::tei:TEI
+    return 
     (element { xs:QName('skos:Concept') } {(
         attribute {xs:QName("rdf:about")} { $id },         
         tei2rdf:create-element('rdf:type', (), tei2rdf:rec-type($rec), ()),
@@ -456,7 +458,7 @@ declare function tei2rdf:spear($rec, $id){
         tei2rdf:relations($rec, $id),
         for $id in $rec/descendant::tei:body/descendant::tei:idno[@type='URI'][text() != $id and text() != '']/text() 
         return tei2rdf:create-element('skos:closeMatch', (), $id, ()),
-        for $s in root($rec)/descendant::tei:seriesStmt
+        for $s in $header/descendant::tei:seriesStmt
         return 
             if($s/tei:idno[@type="URI"]) then tei2rdf:create-element('dcterms:isPartOf', (), $s/tei:idno[@type="URI"][1], ())            
             else tei2rdf:create-element('dcterms:isPartOf', (), $s/tei:title[1], 'literal'),                    
@@ -468,7 +470,7 @@ declare function tei2rdf:spear($rec, $id){
         for $bibl in $rec//tei:teiHeader/descendant::tei:sourceDesc/descendant::*/@ref[contains(.,'/work/')]
         return tei2rdf:create-element('lawd:hasAttestation', (), $bibl, ()),
         tei2rdf:create-element('dcterms:isPartOf', (), replace($rec/ancestor::tei:TEI/descendant::tei:publicationStmt/tei:idno[@type="URI"][1],'/tei',''), ()),
-        let $work-uris := distinct-values(root($rec)/descendant::tei:sourceDesc/descendant::*/@ref[contains(.,'/work/')] | root($rec)/descendant::tei:sourceDesc/descendant::*/@target[contains(.,'/work/')]) 
+        let $work-uris := distinct-values($header/descendant::tei:sourceDesc/descendant::*/@ref[contains(.,'/work/')] | $header/descendant::tei:sourceDesc/descendant::*/@target[contains(.,'/work/')]) 
         for $work-uri in $work-uris
         return  tei2rdf:create-element('dcterms:source', (), $work-uri, ()),        
         tei2rdf:create-element('dcterms:isPartOf', (), 'http://syriaca.org/spear', ()), 
@@ -535,7 +537,7 @@ return
                     else (),
                 tei2rdf:internal-refs($rec),
                 tei2rdf:relations($rec, $id),
-                for $s in root($rec)/descendant::tei:seriesStmt
+                for $s in $header/descendant::tei:seriesStmt
                 return 
                     if($s/tei:idno[@type="URI"]) then
                         tei2rdf:create-element('dcterms:isPartOf', (), $s/tei:idno[@type="URI"][1], ())            

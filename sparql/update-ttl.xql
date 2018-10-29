@@ -45,7 +45,7 @@ declare function local:get-records($action as xs:string?, $collection as xs:stri
                 (: Special handling for SPEAR, to process every div[@uri] as a record. :)
                 if($collection = 'spear') then
                     for $r in collection($config:data-root || '/' || $collection)//tei:div[@uri][ancestor::tei:TEI/descendant::tei:title[. = 'Chronicle of Edessa']]
-                    let $teiHeader := root($r)//tei:teiHeader
+                    let $teiHeader := $r/ancestor::tei:TEI//tei:teiHeader
                     return 
                         <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{($teiHeader,$r)}</tei:TEI>
                 else collection($config:data-root || '/' || $collection)/tei:TEI 
@@ -99,7 +99,7 @@ declare function local:process-results($records as item()*, $total, $start, $per
                 if($r/descendant-or-self::tei:div[@uri]) then 
                     string($r/descendant-or-self::tei:div[@uri][1]/@uri) 
                 else replace($r/descendant::tei:idno[starts-with(.,$config:base-uri)][1],'/tei','')
-         let $uri := document-uri(root($r))
+         let $uri := document-uri($r/ancestor::tei:TEI)
          let $rdf := tei2ttl:ttl-output($r)
          let $file-name := substring-before(tokenize($uri,'/')[last()],'.xml')
          let $collection := replace(substring-before($uri, $file-name),'/tei/','')

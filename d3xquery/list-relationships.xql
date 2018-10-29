@@ -20,7 +20,7 @@ let $data :=
              else if($record != '') then
                     if(contains($record,'/spear/')) then 
                         let $rec := collection('/db/apps/srophe-data/data/spear')//tei:div[@uri = $record]
-                        let $teiHeader := root($rec)//tei:teiHeader
+                        let $teiHeader := $rec/ancestor::tei:TEI//tei:teiHeader
                         return 
                             <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{($teiHeader,$rec)}</tei:TEI>
                     else     

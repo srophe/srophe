@@ -69,7 +69,7 @@ declare function search:group-results($node as node(), $model as map(*), $collec
                                 for $p in $place
                                 let $id := replace($p/descendant::tei:idno[1],'/tei','')
                                 return 
-                                    <div class="indent" style="border-bottom:1px dotted #eee; padding:1em">{tei2html:summary-view(root($p), '', $id)}</div>
+                                    <div class="indent" style="border-bottom:1px dotted #eee; padding:1em">{tei2html:summary-view($p, '', $id)}</div>
                             }</div>
                     </div>
                 else if($site = '' or not($site)) then
@@ -79,7 +79,7 @@ declare function search:group-results($node as node(), $model as map(*), $collec
                         if($groups[. = $id]) then () 
                         else 
                             <div class="col-md-11" style="margin-right:-1em; padding-top:.5em;">
-                                 {tei2html:summary-view(root($p), '', $id)}
+                                 {tei2html:summary-view($p, '', $id)}
                             </div>                        
                 else ()
         } 
@@ -107,7 +107,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                      <span class="badge" style="margin-right:1em;">{$search:start + $p - 1}</span>
                  </div>
                  <div class="col-md-11" style="margin-right:-1em; padding-top:.25em;">
-                     {tei2html:summary-view(root($hit), '', $id)}
+                     {tei2html:summary-view($hit, '', $id)}
                  </div>
              </div>   
    }  

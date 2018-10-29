@@ -23,8 +23,8 @@ declare function data:get-document() {
     (: Get document by id or tei:idno:)
     if(request:get-parameter('id', '') != '') then  
         if($config:document-id) then 
-            root(collection($config:data-root)//tei:idno[. = request:get-parameter('id', '')])
-        else root(collection($config:data-root)/id(request:get-parameter('id', '')))
+           collection($config:data-root)//tei:idno[. = request:get-parameter('id', '')]/ancestor::tei:TEI
+        else collection($config:data-root)/id(request:get-parameter('id', ''))/ancestor::tei:TEI
     (: Get document by document path. :)
     else if(request:get-parameter('doc', '') != '') then 
         if(starts-with(request:get-parameter('doc', ''),$config:data-root)) then 
@@ -36,8 +36,8 @@ declare function data:get-document() {
 declare function data:get-document($id as xs:string?) {
     if(starts-with($id,'http')) then
         if($config:document-id) then 
-            root(collection($config:data-root)//tei:idno[. = $id])
-        else root(collection($config:data-root)/id($id))
+            collection($config:data-root)//tei:idno[. = $id]/ancestor::tei:TEI
+        else collection($config:data-root)/id($id)/ancestor::tei:TEI
     else if(starts-with($id,$config:data-root)) then 
             doc(xmldb:encode-uri($id || '.xml'))
         else doc(xmldb:encode-uri($config:data-root || "/" || $id || '.xml'))
@@ -111,14 +111,14 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
         (: Generic :)             
         if(request:get-parameter('view', '') = 'map') then 
             for $hit in $hits
-            let $root := root($hit)
+            let $root := $hit/ancestor::tei:TEI
             let $id := $root/descendant::tei:publicationStmt/tei:idno[1]
             group by $facet-grp := $id
             where $root[1]//tei:geo
             return <browse xmlns="http://www.tei-c.org/ns/1.0" sort="{$sort[1]}">{$root[1]}</browse>  
         else if(request:get-parameter('alpha-filter', '') = ('ALL','all')) then 
             for $hit in $hits
-            let $root := root($hit)
+            let $root := $hit/ancestor::tei:TEI
             let $sort := global:build-sort-string($hit,'')
             let $id := $root/descendant::tei:publicationStmt/tei:idno[1]
             group by $facet-grp := $id
@@ -126,7 +126,7 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
             return <browse xmlns="http://www.tei-c.org/ns/1.0" sort="{$sort[1]}">{$root[1]}</browse>              
         else 
             for $hit in $hits
-            let $root := root($hit)
+            let $root := $hit/ancestor::tei:TEI
             let $sort := global:build-sort-string($hit,'')
             (:let $id := $root/descendant::tei:publicationStmt/tei:idno[1]
               group by $facet-grp := $id:)
@@ -147,11 +147,11 @@ declare function data:search($collection as xs:string*, $queryString as xs:strin
         if(request:get-parameter('sort-element', '') != ('','relevance')) then 
             for $hit in util:eval($eval-string)
             order by global:build-sort-string(data:add-sort-options($hit, request:get-parameter('sort-element', '')),'')
-            return $hit
+            return $hit/ancestor::tei:TEI
         else 
             for $hit in util:eval($eval-string)
             order by ft:score($hit) descending
-            return $hit 
+            return $hit/ancestor::tei:TEI 
 };
 
 (:~   

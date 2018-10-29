@@ -200,7 +200,7 @@ if(starts-with($uri,$config:base-uri)) then
       let $doc := collection($config:data-root)//tei:idno[@type='URI'][. = concat($uri,"/tei")]
       return 
           if(exists($doc)) then
-            string-join(root($doc)//tei:titleStmt[1]/tei:title[1]/text()[1],' ')
+            string-join($doc/ancestor::tei:TEI//tei:titleStmt[1]/tei:title[1]/text()[1],' ')
           else $uri 
 else $uri
 };

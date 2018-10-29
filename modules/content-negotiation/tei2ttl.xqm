@@ -223,7 +223,7 @@ return
  : @param $rec
 :)
 declare function tei2ttl:bibl-citation($rec) as xs:string*{
-let $citation := string-join(bibl2html:citation(root($rec)))
+let $citation := string-join(bibl2html:citation($rec/ancestor::tei:TEI))
 return 
     tei2ttl:make-triple('','dcterms:bibliographicCitation', tei2ttl:make-literal($citation,(),()))
 };

@@ -470,11 +470,11 @@ declare function local:oai-list-sets() {
 };
 
 declare function local:get-TEI($record){
-    root($record)
+    $record/ancestor::tei:TEI
 };
 
 declare function local:get-dc($record){
-    tei2:tei2dc(root($record))
+    tei2:tei2dc($record/ancestor::tei:TEI)
 };
 (: OAI-PMH wrapper for request and response elements :)
 <OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
