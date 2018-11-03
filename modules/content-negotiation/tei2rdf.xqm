@@ -224,12 +224,8 @@ declare function tei2rdf:names($rec){
 declare function tei2rdf:location($rec){
     for $geo in $rec/descendant::tei:location/tei:geo[. != '']
     return
-         element { xs:QName('geo:location') } {
-            element { xs:QName('rdf:Description') } {(
-                tei2rdf:create-element('geo:lat', (), tokenize($geo,' ')[1], 'literal'),
-                tei2rdf:create-element('geo:long', (), tokenize($geo,' ')[2], 'literal')
-                )} 
-            }
+        (tei2rdf:create-element('geo:lat', (), tokenize($geo,' ')[1], 'literal'),
+         tei2rdf:create-element('geo:long', (), tokenize($geo,' ')[2], 'literal'))
 };
  
 (:~ 
