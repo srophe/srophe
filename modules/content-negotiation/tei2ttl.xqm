@@ -212,7 +212,7 @@ declare function tei2ttl:geo($rec) as xs:string*{
 string-join((
 for $geo in $rec/descendant::tei:location[tei:geo]
 return 
-    concat('&#xa;geo:location [',
+    concat('&#xa;[',
         tei2ttl:make-triple('','geo:lat',tei2ttl:make-literal(tokenize($geo/tei:geo,' ')[1],(),())),
         tei2ttl:make-triple('','geo:long',tei2ttl:make-literal(tokenize($geo/tei:geo,' ')[2],(),())),
     '];')),'')
