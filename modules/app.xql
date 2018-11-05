@@ -454,7 +454,7 @@ declare function app:wiki-links($nodes as node()*, $wiki) {
  : @param $path path to html content file, relative to app root. 
 :)
 declare function app:shared-content($node as node(), $model as map(*), $path as xs:string){
-    let $links := doc($global:app-root || $path)
+    let $links := doc($config:app-root || $path)
     return templates:process(app:fix-links($links/node()), $model)
 };
 
