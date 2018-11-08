@@ -219,9 +219,9 @@ declare %templates:wrap function app:pageination($node as node()*, $model as map
 (:~
  : Builds list of related records based on tei:relation  
 :)                   
-declare function app:internal-relationships($node as node(), $model as map(*), $display as xs:string?, $map as xs:string?){
+declare function app:internal-relationships($node as node(), $model as map(*), $relationship-type as xs:string?, $display as xs:string?, $map as xs:string?,$label as xs:string?){
     if($model("hits")//tei:relation) then 
-        rel:build-relationships($model("hits")//tei:relation,request:get-parameter('id', ''), $display, $map)
+        rel:build-relationships($model("hits")//tei:relation,request:get-parameter('id', ''),$relationship-type, $display, $map, $label)
     else ()
 };
 
@@ -230,13 +230,13 @@ declare function app:internal-relationships($node as node(), $model as map(*), $
  : Used by NHSL for displaying child works
  : @param $relType name/ref of relation to be displayed in HTML page
 :)                   
-declare function app:external-relationships($node as node(), $model as map(*), $relationship-type as xs:string?, $sort as xs:string?, $count as xs:string?){
+declare function app:external-relationships($node as node(), $model as map(*), $relationship-type as xs:string?, $sort as xs:string?, $count as xs:string?, $label as xs:string?){
     let $rec := $model("hits")
     let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$config:base-uri)][1],'/tei','')
     let $title := if(contains($rec/descendant::tei:title[1]/text(),' — ')) then 
                         substring-before($rec/descendant::tei:title[1],' — ') 
                    else $rec/descendant::tei:title[1]/text()
-    return rel:external-relationships($recid, $title, $relationship-type, $sort, $count)
+    return rel:external-relationships($recid, $title[1], $relationship-type, $sort, $count, $label)
 };
 
 (:~

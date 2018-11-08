@@ -153,15 +153,23 @@ declare function rel:decode-relationship($relationship as xs:string?){
  : @param $node all relationship elements
  : @param $idno record idno
 :)
-declare function rel:build-relationships($node as item()*,$idno as xs:string?, $display as xs:string?, $map as xs:string?){ 
+declare function rel:build-relationships($node as item()*,$idno as xs:string?, $relationship-type as xs:string?, $display as xs:string?, $map as xs:string?, $label as xs:string?){ 
     <div class="panel panel-default relationships" xmlns="http://www.w3.org/1999/xhtml">
-        <div class="panel-heading"><h3 class="panel-title">Relationships </h3></div>
+        <div class="panel-heading"><h3 class="panel-title">{if($label != '') then $label else 'Relationships'} </h3></div>
         <div class="panel-body">
         {       
             let $uris := 
                 string-join(
-                for $r in $node/descendant-or-self::tei:relation
-                return string-join(($r/@active/string(),$r/@passive/string(),$r/@mutual/string()),' '),' ')
+                    if($relationship-type != '') then
+                        for $r in $node/descendant-or-self::tei:relation[@ref=$relationship-type]
+                        return string-join(($r/@active/string(),$r/@passive/string(),$r/@mutual/string()),' ')
+                    else
+                        for $r in $node/descendant-or-self::tei:relation
+                        return string-join(($r/@active/string(),$r/@passive/string(),$r/@mutual/string()),' '),' ')
+            let $relationships := 
+                    if($relationship-type != '') then
+                        $node/descendant-or-self::tei:relation[@ref=$relationship-type]
+                    else $node/descendant-or-self::tei:relation                        
             let $related-map := rel:get-related($uris)
             let $related-geo := 
                 for $record in map:keys(rel:get-related($uris))
@@ -171,7 +179,7 @@ declare function rel:build-relationships($node as item()*,$idno as xs:string?, $
                 (if($map = 'map' and  $related-geo != '') then
                     maps:build-map($related-geo,count($related-geo//tei:geo))
                 else (),
-                for $related in $node/descendant-or-self::tei:relation
+                for $related in $relationships
                 let $rel-id := index-of($node, $related[1])
                 let $rel-type := if($related/@ref) then $related/@ref else $related/@name
                 group by $relationship := $rel-type
@@ -182,7 +190,7 @@ declare function rel:build-relationships($node as item()*,$idno as xs:string?, $
                             let $count := count(tokenize($names,' ')[not(. = $idno)])
                             let $relationship-type := rel:translate-relationship-type($rel-type)
                             return 
-                                (<span class="relationship-type">{rel:get-names($idno, $related-map)}&#160;{$relationship-type} ({$count})</span>,
+                                (if($relationship-type != '') then () else <span class="relationship-type">{rel:get-names($idno, $related-map)}&#160;{$relationship-type} ({$count})</span>,
                                  <div class="indent">
                                  {(
                                  for $r in subsequence(tokenize($names,' ')[not(. = $idno)],1,2)
@@ -218,7 +226,7 @@ declare function rel:build-relationships($node as item()*,$idno as xs:string?, $
  : @param $sort sort on title or part number default to title
  : @param $count number of records to return, if empty defaults to 5 with a popup for more. 
 :)
-declare function rel:external-relationships($recid as xs:string, $title as xs:string?, $relationship-type as xs:string*, $sort as xs:string?, $count as xs:string?){
+declare function rel:external-relationships($recid as xs:string, $title as xs:string?, $relationship-type as xs:string*, $sort as xs:string?, $count as xs:string?, $label as xs:string?){
 let $relationship-string := 
     if($relationship-type != '') then
         concat("[descendant::tei:relation[@passive[matches(.,'",$recid,"(\W.*)?$')] or @mutual[matches(.,'",$recid,"(\W.*)?$')]][@ref = '",$relationship-type ,"' or @name = '",$relationship-type ,"']]")
@@ -226,10 +234,11 @@ let $relationship-string :=
 let $eval-string := concat("collection($config:data-root)/tei:TEI",$relationship-string)
 let $related := util:eval($eval-string)
 let $total := count($related)    
-return
+let $label := if($label != '') then $label else 'External relationships'
+return 
     if($total gt 0) then 
         <div class="panel panel-default external-relationships" xmlns="http://www.w3.org/1999/xhtml">
-            <div class="panel-heading"><h3 class="panel-title">External relationships ({$total})</h3></div>
+            <div class="panel-heading"><h3 class="panel-title">{$label} ({$total})</h3></div>
             <div class="panel-body">
             {
             if($total gt 5) then
@@ -245,8 +254,5 @@ return
             }
             </div>  
         </div>
-    else()
+    else()  
 };
-
-
-
