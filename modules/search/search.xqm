@@ -336,7 +336,7 @@ declare function search:features(){
  : Builds general search string from main syriaca.org page and search api.
 :)
 declare function search:query-string($collection as xs:string?) as xs:string?{
-let $search-config := concat($global:app-root, '/', string(config:collection-vars($collection)/@app-root),'/','search-config.xml')
+let $search-config := concat($config:app-root, '/', string(config:collection-vars($collection)/@app-root),'/','search-config.xml')
 return
     if($collection != '') then 
         if(doc-available($search-config)) then 
