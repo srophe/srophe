@@ -147,11 +147,11 @@ declare function data:search($collection as xs:string*, $queryString as xs:strin
         if(request:get-parameter('sort-element', '') != ('','relevance')) then 
             for $hit in util:eval($eval-string)
             order by global:build-sort-string(data:add-sort-options($hit, request:get-parameter('sort-element', '')),'')
-            return $hit/ancestor::tei:TEI
+            return $hit/ancestor-or-self::tei:TEI
         else 
             for $hit in util:eval($eval-string)
             order by ft:score($hit) descending
-            return $hit/ancestor::tei:TEI 
+            return $hit/ancestor-or-self::tei:TEI 
 };
 
 (:~   
@@ -269,10 +269,10 @@ declare function data:dynamic-paths($search-config as xs:string?){
 declare function data:keyword-search(){
     if(request:get-parameter('keyword', '') != '') then 
         for $query in request:get-parameter('keyword', '') 
-        return concat("[ft:query(.//tei:body,'",data:clean-string($query),"',data:search-options())][ft:query(.//tei:teiHeader,'",data:clean-string($query),"',data:search-options())]")
+        return concat("[ft:query(.//tei:body,'",data:clean-string($query),"',data:search-options()) or ft:query(.//tei:teiHeader,'",data:clean-string($query),"',data:search-options())]")
     else if(request:get-parameter('q', '') != '') then 
         for $query in request:get-parameter('q', '') 
-        return concat("[ft:query(.//tei:body,'",data:clean-string($query),"',data:search-options())][ft:query(.//tei:teiHeader,'",data:clean-string($query),"',data:search-options())]")
+        return concat("[ft:query(.//tei:body,'",data:clean-string($query),"',data:search-options()) or ft:query(.//tei:teiHeader,'",data:clean-string($query),"',data:search-options())]")
     else ()
 };
 

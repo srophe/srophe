@@ -10,9 +10,5 @@
     <target>srophe</target>
     <prepare>pre-install.xql</prepare>
     <finish/>
-
-
-
-
 <deployed>2018-10-19T11:35:41.497-04:00</deployed>
 </meta>
