@@ -485,7 +485,7 @@ declare function tei2rdf:spear($rec, $id){
 };
 
 (:~
- : Pull to gether all triples for a single record
+ : Pull together all triples for a single record
 :)
 declare function tei2rdf:make-triple-set($rec){
 let $rec := if($rec/tei:div[@uri[starts-with(.,$config:base-uri)]]) then $rec/tei:div else $rec

@@ -57,6 +57,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
             let $hits := $model("hits")
             for $hit at $p in subsequence($hits, $search:start, $search:perpage)
             let $id := replace($hit/descendant::tei:idno[1],'/tei','')
+            let $kwic := if($kwic = ('true','yes','true()','kwic')) then kwic:expand($hit) else () 
             return 
              <div class="row record" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
                  <div class="col-md-1" style="margin-right:-1em; padding-top:.25em;">        
@@ -64,6 +65,11 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                  </div>
                  <div class="col-md-11" style="margin-right:-1em; padding-top:.25em;">
                      {tei2html:summary-view($hit, '', $id)}
+                     {
+                        if($kwic//exist:match) then 
+                            tei2html:output-kwic($kwic, $id)
+                        else ()
+                     }
                  </div>
              </div>   
    }  
