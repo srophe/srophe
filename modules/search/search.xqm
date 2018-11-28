@@ -223,7 +223,7 @@ return
             data:element-search('term',request:get-parameter('term', ''))
           )
         else
-            concat("collection('",$config:data-root,"/",$collection,"')//tei:TEI",
+            concat("collection('",$config:data-root,"/",$collection,"')//tei:TEI",facet:facet-filter(global:facet-definition-file($collection)),
             facet:facet-filter(global:facet-definition-file($collection)),
             slider:date-filter(()),
             data:keyword-search(),
@@ -233,7 +233,7 @@ return
             data:uri()
           )
     else concat("collection('",$config:data-root,"')//tei:TEI",
-        facet:facet-filter(global:facet-definition-file($collection)),
+        facet:facet-filter(global:facet-definition-file($collection)),facet:facet-filter(global:facet-definition-file($collection)),
         slider:date-filter(()),
         data:keyword-search(),
         data:element-search('placeName',request:get-parameter('placeName', '')),
