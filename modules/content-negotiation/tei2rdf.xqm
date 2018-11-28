@@ -494,6 +494,7 @@ let $id := if($rec/descendant::tei:idno[starts-with(.,$config:base-uri)]) then r
            else $rec/descendant::tei:idno[1]
 let $resource-class := if($rec/descendant::tei:body/tei:biblStruct) then 'rdfs:Resource'    
                        else 'skos:Concept'            
+let $header := $rec/ancestor::tei:TEI
 return  
     if(contains($id,'/spear/')) then tei2rdf:spear($rec, $id)
     else 
