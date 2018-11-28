@@ -156,7 +156,7 @@ declare function page:sort($param-string as xs:string?, $start as xs:integer?, $
  : Filters out $start, $sort-element and $perpage parameters. 
 :)
 declare function page:display-search-params($collection as xs:string?){
-<span xmlns="http://www.w3.org/1999/xhtml">: 
+<span xmlns="http://www.w3.org/1999/xhtml">
 {(
     let $parameters :=  request:get-parameter-names()
     for  $parameter in $parameters
