@@ -328,6 +328,7 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
                    <textarea name="comments" id="comments" rows="3" class="form-control" placeholder="Comments" style="max-width:500px"/>
                    <input type="hidden" name="id" value="{request:get-parameter('id', '')}"/>
                    <input type="hidden" name="collection" value="{$collection}"/>
+                   <input class="input url" id="url" placeholder="url" required="required" style="display:none;"/>
                    <!-- start reCaptcha API-->
                    {if($config:recaptcha != '') then                                
                        <div class="g-recaptcha" data-sitekey="{$config:recaptcha}"></div>                
