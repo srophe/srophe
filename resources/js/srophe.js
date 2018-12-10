@@ -2,28 +2,29 @@ $(document).ready(function() {
 // Main javascript functions used by place pages
 // validate contact forms
 $.validator.setDefaults({
-	submitHandler: function() { 
-	if($('input#url').val().length == 0)
-	   {
-	 	//Ajax submit for contact form
-        $.ajax({
-                type:'POST', 
-                url: $('#email').attr('action'), 
-                data: $('#email').serializeArray(),
-                dataType: "html", 
-                success: function(response) {
-                    var temp = response;
-                    if(temp == 'Recaptcha fail') {
-                        alert('please try again');
-                        Recaptcha.reload();
-                    }else {
-                        $('div#modal-body').html(temp);
-                        $('#email-submit').hide();
-                        $('#email')[0].reset();
-                    }
-                   // $('div#modal-body').html(temp);
-            }});   
-	   }
+	submitHandler: function() {
+	   if($('input#url').val().length == 0)
+         { 
+       	//Ajax submit for contact form
+           $.ajax({
+                   type:'POST', 
+                   url: $('#email').attr('action'), 
+                   data: $('#email').serializeArray(),
+                   dataType: "html", 
+                   success: function(response) {
+                       var temp = response;
+                       if(temp == 'Recaptcha fail') {
+                           alert('please try again');
+                           Recaptcha.reload();
+                       }else {
+                           $('div#modal-body').html(temp);
+                           $('#email-submit').hide();
+                           $('#email')[0].reset();
+                       }
+                      // $('div#modal-body').html(temp);
+               }});
+        }
+        return false;
 	}
 });
 
