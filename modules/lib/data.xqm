@@ -140,18 +140,22 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
  : Build a search XPath based on search parameters. 
  : Add sort options. 
 :)
-declare function data:search($collection as xs:string*, $queryString as xs:string?) {                      
+declare function data:search($collection as xs:string*, $queryString as xs:string?, $sort-element as xs:string?) {                      
     let $eval-string := if($queryString != '') then $queryString 
                         else concat(data:build-collection-path($collection), data:create-query($collection),facet:facet-filter(global:facet-definition-file($collection)))
     return 
-        if(request:get-parameter('sort-element', '') != ('','relevance')) then 
+        if(request:get-parameter('sort-element', '') != '' and request:get-parameter('sort-element', '') != 'relevance') then 
             for $hit in util:eval($eval-string)
             order by global:build-sort-string(data:add-sort-options($hit, request:get-parameter('sort-element', '')),'')
-            return $hit/ancestor-or-self::tei:TEI
+            return root($hit)
+        else if($sort-element != '' and $sort-element != 'relevance') then  
+            for $hit in util:eval($eval-string)
+            order by global:build-sort-string(data:add-sort-options($hit, $sort-element),'')
+            return root($hit)
         else 
             for $hit in util:eval($eval-string)
             order by ft:score($hit) descending
-            return $hit/ancestor-or-self::tei:TEI 
+            return root($hit) 
 };
 
 (:~   
