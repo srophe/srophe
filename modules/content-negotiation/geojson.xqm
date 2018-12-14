@@ -64,7 +64,7 @@ let $type := if($node/descendant::tei:relationType != '') then
               else if($node/descendant::tei:place/@type) then 
                 string($node/descendant::tei:place/@type)
               else ()   
-let $coords := $node/descendant::tei:geo[1]
+let $coords := if($node/descendant::tei:location[@subtype = 'preferred']) then $node/descendant::tei:location[@subtype = 'preferred']/tei:geo else $node/descendant::tei:geo[1]
 return 
     <json:value>
         {(if(count($count) = 1) then attribute {xs:QName("json:array")} {'true'} else())}

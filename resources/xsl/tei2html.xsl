@@ -345,8 +345,7 @@
                     <ul class="unstyled offset1">
                         <li>
                             <xsl:value-of select="concat('Lat. ',tokenize(t:geo,' ')[1],'°')"/>
-                        </li>
-                        <li>
+                            <xsl:text> </xsl:text>
                             <xsl:value-of select="concat('Long. ',tokenize(t:geo,' ')[2],'°')"/>
                             <xsl:sequence select="local:add-footnotes(@source,.)"/>
                         </li>
