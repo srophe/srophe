@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
@@ -75,8 +74,41 @@
     <xsl:param name="nav-base" select="'/exist/apps/srophe'"/>
     <!-- Base URI for identifiers in app data -->
     <xsl:param name="base-uri" select="'http://syriaca.org'"/>
+    <!-- Add a collection parameter to make it possible to switch XSLT stylesheets, or views via collections -->
+    <xsl:param name="collection"/>
     <!-- Hard coded values-->
     <xsl:param name="normalization">NFKC</xsl:param>
+    <!-- Repo-config -->
+    <xsl:variable name="config">
+        <xsl:if test="doc-available(concat('xmldb:exist://',$app-root,'/repo-config.xml'))">
+            <xsl:sequence select="doc(concat('xmldb:exist://',$app-root,'/repo-config.xml'))"/>
+        </xsl:if>
+    </xsl:variable>  
+    <!-- Repository Title -->
+    <xsl:variable name="repository-title">
+        <xsl:choose>
+            <xsl:when test="not(empty($config))">
+                <xsl:value-of select="$config//*:title[1]"/>
+            </xsl:when>
+            <xsl:otherwise>The Srophé Application</xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="collection-title">
+        <xsl:choose>
+            <xsl:when test="not(empty($config))">
+                <xsl:choose>
+                    <xsl:when test="$config//*:collection[@name=$collection]">
+                        <xsl:value-of select="$config//*:collection[@name=$collection]/@title"/>
+                    </xsl:when>
+                    <xsl:when test="$config//*:collection[@title=$collection]">
+                        <xsl:value-of select="$config//*:collection[@title=$collection]/@title"></xsl:value-of>
+                    </xsl:when>
+                    <xsl:otherwise><xsl:value-of select="$repository-title"/></xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise><xsl:value-of select="$repository-title"/></xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <!-- Resource id -->
     <xsl:variable name="resource-id">
         <xsl:choose>
