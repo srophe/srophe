@@ -1199,7 +1199,7 @@
                 <img src="{$nav-base}/resources/images/zotero.png" alt="Link to Zotero Bibliographic Record" height="18px"/>
             </xsl:when>
             <xsl:when test="starts-with($ref,$base-uri)">
-                <img src="{$nav-base}/resources/images/icons-syriaca-sm.png" alt="Link to Syriaca.org Bibliographic Record" height="18px"/>
+                <img src="{$nav-base}/resources/images/icons-syriaca-sm.png" alt="{concat('Link to ',$repository-title,' Bibliographic Record.')}" height="18px"/>
             </xsl:when>
             <!-- glyphicon glyphicon-book -->
             <xsl:when test="contains($ref,'worldcat.org/')">
