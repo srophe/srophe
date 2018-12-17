@@ -115,7 +115,7 @@ function app:google-analytics($node as node(), $model as map(*)){
  : Used by templating module, defaults to tei:body if no nodes are passed. 
  : @param $paths comma separated list of xpaths for display. Passed from html page  
 :)
-declare function app:display-nodes($node as node(), $model as map(*), $paths as xs:string?){
+declare function app:display-nodes($node as node(), $model as map(*), $paths as xs:string?, $collection as xs:string?){
     let $record := $model("hits")
     let $nodes := if($paths != '') then 
                     for $p in $paths
@@ -123,7 +123,7 @@ declare function app:display-nodes($node as node(), $model as map(*), $paths as 
                   else $record/descendant::tei:text
     return 
         if($config:get-config//repo:html-render/@type='xslt') then
-            global:tei2html($nodes)
+            global:tei2html($nodes, $collection)
         else tei2html:tei2html($nodes)
 }; 
 

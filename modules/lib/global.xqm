@@ -26,6 +26,34 @@ declare function global:tei2html($nodes as node()*) {
 };
 
 (:~
+ : Transform tei to html via xslt
+ : @param $node data passed to transform
+ : @collection pass collection variable to enable styling based on collection values. 
+:)
+declare function global:tei2html($nodes as node()*, $collection as xs:string?) {
+if($config:get-config//repo:collection[@name=$collection]/@xslt != '') then
+  transform:transform($nodes, doc($config:app-root || string($config:get-config//repo:collection[@name=$collection]/@xslt)), 
+    <parameters>
+        <param name="data-root" value="{$config:data-root}"/>
+        <param name="app-root" value="{$config:app-root}"/>
+        <param name="nav-base" value="{$config:nav-base}"/>
+        <param name="base-uri" value="{$config:base-uri}"/>
+        <param name="base-uri" value="{$collection}"/>
+    </parameters>
+    )      
+else 
+  transform:transform($nodes, doc($config:app-root || '/resources/xsl/tei2html.xsl'), 
+    <parameters>
+        <param name="data-root" value="{$config:data-root}"/>
+        <param name="app-root" value="{$config:app-root}"/>
+        <param name="nav-base" value="{$config:nav-base}"/>
+        <param name="base-uri" value="{$config:base-uri}"/>
+        <param name="base-uri" value="{$collection}"/>
+    </parameters>
+    )
+};
+
+(:~
  : Configure dropdown menu for keyboard layouts for input boxes
  : Options are defined in repo-config.xml
  : @param $input-id input id used by javascript to select correct keyboard layout.  
