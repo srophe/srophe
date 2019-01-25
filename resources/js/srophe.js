@@ -104,4 +104,12 @@ clipboard.on('error', function(e) {
     console.error('Action:', e.action);
     console.error('Trigger:', e.trigger);
 });
+
+//add active class to browse tabs
+var params = window.location.search;
+if(params !== 'undefined' && params !== ''){
+    $('.nav-tabs a[href*="' + params + '"]').parents('li').addClass('active');
+} else {
+    $('.nav-tabs li').first().addClass('active');
+}
 });
