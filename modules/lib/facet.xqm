@@ -276,7 +276,7 @@ return
                     if($facet:fq) then concat('fq=',$facet:fq,$facet-query)
                     else concat('fq=',normalize-space($facet-query))
                 let $active := if(contains($facet:fq,concat(';fq-',string($f/@name),':',string($key/@value)))) then 'active' else ()    
-                return <a href="?{$new-fq}{facet:url-params()}" class="facet-label {$active}">{string($key/@label)} <span class="count"> ({string($key/@count)})</span></a> 
+                return <a href="?{$new-fq}{facet:url-params()}" class="facet-label {$active}">{string($key/@label)} <span class="count" dir="ltr"> ({string($key/@count)})</span></a> 
                 }
             </div>
             <div class="facet-list collapse" id="{concat('show',replace(string($f/@name),' ',''))}">{
@@ -285,7 +285,7 @@ return
                 let $new-fq := 
                     if($facet:fq) then concat('fq=',$facet:fq,$facet-query)
                     else concat('fq=',$facet-query)
-                return <a href="?{$new-fq}{facet:url-params()}" class="facet-label">{string($key/@label)} <span class="count"> ({string($key/@count)})</span></a>
+                return <a href="?{$new-fq}{facet:url-params()}" class="facet-label">{string($key/@label)} <span class="count" dir="ltr"> ({string($key/@count)})</span></a>
                 }
             </div>
             {if($count gt ($f/@show - 1)) then 

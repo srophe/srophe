@@ -34,8 +34,14 @@ let $endDate :=
                 if(request:get-parameter('endDate', '') != '') then  
                      request:get-parameter('endDate', '')
                 else() 
-return                 
-    if(not(empty($startDate)) and not(empty($endDate))) then 
+return   
+    if(not(empty($startDate)) and not(empty($endDate))) then
+        if($mode != '') then 
+            concat('[descendant::',$mode,'[
+            (@from gt "', $startDate,'" and @from lt "', $endDate,'") and
+            (@to gt "', $startDate,'" and @to lt "', $endDate,'")
+            ]]')
+        else
            concat('[descendant::tei:state[@type="existence"][
             (@from gt "', $startDate,'" and @from lt "', $endDate,'") and
             (@to gt "', $startDate,'" and @to lt "', $endDate,'")

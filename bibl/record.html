@@ -1,0 +1,72 @@
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/bibl.html" data-template-at="content">
+    <div class="main-content-block record">
+        <!-- Page title and resource links: Includes h1, link icons, and item URI -->
+        <div class="interior-content white">
+            <div data-template="app:h1"/>
+            <div class="row">
+                <div class="col-md-8 column1">
+                    <div data-template="app:display-nodes" data-template-paths="/descendant::tei:body"/>
+                </div>
+                <!-- Column 2 -->
+                <div class="col-md-4 column2">
+                    <div data-template="app:rec-status"/>
+                    <div class="info-btns">  
+                        <!-- Button trigger corrections email modal -->
+                        <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button> 
+                        <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">
+                            Is this record complete?
+                        </a>
+                    </div>
+                    <div data-template="app:cited"/>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div data-template="app:display-nodes" data-template-paths="descendant::tei:teiHeader"/>
+    </div>
+    <!-- Modal email form-->
+    <div data-template="app:contact-form" data-template-collection="bibl"/>
+    <!-- Modal faq popup -->
+    <div class="modal fade" id="selection" tabindex="-1" role="dialog" aria-labelledby="selectionLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true"> x </span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h2 class="modal-title" id="selectionLabel">Is this record complete?</h2>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div id="recComplete" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn" href="../documentation/faq.html" aria-hidden="true">See all FAQs</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="moreInfo" tabindex="-1" role="dialog" aria-labelledby="moreInfoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">x</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h2 class="modal-title" id="moreInfoLabel"/>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <div id="moreInfo-box"/>
+                    <br style="clear:both;"/>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

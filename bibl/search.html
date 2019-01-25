@@ -1,0 +1,29 @@
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/bibl.html" data-template-at="content">
+    <div class="main-content-block">
+        <h1 class="search-header">Advanced Search</h1>
+        <!-- <form data-template="search:search-form" data-template-collection="OPTIONAL: COLLECTION NAME"/>--> 
+        <form data-template="search:search-form" data-template-collection="bibl"/>
+        <div data-template="search:search-data" data-template-collection="bibl" id="search-results-panel">   
+            <div class="container padding-top">
+                <br/>
+                <div data-template="app:pageination" data-template-collection="bibl" data-template-search-string="yes" data-template-sort-options="title,author,pubDate,pubPlace"/>
+                <div class="row">
+                    <div class="col-md-4 facet-display">
+                        <div class="slider-container">
+                            <div id="slider" data-template="app:display-slider" data-template-date-element="descendant::tei:imprint[1]/tei:date"/>
+                        </div>
+                        <div data-template="app:display-facets" data-template-collection="bibl"/>
+                    </div>
+                    <div class="col-md-8">
+                        <div data-template="app:display-map" data-template-collection="bibl"/>
+                        <div data-template="search:show-hits" data-template-collection="bibl"/>
+                        <div class="page-bottom">
+                            <div data-template="app:pageination" data-template-collection="bibl"/>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+            </div>
+        </div>
+    </div>
+</div>

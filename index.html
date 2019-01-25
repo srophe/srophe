@@ -1,6 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
-    <xi:include href="banner.html"/>
+    <div class="image-banner">
+    <span class="img-credit">
+        <label>Photo Credit:</label> ©2016 Michelle Bukowski 
+        <button class="btn btn-link white-link" data-toggle="collapse" data-target="#img-rights">
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"/>
+        </button>
+        <div id="img-rights" class="collapse">
+            Licensed under a Creative Commons Attribution 4.0 International License.
+        </div>
+    </span>
+</div>
     <div class="container top-padding">
         <h1>About the Application</h1>
         <div class="row">
@@ -13,6 +22,13 @@
                     The software features multilingual browse and search options, faceted search and browse, maps, 
                     RDF integration and more. 
                 </p>
+                <p>
+                    <a href="https://github.com/srophe/srophe/wiki">Read the documentation.</a>
+                </p>
+                <hr/>
+                
+            </div>
+            <div class="col-md-4">
                 <h4>Features of the application:</h4>
                 <ul>
                     <li>Browse</li>
@@ -38,10 +54,6 @@
                 <p>
                     <a href="https://github.com/srophe/srophe/wiki">Read the documentation.</a>
                 </p>
-            </div>
-            <div class="col-md-4">
-                <h4>Application Info</h4>
-                <div data-template="config:app-info"/>
             </div>
         </div>
     </div>

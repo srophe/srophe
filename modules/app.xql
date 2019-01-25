@@ -17,6 +17,7 @@ import module namespace global="http://syriaca.org/srophe/global" at "lib/global
 import module namespace maps="http://syriaca.org/srophe/maps" at "lib/maps.xqm";
 import module namespace page="http://syriaca.org/srophe/page" at "lib/paging.xqm";
 import module namespace rel="http://syriaca.org/srophe/related" at "lib/get-related.xqm";
+import module namespace slider = "http://syriaca.org/srophe/slider" at "lib/date-slider.xqm";
 import module namespace teiDocs="http://syriaca.org/srophe/teiDocs" at "teiDocs/teiDocs.xqm";
 import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "content-negotiation/tei2html.xqm";
 
@@ -67,7 +68,7 @@ declare function app:get-work($node as node(), $model as map(*)) {
 declare %templates:wrap function app:record-title($node as node(), $model as map(*), $collection as xs:string?){
     if(request:get-parameter('id', '')) then
        if(contains($model("hits")/descendant::tei:titleStmt[1]/tei:title[1]/text(),' — ')) then
-            substring-before($model("data")/descendant::tei:titleStmt[1]/tei:title[1],' — ')
+            substring-before($model("hits")/descendant::tei:titleStmt[1]/tei:title[1],' — ')
        else $model("hits")/descendant::tei:titleStmt[1]/tei:title[1]/text()
     else if($collection != '') then
         string(config:collection-vars($collection)/@title)
@@ -88,9 +89,9 @@ declare function app:metadata($node as node(), $model as map(*)) {
     <link type="text/plain" href="id.nt" rel="alternate"/>
     <link type="application/json+ld" href="id.jsonld" rel="alternate"/>
     :)
-    <meta name="DC.title " property="dc.title " content="{$model("data")/ancestor::tei:TEI/descendant::tei:title[1]/text()}"/>,
-    if($model("data")/ancestor::tei:TEI/descendant::tei:desc or $model("data")/ancestor::tei:TEI/descendant::tei:note[@type="abstract"]) then 
-        <meta name="DC.description " property="dc.description " content="{$model("data")/ancestor::tei:TEI/descendant::tei:desc[1]/text() | $model("data")/ancestor::tei:TEI/descendant::tei:note[@type="abstract"]}"/>
+    <meta name="DC.title " property="dc.title " content="{$model("hits")/ancestor::tei:TEI/descendant::tei:title[1]/text()}"/>,
+    if($model("hits")/ancestor::tei:TEI/descendant::tei:desc or $model("hits")/ancestor::tei:TEI/descendant::tei:note[@type="abstract"]) then 
+        <meta name="DC.description " property="dc.description " content="{$model("hits")/ancestor::tei:TEI/descendant::tei:desc[1]/text() | $model("hits")/ancestor::tei:TEI/descendant::tei:note[@type="abstract"]}"/>
     else (),
     <link xmlns="http://www.w3.org/1999/xhtml" type="text/html" href="{request:get-parameter('id', '')}.html" rel="alternate"/>,
     <link xmlns="http://www.w3.org/1999/xhtml" type="text/xml" href="{request:get-parameter('id', '')}/tei" rel="alternate"/>,
@@ -134,10 +135,10 @@ declare function app:display-nodes($node as node(), $model as map(*), $paths as 
 declare function app:h1($node as node(), $model as map(*)){
  global:tei2html(
  <srophe-title xmlns="http://www.tei-c.org/ns/1.0">{(
-    if($model("data")/descendant::*[@syriaca-tags='#syriaca-headword']) then
-        $model("data")/descendant::*[@syriaca-tags='#syriaca-headword']
-    else $model("data")/descendant::tei:titleStmt[1]/tei:title[1], 
-    $model("data")/descendant::tei:idno[1]
+    if($model("hits")/descendant::*[@syriaca-tags='#syriaca-headword']) then
+        $model("hits")/descendant::*[@syriaca-tags='#syriaca-headword']
+    else $model("hits")/descendant::tei:titleStmt[1]/tei:title[1], 
+    $model("hits")/descendant::tei:idno[1]
     )}
  </srophe-title>)
 }; 
@@ -147,7 +148,7 @@ declare function app:h1($node as node(), $model as map(*)){
  : to replace app-link
  :)
 declare %templates:wrap function app:other-data-formats($node as node(), $model as map(*), $formats as xs:string?){
-let $id := (:replace($model("data")/descendant::tei:idno[contains(., $config:base-uri)][1],'/tei',''):)request:get-parameter('id', '')
+let $id := (:replace($model("hits")/descendant::tei:idno[contains(., $config:base-uri)][1],'/tei',''):)request:get-parameter('id', '')
 return 
     if($formats) then
         <div class="container" style="width:100%;clear:both;margin-bottom:1em; text-align:right;">
@@ -155,7 +156,7 @@ return
                 for $f in tokenize($formats,',')
                 return 
                     if($f = 'geojson') then
-                        if($model("data")/descendant::tei:location/tei:geo) then 
+                        if($model("hits")/descendant::tei:location/tei:geo) then 
                             (<a href="{concat(replace($id,$config:base-uri,$config:nav-base),'.geojson')}" class="btn btn-default btn-xs" id="teiBtn" data-toggle="tooltip" title="Click to view the GeoJSON data for this record." >
                                  <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> GeoJSON
                             </a>, '&#160;')
@@ -165,7 +166,7 @@ return
                              <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> JSON-LD
                         </a>, '&#160;') 
                     else if($f = 'kml') then
-                        if($model("data")/descendant::tei:location/tei:geo) then
+                        if($model("hits")/descendant::tei:location/tei:geo) then
                             (<a href="{concat(replace($id,$config:base-uri,$config:nav-base),'.kml')}" class="btn btn-default btn-xs" id="teiBtn" data-toggle="tooltip" title="Click to view the KML data for this record." >
                              <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> KML
                             </a>, '&#160;')
@@ -293,6 +294,32 @@ declare function app:display-facets($node as node(), $model as map(*), $collecti
         else ()
 };
 
+(: Show date slider used with search/browse tools :)
+declare function app:display-slider($node as node(), $model as map(*), $collection as xs:string*, $date-element as xs:string?){
+    slider:browse-date-slider($model("hits"),$date-element)
+};
+
+
+(:~
+ : bibl module relationships
+:)                   
+declare function app:cited($node as node(), $model as map(*)){
+    (:rel:cited($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')], request:get-parameter('start', 1),request:get-parameter('perpage', 5)):)
+    if($model("hits")//tei:relation[@ref='dcterms:references']) then
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">Cited Manuscripts</h3></div>
+            <div class="panel-body">
+                {
+                    for $cited in $model("hits")//tei:relation[@ref='dcterms:references']
+                    return 
+                        <span class="related-subject">{$cited/tei:desc/tei:msDesc/string-join(tei:msIdentifier/*, ", ")}&#160;
+                        <a href='../search.html?mss="{$cited/tei:desc/tei:msDesc/string-join(tei:msIdentifier/*, ", ")}"'>
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></span>
+                }
+            </div>
+        </div>
+  else ()
+};
 (:~
  : Generic contact form can be added to any page by calling:
  : <div data-template="app:contact-form"/>

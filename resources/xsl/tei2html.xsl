@@ -101,7 +101,7 @@
                         <xsl:value-of select="$config//*:collection[@name=$collection]/@title"/>
                     </xsl:when>
                     <xsl:when test="$config//*:collection[@title=$collection]">
-                        <xsl:value-of select="$config//*:collection[@title=$collection]/@title"></xsl:value-of>
+                        <xsl:value-of select="$config//*:collection[@title=$collection]/@title"/>
                     </xsl:when>
                     <xsl:otherwise><xsl:value-of select="$repository-title"/></xsl:otherwise>
                 </xsl:choose>
@@ -344,6 +344,26 @@
                 <a class="togglelink pull-right btn-link" data-toggle="collapse" data-target="#showcit" data-text-swap="Hide citation">Show full citation information...</a>
             </div>
         </div>
+    </xsl:template>
+    
+    <!-- E -->
+    <xsl:template match="t:event">
+        <xsl:choose>
+            <xsl:when test="t:p">
+                    <p class="tei:event">
+                        <xsl:sequence select="local:attributes(.)"/>
+                        <xsl:for-each select="t:p">
+                            <xsl:call-template name="rend"/>                            
+                        </xsl:for-each>
+                        <xsl:sequence select="local:add-footnotes(@source,@xml:lang)"/>
+                    </p>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="local:attributes(.)"/>
+                <xsl:call-template name="rend"/>
+                <xsl:sequence select="local:add-footnotes(@source,@xml:lang)"/>
+            </xsl:otherwise>    
+        </xsl:choose>
     </xsl:template>
     
     <!-- L -->

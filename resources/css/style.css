@@ -27,8 +27,8 @@
     border-bottom:4px solid #456889;
 }
 .banner-container {display:inline-block; line-height:2.5em;}
-.banner-text {color: #888; display:inline-block; margin-top:-.95em; vertical-align: middle; letter-spacing: -1px; font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}
-.banner-icon img{height:40px; overflow:hidden; padding-left: 1em; vertical-align: middle; margin:-.25em .5em 0 .5em; padding:0;}
+.banner-text {color: #888; display:inline-block; letter-spacing: -1px; font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}
+.banner-icon img{height:50px; overflow:hidden; padding-left: 1em; vertical-align: middle; margin:-.25em .5em 0 .5em; padding:0;}
 body {font-family: arial, sans-serif; background-color:white;}
 /* browse menus*/
 .browse-alpha {border-bottom:1px solid #ccc; padding:.5em 1em; margin:1em 0; text-align: justify;}
@@ -158,7 +158,7 @@ img{ margin:0px }
 /* N */
 /* Navbar styles*/
 .navbar {padding:0 2em; border-bottom:4px solid #456889 !important;}
-.navbar .dropdown {margin-top:.5em;}
+.navbar .dropdown {margin-top:.65em; margin-left: 1.5em;}
 .navbar {border-bottom:4px solid #456889 !important;}
 .navbar-inner {border-bottom:.5em solid #456889 !important;}
 .navbar-inner .container{height: 45px !important; padding-top:.5em; margin-left:.5em;}
@@ -309,6 +309,7 @@ pre {
     outline: 0 none;
     color:white;
 }
+.well-white {background-color:white;}
 
 /* Special styles for small screens */
 @media screen and (max-width: 480px) {

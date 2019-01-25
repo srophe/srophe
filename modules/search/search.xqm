@@ -19,6 +19,9 @@ import module namespace page="http://syriaca.org/srophe/page" at "../lib/paging.
 import module namespace slider = "http://syriaca.org/srophe/slider" at "../lib/date-slider.xqm";
 import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
 
+(: Syriaca.org search modules :)
+import module namespace bibls="http://syriaca.org/srophe/bibls" at "bibl-search.xqm";
+
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 (: Variables:)
@@ -33,7 +36,9 @@ declare variable $search:perpage {request:get-parameter('perpage', 20) cast as x
  : Search results stored in map for use by other HTML display functions
 :)
 declare %templates:wrap function search:search-data($node as node(), $model as map(*), $collection as xs:string?, $sort-element as xs:string?){
-    let $queryExpr := search:query-string($collection)                        
+    let $queryExpr := if($collection = 'bibl') then
+                            bibls:query-string()
+                      else search:query-string($collection)                        
     let $hits := if($queryExpr != '') then 
                      data:search($collection, $queryExpr, $sort-element)
                  else data:search($collection, '', $sort-element)
@@ -65,12 +70,12 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                      {tei2html:summary-view($hit, '', $id)}
                      {
                         if($kwic//exist:match) then 
-                            tei2html:output-kwic($kwic, $id)
+                           tei2html:output-kwic($kwic, $id)
                         else ()
                      }
                  </div>
              </div>   
-   }  
+  }  
 </div>
 };
 
@@ -87,8 +92,9 @@ else
         if($collection != '') then concat($config:app-root, '/', string(config:collection-vars($collection)/@app-root),'/','search-config.xml')
         else concat($config:app-root, '/','search-config.xml')
     return 
-        if(doc-available($search-config)) then 
-            search:build-form($search-config) 
+        if($collection ='bibl') then <div>{bibls:search-form()}</div>
+        else if(doc-available($search-config)) then 
+            search:build-form($search-config)             
         else search:default-search-form()
 };
 
