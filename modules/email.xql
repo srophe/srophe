@@ -65,7 +65,7 @@ return
     <mail>
     <from>{$config:app-title} &#160;{$from}</from>
     {local:email-list()}
-    <subject>{request:get-parameter('subject','')}&#160; {$rec-uri}</subject>
+    <subject>{request:get-parameter('subject','')}</subject>
     <message>
       <xhtml>
            <html xmlns="http://www.w3.org/1999/xhtml">
@@ -85,10 +85,44 @@ return
   </mail>
 };
 
+declare function local:spam(){
+    <mail>
+    <from>{$config:app-title} &#160;info@syriaca.org</from>
+    <to>wsalesky@gmail.com</to>
+    <subject>{request:get-parameter('subject','')}</subject>
+    <message>
+      <xhtml>
+           <html xmlns="http://www.w3.org/1999/xhtml">
+               <head>
+                 <title>Possible spam event from Syriaca.org, production site.</title>
+               </head>
+               <body>
+                 <p>This was triggered by a possible spam event. from: {request:get-parameter('email','')}</p>
+                 <p>Name: {request:get-parameter('name','')}</p>
+                 <p>e-mail: {request:get-parameter('email','')}</p>
+                 <p>{request:get-parameter('comments','')}</p>
+              </body>
+           </html>
+      </xhtml>
+    </message>
+  </mail>
+};
+
 let $cache := current-dateTime()
 let $smtp := if($config:get-access-config//*:smtp/text() != '') then $config:get-access-config//*:smtp/text() else ()
+let $timediff := (util:system-time() - xs:time(request:get-parameter('formLoaded',''))) div xs:dayTimeDuration("PT1S") 
 return 
-    if(exists(request:get-parameter('email','')) and request:get-parameter('email','') != '')  then 
+    if(exists(request:get-parameter('url','')) and request:get-parameter('url','') != '')  then 
+            if(mail:send-email(local:spam(),$smtp, ()) ) then
+                <h4>Thank you. Your message has been sent. t1</h4>
+            else 
+                <h4>Could not send message.</h4>
+    else if($timediff lt 10) then
+            if(mail:send-email(local:spam(),$smtp, ()) ) then
+                <h4>Thank you. Your message has been sent. t1</h4>
+            else 
+                <h4>Could not send message.</h4>
+    else if(exists(request:get-parameter('email','')) and request:get-parameter('email','') != '')  then 
         if(exists(request:get-parameter('comments','')) and request:get-parameter('comments','') != '') then 
           if($secret-key != '') then
                 if(local:recaptcha() = true()) then 
