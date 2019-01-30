@@ -48,7 +48,9 @@ function app:logo($node as node(), $model as map(*)) {
  : @param $node the HTML node with the attribute which triggered this call
  : @param $model a map containing arbitrary data - used to pass information between template calls
  :)
-declare function app:get-work($node as node(), $model as map(*)) {
+declare 
+    %templates:wrap
+function app:get-work($node as node(), $model as map(*)) {
     if(request:get-parameter('id', '') != '' or request:get-parameter('doc', '') != '') then
         let $rec := data:get-document()
         return 
