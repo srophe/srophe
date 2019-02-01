@@ -2,15 +2,18 @@
     <div data-template="app:fix-links" class="record">
         <div class="interior-content">
             <div data-template="app:h1"/>
-            <div data-template="app:other-data-formats" data-template-formats="print,tei,rdf,ttl,json,text"/>
+            <div data-template="app:other-data-formats" data-template-formats="print,tei,rdf,geojson,text"/>
             <div class="row">
                 <div class="col-md-7 col-lg-8">
                     <div data-template="app:display-nodes" data-template-paths="descendant::tei:text"/>
                 </div>
                 <div class="col-md-5 col-lg-4 right-menu">
                     <div data-template="app:display-map"/>
+                    <br/>
                     <div data-template="app:display-timeline"/>
+                    <br/>
                     <div data-template="app:internal-relationships" data-template-display="list-description"/>
+                    <br/>
                     <!--<div data-template="app:internal-relationships" data-template-display="sentence"/>--> 
                     <div data-template="app:external-relationships"/>
                     <!-- Button trigger corrections email modal -->

@@ -18,6 +18,7 @@ import module namespace maps="http://syriaca.org/srophe/maps" at "lib/maps.xqm";
 import module namespace page="http://syriaca.org/srophe/page" at "lib/paging.xqm";
 import module namespace rel="http://syriaca.org/srophe/related" at "lib/get-related.xqm";
 import module namespace slider = "http://syriaca.org/srophe/slider" at "lib/date-slider.xqm";
+import module namespace timeline = "http://syriaca.org/srophe/timeline" at "lib/timeline.xqm";
 import module namespace teiDocs="http://syriaca.org/srophe/teiDocs" at "teiDocs/teiDocs.xqm";
 import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "content-negotiation/tei2html.xqm";
 
@@ -48,9 +49,7 @@ function app:logo($node as node(), $model as map(*)) {
  : @param $node the HTML node with the attribute which triggered this call
  : @param $model a map containing arbitrary data - used to pass information between template calls
  :)
-declare 
-    %templates:wrap
-function app:get-work($node as node(), $model as map(*)) {
+declare function app:get-work($node as node(), $model as map(*)) {
     if(request:get-parameter('id', '') != '' or request:get-parameter('doc', '') != '') then
         let $rec := data:get-document()
         return 
@@ -269,7 +268,7 @@ declare function app:display-map($node as node(), $model as map(*)){
  :)                 
 declare function app:display-timeline($node as node(), $model as map(*)){
     if($model("hits")/descendant::tei:body/descendant::*[@when or @notBefore or @notAfter]) then
-        <div>Timeline</div>
+        timeline:timeline($model("hits"), 'Timeline')
      else ()
 };
 
