@@ -147,7 +147,7 @@ declare function tei2html:summary-view($nodes as node()*, $lang as xs:string?, $
                 else replace($nodes/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='URL'],'/tei','')
     let $title := if($nodes/descendant-or-self::tei:title[@syriaca-tags='#syriaca-headword'][@xml:lang='en']) then 
                     $nodes/descendant-or-self::tei:title[@syriaca-tags='#syriaca-headword'][@xml:lang='en'][1]/text()
-                  else $nodes/descendant-or-self::tei:title[1]/text()
+                  else tei2html:tei2html($nodes/descendant-or-self::tei:title[1])
     let $series := for $a in distinct-values($nodes/descendant::tei:seriesStmt/tei:biblScope/tei:title)
                    return $a
     return 
