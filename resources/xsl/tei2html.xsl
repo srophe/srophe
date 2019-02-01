@@ -406,6 +406,8 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
+    <!-- Suppress List Relations, Syriaca.org handles these with XQuery functions.  -->
+    <xsl:template match="t:listRelation[parent::*/parent::t:body]"/>
     
     <!-- N -->
     <xsl:template match="t:note">
