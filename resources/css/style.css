@@ -71,6 +71,7 @@ dd {
 	margin-top: 0.5em;
 }
 
+
 /* F */
 footer {border-top:4px solid #456889;}
 footer .poweredby { float: right; margin: 33px 10px 0 0;}
@@ -270,6 +271,8 @@ pre {
 	padding-left: -0.1em;
 	text-indent: -1em;
 }
+.syr-list{padding-right:7em; padding-top:0; text-align: right;}
+
 
 /* T */
 .tab-content {padding-top:.25em;}

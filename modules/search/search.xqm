@@ -46,7 +46,9 @@ declare %templates:wrap function search:search-data($node as node(), $model as m
         map {
                 "hits" := 
                     (: Suppress hits if no query parameters. This can be turned off, to get the full data set on the search pages before adding any search parameters :)
-                    if(exists(request:get-parameter-names())) then $hits else (),
+                    if(exists(request:get-parameter-names())) then $hits 
+                    else if(ends-with(request:get-url(), 'search.html')) then ()
+                    else $hits,
                 "query" := $queryExpr
         } 
 };
