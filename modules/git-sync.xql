@@ -54,6 +54,9 @@ declare variable $exist-collection := $git-config//exist-collection/text();
 (: Github repository :)
 declare variable $repo-name := $git-config//repo-name/text();
 
+(: GitHub Branch :)
+declare variable $branch := $git-config//github-branch/text();
+
 (:~  
  : Recursively creates new collections if necessary  
  : @param $uri url to resource being added to db 
@@ -69,8 +72,9 @@ return
 };
 
 declare function local:get-file-data($file-name, $contents-url){
-let $url := concat($contents-url,'/',$file-name)         
-let $raw-url := concat(replace(replace($contents-url,'https://api.github.com/repos/','https://raw.githubusercontent.com/'),'/contents','/master'),$file-name)            
+let $url := concat($contents-url,'/',$file-name)       
+let $branch := if($branch != '') then concat('/',$branch)  else '/master'
+let $raw-url := concat(replace(replace($contents-url,'https://api.github.com/repos/','https://raw.githubusercontent.com/'),'/contents',$branch),$file-name)            
 return 
         http:send-request(<http:request http-version="1.1" href="{xs:anyURI($raw-url)}" method="get">
                             {if($gitToken != '') then
@@ -204,7 +208,7 @@ declare function local:execute-webhook($post-data){
 if(not(empty($post-data))) then 
     let $payload := util:base64-decode($post-data)
     let $json-data := parse-json($payload)
-    let $branch := if($git-config//github-branch/text() != '') then $git-config//github-branch/text() else 'refs/heads/master'
+    let $branch := if($branch != '') then concat('refs/heads/',$branch) else 'refs/heads/master'
     return
         if($json-data?ref[. = $branch]) then 
              try {
