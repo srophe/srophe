@@ -68,7 +68,7 @@
             <collection name="places" title="The Syriac Gazetteer" app-root="/geo/" data-root="places" record-URI-pattern="http://syriaca.org/place/"/>
             <collection name="persons" title="SBD" app-root="/" data-root="persons" record-URI-pattern="http://syriaca.org/person/"/>
             <collection name="works" title="NHSL" app-root="/" data-root="works" record-URI-pattern="http://syriaca.org/work/"/>
-            <collection name="bibl" title="Works Cited" app-root="/" data-root="bibl" record-URI-pattern="http://syriaca.org/bibl/"/>
+            <collection name="bibl" title="Works Cited" app-root="/bibl/" data-root="bibl" record-URI-pattern="http://syriaca.org/bibl/"/>
         </collections>
     </config>
 </meta>

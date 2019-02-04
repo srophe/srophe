@@ -112,4 +112,5 @@ if(params !== 'undefined' && params !== ''){
 } else {
     $('.nav-tabs li').first().addClass('active');
 }
+
 });
