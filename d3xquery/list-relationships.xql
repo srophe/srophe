@@ -1,6 +1,8 @@
 xquery version "3.0";
 
-import module namespace d3xquery="http://syriaca.org/d3xquery" at "d3xquery.xqm";
+import module namespace d3xquery="http://syriaca.org/srophe/d3xquery" at "d3xquery.xqm";
+import module namespace config="http://syriaca.org/srophe/config" at "../modules/config.xqm";
+
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace json="http://www.json.org";
 
@@ -17,13 +19,7 @@ let $data :=
             if($collectionPath != '') then 
                 collection(string($collectionPath))
             (: Return a single TEI record:)    
-             else if($record != '') then
-                    if(contains($record,'/spear/')) then 
-                        let $rec := collection('/db/apps/srophe-data/data/spear')//tei:div[@uri = $record]
-                        let $teiHeader := $rec/ancestor::tei:TEI//tei:teiHeader
-                        return 
-                            <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{($teiHeader,$rec)}</tei:TEI>
-                    else     
-                        collection('/db/apps/srophe-data/data/')/tei:TEI[.//tei:idno[@type='URI'][. = concat($record,'/tei')]][1] 
-             else collection('/db/apps/srophe-data/data/spear')    
+             else if($record != '') then    
+                collection($config:data-root)/tei:TEI[.//tei:idno[@type='URI'][. = concat($record,'/tei')]][1] 
+             else collection($config:data-root)    
 return d3xquery:list-relationship($data)

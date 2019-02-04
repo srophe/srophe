@@ -1,15 +1,15 @@
 xquery version "3.1";
 
-module namespace d3xquery="http://syriaca.org/d3xquery";
+module namespace d3xquery="http://syriaca.org/srophe/d3xquery";
 import module namespace functx="http://www.functx.com";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace json="http://www.json.org";
 
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
 
-declare function d3xquery:list-relationship($records){
+declare function d3xquery:list-relationship($records as item()*){
     <list>{
-        for $r in distinct-values(for $r in $records//tei:relation return $r/@ref)
+        for $r in distinct-values(for $r in $records//tei:relation return ($r/@ref,$r/@name) )
         return 
             <option label="{if(contains($r,':')) then substring-after($r,':') else $r}" value="{$r}"/>
             }
@@ -22,21 +22,21 @@ declare function d3xquery:get-relationship($records, $relationship, $id){
             if(contains($relationship,'Select relationship') or contains($relationship,'All') or $relationship = '') then true() 
             else false()
     return 
-        if($all-relationships = false()) then
+        if($all-relationships = false()) then 
             if($id != '') then
-                $records//tei:relation[@ref=$relationship][@passive[matches(.,$id)] or 
+               $records//tei:relation[@ref=$relationship or @name=$relationship][@passive[matches(.,$id)] or 
                     @active[matches(.,$id)] or
-                    @mutual[matches(.,$id)]]
-            else $records//tei:relation[@ref=$relationship]
-        else if($id != '') then
-                $records//tei:relation[@passive[matches(.,$id)] or 
+                    @mutual[matches(.,$id)]] 
+            else $records//tei:relation[@ref=$relationship or @name=$relationship] 
+        else if($id != '') then 
+              $records//tei:relation[@passive[matches(.,$id)] or 
                     @active[matches(.,$id)] or
                     @mutual[matches(.,$id)]]
         else $records//tei:relation
 };
 
 (: Output based on d3js requirements for producing an HTML table:)
-declare function d3xquery:format-table($relationships){        
+declare function d3xquery:format-table($relationships as item()*){        
         <root>{
                 (
                 <head>{
