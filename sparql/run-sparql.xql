@@ -2,7 +2,7 @@ xquery version "3.0";
 (:
  : Run modules as needed
 :)
-import module namespace jsonld="http://syriaca.org/jsonld" at "../modules/content-negotiation/jsonld.xqm";
+import module namespace jsonld="http://syriaca.org/srophe/jsonld" at "../modules/content-negotiation/jsonld.xqm";
 import module namespace sprql-queries="http://syriaca.org/sprql-queries" at "sparql.xqm";
 import module namespace sparql-facets="http://syriaca.org/sparql-facets" at "sparql-facets.xqm";
 import module namespace sparql="http://exist-db.org/xquery/sparql" at "java:org.exist.xquery.modules.rdf.SparqlModule";
