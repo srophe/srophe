@@ -9,6 +9,7 @@ import module namespace functx="http://www.functx.com";
 import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
 import module namespace data="http://syriaca.org/srophe/data" at "../lib/data.xqm";
 import module namespace global="http://syriaca.org/srophe/global" at "../lib/global.xqm";
+import module namespace facet="http://expath.org/ns/facet" at "facet.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
@@ -114,7 +115,7 @@ declare function bibls:mss() as xs:string?{
  : Build query string to pass to search.xqm 
 :)
 declare function bibls:query-string() as xs:string? { 
- concat("collection('",$config:data-root,"/bibl/tei')//tei:TEI",
+ concat("collection('",$config:data-root,"/bibl/tei')//tei:TEI",facet:facet-filter(global:facet-definition-file('bibl')),
     data:keyword-search(),
     bibls:title(),
     bibls:author(),
