@@ -4,10 +4,10 @@ xquery version "3.0";
  : 
 :)
 module namespace tei2rdf="http://syriaca.org/srophe/tei2rdf";
-import module namespace bibl2html="http://syriaca.org/srophe/bibl2html" at "bibl2html.xqm";
-import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "tei2html.xqm";
-import module namespace rel="http://syriaca.org/srophe/related" at "../lib/get-related.xqm";
-import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
+import module namespace bibl2html="http://syriaca.org/srophe/bibl2html" at "../modules/content-negotiation/bibl2html.xqm";
+import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "../modules/content-negotiation/tei2html.xqm";
+import module namespace rel="http://syriaca.org/srophe/related" at "../modules/lib/get-related.xqm";
+import module namespace config="http://syriaca.org/srophe/config" at "../modules/config.xqm";
 
 import module namespace functx="http://www.functx.com";
 

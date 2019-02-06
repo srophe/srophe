@@ -221,6 +221,7 @@ declare function search:default-search-form() {
 :)
 declare function search:query-string($collection as xs:string?) as xs:string?{
 let $search-config := concat($config:app-root, '/', string(config:collection-vars($collection)/@app-root),'/','search-config.xml')
+let $collection := string(config:collection-vars($collection)/@data-root)
 return
     if($collection != '') then 
         if(doc-available($search-config)) then 
