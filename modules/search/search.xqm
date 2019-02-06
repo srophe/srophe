@@ -221,7 +221,7 @@ declare function search:default-search-form() {
 :)
 declare function search:query-string($collection as xs:string?) as xs:string?{
 let $search-config := concat($config:app-root, '/', string(config:collection-vars($collection)/@app-root),'/','search-config.xml')
-let $collection := string(config:collection-vars($collection)/@data-root)
+let $collection-data := string(config:collection-vars($collection)/@data-root)
 return
     if($collection != '') then 
         if(doc-available($search-config)) then 
@@ -238,7 +238,7 @@ return
             data:element-search('term',request:get-parameter('term', ''))
           )
         else
-            concat("collection('",$config:data-root,"/",$collection,"')//tei:TEI",facet:facet-filter(global:facet-definition-file($collection)),
+            concat("collection('",$config:data-root,"/",$collection-data,"')//tei:TEI",facet:facet-filter(global:facet-definition-file($collection)),
             facet:facet-filter(global:facet-definition-file($collection)),
             slider:date-filter(()),
             data:keyword-search(),
