@@ -120,41 +120,33 @@
                                     <span class="icon-text">Works Cited</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="$nav-base/d3xquery/index.html">
+                                    <span class="icon-text">Visualize relationships</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
-                </ul>
-                <form class="navbar-form navbar-left navbar-input-group" role="search" action="$nav-base/bibl/search.html" method="get">
-                    <div class="input-group">
-                        <input type="text" class="form-control keyboard" placeholder="search" name="keyword" id="keywordNav"/>
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit" data-toggle="tooltip" title="Search">
-                                <span class="glyphicon glyphicon-search"/>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-                <ul class="nav navbar-nav navbar-right keboard-btn">
+                    <li><a href="$nav-base/search.html" class="nav-text">Advanced Search</a></li>
                     <li>
-                        <div class="btn-nav">
-                            <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font"><b class="caret"/></a>
-                            <ul class="dropdown-menu" id="swap-font">
-                                <li>
-                                    <a href="$nav-base/bibl/search.html">Advanced Search</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="btn-nav navbar-btn">
-                            <span data-template="app:keyboard-select-menu" data-template-input-id="keywordNav"/>
+                        <div id="search-wrapper">
+                            <form class="navbar-form navbar-right search-box" role="search" action="$nav-base/search.html" method="get">
+                                <div class="form-group">
+                                    <input type="text" class="form-control keyboard" placeholder="search" name="keyword" id="keywordNav"/>
+                                    <span data-template="app:keyboard-select-menu" data-template-input-id="keywordNav"/>
+                                    <button class="btn btn-default search-btn" id="searchbtn" type="submit" title="Search">
+                                        <span class="glyphicon glyphicon-search"/>
+                                    </button>                                    
+                                </div>
+                            </form>
                         </div>
                     </li>
                     <li>
                         <div class="btn-nav">
-                            <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
-                                Font <span class="caret"/>
-                            </a>
-                            <ul class="dropdown-menu" id="swap-font">
+                            <button class="btn btn-default navbar-btn" id="font" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                                <span class="glyphicon glyphicon-font"/>
+                            </button>  
+                            <ul class="dropdown-menu dropdown-menu-right" id="swap-font">
                                 <li>
                                     <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
                                 </li>
