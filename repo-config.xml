@@ -10,13 +10,13 @@
         <description>A collaborative research project publishling online reference works concerning the
             culture, history, and literature of Syriac communities from antiquity to the present.</description>
         <!-- Contact email -->
-        <contact>info@syriaca.org</contact>
+        <contact>info@syriaca.app</contact>
         <!-- Logo name (assumes path to logo is $app-root/resources/images/) -->
         <logo>srophe.svg</logo>
         <!-- Web Site URL -->
         <url>http://syriaca.org/</url>
         <!-- Root of app for building dynamic links. Default is eXist app root  /exist/apps/srophe -->
-        <nav-base></nav-base>
+        <nav-base>/exist/apps/srophe</nav-base>
         <!-- eXist app root for app deployment-->
         <app-root>srophe</app-root>
         <!-- eXist data app root for TEI application.  -->
