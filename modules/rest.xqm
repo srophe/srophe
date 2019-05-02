@@ -27,7 +27,7 @@ declare
     %rest:query-param("type", "{$type}", "")
     %rest:query-param("collection", "{$collection}", "")
 function api:coordinates($type as xs:string*, $collection as xs:string*) {
-  api:get-records-with-coordinates($type, $collection)
+  cntneg:content-negotiation-restxq(api:get-records-with-coordinates($type, $collection),'geojson',())
 };
 
 (:
@@ -42,7 +42,7 @@ declare
     %rest:query-param("type", "{$type}", "")
     %rest:query-param("collection", "{$collection}", "")
 function api:kml-coordinates($type as xs:string*, $collection as xs:string*) {
-    api:get-records-with-coordinates($type, $collection)
+    cntneg:content-negotiation-restxq(api:get-records-with-coordinates($type, $collection),'kml',())
 };
 
 (:~
