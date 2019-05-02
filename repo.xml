@@ -2,7 +2,7 @@
 <meta xmlns="http://exist-db.org/xquery/repo">
     <description>A web application built by Syriaca.org for digital publishing of TEI data. </description>
     <author>Syriaca.org</author>
-    <website>http://syriaca.org/</website>
+    <website>https://srophe.app/</website>
     <status>alpha</status>
     <license>GNU-LGPL</license>
     <copyright>true</copyright>

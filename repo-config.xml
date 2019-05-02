@@ -15,7 +15,7 @@
         <logo>srophe.svg</logo>
         <!-- Web Site URL -->
         <url>http://syriaca.org/</url>
-        <!-- Root of app for building dynamic links. Default is eXist app root -->
+        <!-- Root of app for building dynamic links. Default is eXist app root  /exist/apps/srophe -->
         <nav-base></nav-base>
         <!-- eXist app root for app deployment-->
         <app-root>srophe</app-root>
