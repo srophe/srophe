@@ -1415,7 +1415,7 @@
                         </xsl:otherwise>
                     </xsl:choose>
                     -->
-                    <xsl:for-each select="t:bibl">
+                    <xsl:for-each select="t:bibl | t:listBibl">
                         <xsl:sort select="xs:integer(translate(substring-after(@xml:id,'-'),translate(substring-after(@xml:id,'-'), '0123456789', ''), ''))"/>
                         <xsl:apply-templates select="." mode="footnote"/>
                     </xsl:for-each>

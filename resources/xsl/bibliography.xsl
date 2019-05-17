@@ -79,7 +79,7 @@
        </xsl:if>
    </xsl:variable>
    
-   <xsl:template match="t:bibl" mode="footnote">
+    <xsl:template match="t:bibl | t:listBibl" mode="footnote">
         <xsl:param name="footnote-number">-1</xsl:param>
         <xsl:variable name="thisnum">
             <!-- Isolates footnote number in @xml:id-->
@@ -100,10 +100,42 @@
                 <xsl:value-of select="$thisnum"/>
             </span>
             <xsl:text> </xsl:text>
-            <span class="tei-footnote-content">
-                <xsl:call-template name="footnote"/>
-            </span>
+            <xsl:choose>
+                <xsl:when test="self::t:listBibl">
+                    <span class="tei-footnote-content">
+                        <xsl:for-each select="t:bibl">
+                            <xsl:apply-templates select="." mode="listBible"/>
+                            <xsl:if test="position() != last()">; </xsl:if>
+                        </xsl:for-each>
+                    </span>
+                </xsl:when>
+                <xsl:otherwise>
+                    <span class="tei-footnote-content">
+                        <xsl:call-template name="footnote"/>
+                    </span>
+                </xsl:otherwise>
+            </xsl:choose>
         </li>
+    </xsl:template>
+    <!-- listBible shows citations inline seperated by ; See: https://github.com/VandyVRC/tcadrt/issues/35 -->
+    <xsl:template match="t:bibl | t:listBibl" mode="listBible">
+        <xsl:param name="footnote-number">-1</xsl:param>
+        <xsl:variable name="thisnum">
+            <!-- Isolates footnote number in @xml:id-->
+            <xsl:choose>
+                <xsl:when test="$footnote-number='-1'">
+                    <xsl:value-of select="substring-after(@xml:id, '-')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$footnote-number"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <!-- When ptr is available, use full bibl record (indicated by ptr) -->
+        <span>
+            <span id="{@xml:id}"/>
+            <xsl:text> </xsl:text><xsl:call-template name="footnote"/>
+        </span>
     </xsl:template>
 
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
