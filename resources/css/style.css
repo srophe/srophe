@@ -152,6 +152,8 @@ footer .poweredby img { width: 75px; }
     white-space: normal;
     }
 .facet-label.remove {background-color:#eee; color:#666; font-weight:normal; margin:.25em; display:inline-block;}
+.facet-remove {padding-right:6px; margin-right:6px; border-right:1px solid #666; font-weight:normal; color:#666;}
+
 /* G */
 .geo-home {margin-top:4em !important;}
 .geo-home #map {border-bottom:4px solid #456889}
