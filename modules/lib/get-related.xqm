@@ -12,13 +12,11 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace html="http://www.w3.org/1999/xhtml";
 
 declare function rel:get-related($uris as xs:string?) as map(xs:string, function(*)){
-    map:new(
-        for $uri at $i in tokenize($uris,' ')
-        let $data := data:get-document($uri)
-        where not(empty($data))
-        return
-            map:entry($uri,$data), "?strength=primary"
-    )
+    let $map := map{}
+    for $uri at $i in tokenize($uris,' ')
+    let $data := data:get-document($uri)
+    where not(empty($data))
+    return map:put($map, $uri, $data) 
 };
 
 (:~

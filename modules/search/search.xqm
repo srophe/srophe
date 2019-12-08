@@ -33,7 +33,7 @@ declare variable $search:perpage {request:get-parameter('perpage', 20) cast as x
 :)
 
 (:~
- : Search results stored in map for use by other HTML display functions
+ : Search results stored in map for use by other HTML display functions 
 :)
 declare %templates:wrap function search:search-data($node as node(), $model as map(*), $collection as xs:string?, $sort-element as xs:string?){
     let $queryExpr := if($collection = 'bibl') then
@@ -44,12 +44,11 @@ declare %templates:wrap function search:search-data($node as node(), $model as m
                  else data:search($collection, '', $sort-element)
     return
         map {
-                "hits" := 
-                    (: Suppress hits if no query parameters. This can be turned off, to get the full data set on the search pages before adding any search parameters :)
+                "hits" :
                     if(exists(request:get-parameter-names())) then $hits 
                     else if(ends-with(request:get-url(), 'search.html')) then ()
                     else $hits,
-                "query" := $queryExpr
+                "query" : $queryExpr
         } 
 };
 

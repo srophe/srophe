@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <meta xmlns="http://exist-db.org/xquery/repo">
-    <description>A web application built by Syriaca.org for digital publishing of TEI data. </description>
-    <author>Syriaca.org</author>
-    <website>https://srophe.app/</website>
+    <description>The Srophé web application</description>
+    <author/>
+    <author/>
+    <website/>
     <status>alpha</status>
     <license>GNU-LGPL</license>
     <copyright>true</copyright>
@@ -10,5 +11,6 @@
     <target>srophe</target>
     <prepare>pre-install.xql</prepare>
     <finish>post-install.xql</finish>
-<deployed>2018-10-19T11:35:41.497-04:00</deployed>
+
+<deployed>2019-12-05T20:19:27.735-05:00</deployed>
 </meta>

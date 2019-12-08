@@ -26,12 +26,7 @@ declare function local:mkcol-recursive($collection, $components) {
 declare function local:mkcol($collection, $path) {
     local:mkcol-recursive($collection, tokenize($path, "/"))
 };
-(
+
 (: store the collection configuration :)
 local:mkcol("/db/system/config", $target),
-xdb:store-files-from-pattern(concat("/db/system/config", $target), $dir, "*.xconf"),
-
-(: Create SPARQL index :)
-local:mkcol("/db/system/config", "/db/rdftest"), 
-xdb:store-files-from-pattern(concat("/db/system/config", "/db/rdftest"), concat($dir,"/sparql"), "*.xconf")
-)
+xdb:store-files-from-pattern(concat("/db/system/config", $target), $dir, "*.xconf")

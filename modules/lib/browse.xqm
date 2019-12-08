@@ -34,7 +34,7 @@ declare variable $browse:perpage {request:get-parameter('perpage', 25) cast as x
  : @param $facets facet xml file name, relative to collection directory
 :)  
 declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string*, $element as xs:string?, $facets as xs:string?){
-    map{"hits" := data:get-records($collection, $element) }
+    map{"hits" : data:get-records($collection, $element) }
 };
 
 (:

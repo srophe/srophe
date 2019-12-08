@@ -60,20 +60,6 @@ declare function facet:facet-filter($facet-definitions as node()*)  as item()*{
     else  ()  
 };
 
-(:
-if($facet-value != '') then 
-                    if($facet/facet:range) then
-                        if($facet/facet:range/facet:bucket[@name = $facet-value]/@lt and $facet/facet:range/facet:bucket[@name = $facet-value]/@lt != '') then
-                            concat('[',$path,'[string(.) >= "', facet:type($facet/facet:range/facet:bucket[@name = $facet-value]/@gt, $facet/facet:range/facet:bucket[@name = $facet-value]/@type),'" and string(.) <= "',facet:type($facet/facet:range/facet:bucket[@name = $facet-value]/@lt, $facet/facet:range/facet:bucket[@name = $facet-value]/@type),'"]]')                        
-                        else if($facet/facet:range/facet:bucket[@name = $facet-value]/@eq and $facet/facet:range/facet:bucket[@name = $facet-value]/@eq != '') then
-                            concat('[',$path,'[', $facet/facet:range/facet:bucket[@name = $facet-value]/@eq ,']]')
-                        else concat('[',$path,'[string(.) >= "', facet:type($facet/facet:range/facet:bucket[@name = $facet-value]/@gt, $facet/facet:range/facet:bucket[@name = $facet-value]/@type),'" ]]')
-                    else if($facet/facet:group-by[@function="facet:group-by-array"]) then 
-                        concat('[',$path,'[matches(., "',$facet-value,'(\W|$)")]',']')                     
-                    else concat('[',$path,'[normalize-space(.) = "',replace($facet-value,'"','""'),'"]',']')
-                else()
-:)
-
 (:~
  : Adds type casting when type is specified facet:facet:group-by/@type
  : @param $value of xpath
@@ -264,7 +250,7 @@ declare function facet:key($label, $value, $count, $facet-definition){
         else concat('fq=',encode-for-uri(concat(';fq-',$facet-query)))
    return 
         if($count gt 0) then 
-           <a href="?{$new-fq}{facet:url-params()}" class="facet-label btn btn-default {$active}">{if($active) then <span class="glyphicon glyphicon-remove facet-remove"></span> else ()}{global:get-label(string($label))} <span class="count"> ({string($count)})</span> </a>
+           <a href="?{$new-fq}{facet:url-params()}" class="facet-label btn btn-default {$active}">{if($active) then <span class="glyphicon glyphicon-remove facet-remove"></span> else ()}{$label} <span class="count"> ({string($count)})</span> </a>
         else ()        
 };
 

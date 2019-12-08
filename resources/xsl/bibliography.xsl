@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
     <!-- ================================================================== 
@@ -134,7 +135,8 @@
         <!-- When ptr is available, use full bibl record (indicated by ptr) -->
         <span>
             <span id="{@xml:id}"/>
-            <xsl:text> </xsl:text><xsl:call-template name="footnote"/>
+            <xsl:text> </xsl:text>
+            <xsl:call-template name="footnote"/>
         </span>
     </xsl:template>
 
