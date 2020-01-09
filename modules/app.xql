@@ -139,7 +139,7 @@ declare function app:h1($node as node(), $model as map(*)){
     if($model("hits")/descendant::*[@syriaca-tags='#syriaca-headword']) then
         $model("hits")/descendant::*[@syriaca-tags='#syriaca-headword']
     else $model("hits")/descendant::tei:titleStmt[1]/tei:title[1], 
-    $model("hits")/descendant::tei:idno[1]
+    $model("hits")/descendant::tei:publicationStmt/tei:idno[@type="URI"][1]
     )}
  </srophe-title>)
 }; 
@@ -192,7 +192,15 @@ return
                         (<a href="{concat(replace($id,$config:base-uri,$config:nav-base),'.ttl')}" class="btn btn-default btn-xs" id="teiBtn" data-toggle="tooltip" title="Click to view the RDF-Turtle data for this record." >
                              <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> RDF/TTL
                         </a>, '&#160;')
-                   else () 
+                   else if($f = 'citations') then
+                        let $zotero-group := $config:get-config//*:zotero/@group
+                        return 
+                            if($zotero-group != '') then 
+                                (<a href="{concat('https://api.zotero.org/groups/',$zotero-group,'/items/',tokenize($id,'/')[last()])}" class="btn btn-default btn-xs" id="citationsBtn" data-toggle="tooltip" title="Click for additional Citation Styles." >
+                                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Cite
+                                </a>, '&#160;')
+                            else ()
+ else () 
             }
             <br/>
         </div>
@@ -499,7 +507,7 @@ function app:fix-links($node as node(), $model as map(*)) {
 (:~
  : Recurse through menu output absolute urls based on repo-config.xml values.
  : Addapted from https://github.com/eXistSolutions/hsg-shell 
- : @param $nodes html elements containing links with '$app-root'
+ : @param $nodes html elements containing links with '$nav-base'
 :)
 declare %private function app:fix-links($nodes as node()*) {
     for $node in $nodes
