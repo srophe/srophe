@@ -398,7 +398,10 @@
                 </li>
             </xsl:when>
             <xsl:when test=".[@type='gps' and t:geo]">
-                <li>Coordinates: 
+                <li>Coordinates 
+                    <xsl:if test="@subtype != ''">
+                        <xsl:value-of select="concat(' (',@subtype,')')"/>
+                    </xsl:if>: 
                     <ul class="unstyled offset1">
                         <li>
                             <xsl:value-of select="concat('Lat. ',tokenize(t:geo,' ')[1],'°')"/>
