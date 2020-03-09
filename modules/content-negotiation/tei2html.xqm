@@ -188,7 +188,9 @@ declare function tei2html:summary-view($nodes as node()*, $lang as xs:string?, $
 declare function tei2html:summary-view-persons($nodes as node()*, $id as xs:string?) as item()* {
     let $title := if($nodes/descendant-or-self::*[@syriaca-tags='#syriaca-headword'][@xml:lang='en']) then 
                     $nodes/descendant-or-self::*[@syriaca-tags='#syriaca-headword'][@xml:lang='en'][1]
-                  else $nodes/descendant-or-self::tei:title[1]/text()
+                  else if($nodes/descendant-or-self::tei:title[@level='a']) then
+                    $nodes/descendant-or-self::tei:title[1]
+                  else $nodes/descendant-or-self::tei:title[1]
     let $syr-title := 
                 if($nodes/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]) then
                      <span xml:lang="syr" lang="syr" dir="rtl">{string-join($nodes/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]//text(),' ')}</span>
@@ -252,7 +254,9 @@ declare function tei2html:summary-view-persons($nodes as node()*, $id as xs:stri
 declare function tei2html:summary-view-places($nodes as node()*, $id as xs:string?) as item()* {
     let $title := if($nodes/descendant-or-self::*[@syriaca-tags='#syriaca-headword'][@xml:lang='en']) then 
                     $nodes/descendant-or-self::*[@syriaca-tags='#syriaca-headword'][@xml:lang='en'][1]
-                  else $nodes/descendant-or-self::tei:title[1]/text()
+                  else if($nodes/descendant-or-self::tei:title[@level='a']) then
+                    $nodes/descendant-or-self::tei:title[1]
+                  else $nodes/descendant-or-self::tei:title[1]
     let $syr-title := 
                 if($nodes/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]) then
                      <span xml:lang="syr" lang="syr" dir="rtl">{string-join($nodes/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]//text(),' ')}</span>
@@ -304,10 +308,12 @@ declare function tei2html:summary-view-places($nodes as node()*, $id as xs:strin
 declare function tei2html:summary-view-keyword($nodes as node()*, $id as xs:string?) as item()* {
     let $title := if($nodes/descendant-or-self::tei:term[@syriaca-tags='#syriaca-headword'][@xml:lang='en']) then 
                     $nodes/descendant-or-self::tei:term[@syriaca-tags='#syriaca-headword'][@xml:lang='en'][1]/text()
-                  else $nodes/descendant-or-self::tei:term[1]/text()                  
+                  else if($nodes/descendant-or-self::tei:title[@level='a']) then
+                    $nodes/descendant-or-self::tei:title[1]
+                  else $nodes/descendant-or-self::tei:title[1]                  
     return 
         <div class="short-rec-view">
-            <a href="{replace(replace($id,$config:base-uri,$config:nav-base),'/tei','')}" dir="ltr">{$title}</a>
+            <a href="{replace(replace($id,$config:base-uri,$config:nav-base),'/tei','')}" dir="ltr">{tei2html:tei2html($title)}</a>
             <button type="button" class="btn btn-sm btn-default copy-sm clipboard"  
                 data-toggle="tooltip" title="Copies record title &amp; URI to clipboard." 
                 data-clipboard-action="copy" data-clipboard-text="{normalize-space($title)} - {normalize-space($id)}">
@@ -338,12 +344,14 @@ declare function tei2html:summary-view-keyword($nodes as node()*, $id as xs:stri
 declare function tei2html:summary-view-generic($nodes as node()*, $id as xs:string?) as item()* {
     let $title := if($nodes/descendant-or-self::tei:title[@syriaca-tags='#syriaca-headword'][@xml:lang='en']) then 
                     $nodes/descendant-or-self::tei:title[@syriaca-tags='#syriaca-headword'][@xml:lang='en'][1]/text()
-                  else $nodes/descendant-or-self::tei:title[1]/text()
+                  else if($nodes/descendant-or-self::tei:title[@level='a']) then
+                    $nodes/descendant-or-self::tei:title[1]
+                  else $nodes/descendant-or-self::tei:title[1]
     let $series := for $a in distinct-values($nodes/descendant::tei:seriesStmt/tei:biblScope/tei:title)
                    return tei2html:translate-series($a)
     return 
         <div class="short-rec-view">
-            <a href="{replace(replace($id,$config:base-uri,$config:nav-base),'/tei','')}" dir="ltr">{$title}</a>
+            <a href="{replace(replace($id,$config:base-uri,$config:nav-base),'/tei','')}" dir="ltr">{tei2html:tei2html($title)}</a>
             <button type="button" class="btn btn-sm btn-default copy-sm clipboard"  
                 data-toggle="tooltip" title="Copies record title &amp; URI to clipboard." 
                 data-clipboard-action="copy" data-clipboard-text="{normalize-space($title[1])} - {normalize-space($id[1])}">
@@ -375,7 +383,9 @@ declare function tei2html:summary-view-generic($nodes as node()*, $id as xs:stri
 declare function tei2html:summary-view-bibl($nodes as node()*, $id as xs:string?) as item()* {
     let $title := if($nodes/descendant-or-self::tei:title[@syriaca-tags='#syriaca-headword'][@xml:lang='en']) then 
                     $nodes/descendant-or-self::tei:title[@syriaca-tags='#syriaca-headword'][@xml:lang='en'][1]/text()
-                  else $nodes/descendant-or-self::tei:title[1]/text()
+                  else if($nodes/descendant-or-self::tei:title[@level='a']) then
+                    $nodes/descendant-or-self::tei:title[1]
+                  else $nodes/descendant-or-self::tei:title[1]
     let $series := for $a in distinct-values($nodes/descendant::tei:seriesStmt/tei:biblScope/tei:title)
                    return tei2html:translate-series($a)
     return 

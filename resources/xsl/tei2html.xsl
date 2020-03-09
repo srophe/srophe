@@ -120,8 +120,11 @@
             <xsl:when test="string(/*/@id)">
                 <xsl:value-of select="string(/*/@id)"/>
             </xsl:when>
-            <xsl:when test="//t:publicationStmt/t:idno[@type='URI'][starts-with(.,$base-uri)]">
+            <xsl:when test="/descendant::t:publicationStmt/t:idno[@type='URI'][starts-with(.,$base-uri)]">
                 <xsl:value-of select="replace(replace(//t:publicationStmt/t:idno[@type='URI'][starts-with(.,$base-uri)][1],'/tei',''),'/source','')"/>
+            </xsl:when>
+            <xsl:when test="/descendant::t:idno[@type='URI'][starts-with(.,$base-uri)]">
+                <xsl:value-of select="replace(replace(//t:idno[@type='URI'][starts-with(.,$base-uri)][1],'/tei',''),'/source','')"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="concat($base-uri,'/0000')"/>
