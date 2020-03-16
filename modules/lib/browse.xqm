@@ -49,6 +49,10 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
         <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">
             {browse:get-map($hits)}
         </div>
+    else if($browse:view = 'timeline') then 
+        <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">
+            {timeline:timeline($hits, 'Timeline', 'tei:teiHeader/tei:publicationStmt/tei:date')}
+        </div>
     else
         <div class="{if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then 'col-md-8 col-md-push-4' else 'col-md-12'}" xmlns="http://www.w3.org/1999/xhtml">
            {( if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else(),

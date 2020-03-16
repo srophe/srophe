@@ -135,22 +135,24 @@ declare function facet:group-by($results as item()*, $facet-definition as elemen
             let $facets := 
                 for $f in util:eval($path)
                 group by $facet-grp := $f
+                let $label := if($f[self::attribute()]) then $f[1]/parent::*[1]/text() else $facet-grp
                 order by 
-                    if($sort/text() = 'value') then $f[1]
+                    if($sort/text() = 'value') then $label
                     else count($f)
                     ascending
-                return facet:key($facet-grp, $facet-grp, count($f), $facet-definition)
+                return facet:key($label, $facet-grp, count($f), $facet-definition)
             let $count := count($facets)
             return facet:list-keys($facets, $count, $facet-definition) 
         else 
             let $facets := 
                 for $f in util:eval($path)
                 group by $facet-grp := $f
+                let $label := if($f[self::attribute()]) then $f[1]/parent::*[1]/text() else $facet-grp
                 order by 
-                    if($sort/text() = 'value') then $f[1]
+                    if($sort/text() = 'value') then $label
                     else count($f)
                     descending
-                return facet:key($facet-grp, $facet-grp, count($f), $facet-definition)
+                return facet:key($label, $facet-grp, count($f), $facet-definition)
             let $count := count($facets)   
             return facet:list-keys($facets, $count, $facet-definition)
 };
@@ -313,3 +315,4 @@ declare function facet:url-params(){
 };
 
 (: END :)
+

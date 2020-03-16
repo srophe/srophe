@@ -398,7 +398,7 @@ pre {
   border:none;
   flex-grow:2;
   border:none;
-  color:white;  
+/*  color:white;  */
 }
 
 #search-wrapper .form-group {display:flex;}
@@ -450,7 +450,9 @@ pre {
     overflow:visible;
     text-align:center;
     }
+    
 /* TEI styles */
+.tei-desc {display:block;margin:1em;}
 .tei-event {display:block;}
 .tei-footnote-refs, .tei-footnote-tgt {
     font-size: .7em;
@@ -465,6 +467,8 @@ pre {
     padding-right:.5em;    
 }
 
+.tei-quote .tei-placeName {color: #6699cc; font-weight:bold;}
+/*.tei-title > .tei-title {font-style:italic;} */
 .top-padding {margin-top:4.5em !important;}
 
 /* W */
