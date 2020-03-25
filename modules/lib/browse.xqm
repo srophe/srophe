@@ -127,7 +127,7 @@ declare function browse:get-map($hits as node()*){
         let $locations := 
             for $id in $places
             for $geo in collection($config:data-root || '/places/tei')//tei:idno[. = $id][ancestor::tei:TEI[descendant::tei:geo]]
-            let $title := $geo/ancestor::tei:TEI/descendant::*[@syriaca-tags="#syriaca-headword"][1]
+            let $title := $geo/ancestor::tei:TEI/descendant::*[@syriaca-tags="#syriaca-headword"][1] | $geo/ancestor::tei:TEI/descendant::*[@srophe:tags="#headword"][1]
             let $type := string($geo/ancestor::tei:TEI/descendant::tei:place/@type)
             let $geo := $geo/ancestor::tei:TEI/descendant::tei:geo
             return 
