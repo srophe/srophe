@@ -3,11 +3,11 @@ xquery version "3.0";
  : Build Srophe TEI to RDF/XML 
  : 
 :)
-module namespace tei2rdf="http://syriaca.org/srophe/tei2rdf";
-import module namespace bibl2html="http://syriaca.org/srophe/bibl2html" at "bibl2html.xqm";
-import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "tei2html.xqm";
-import module namespace rel="http://syriaca.org/srophe/related" at "../lib/get-related.xqm";
-import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
+module namespace tei2rdf="http://srophe.org/srophe/tei2rdf";
+import module namespace bibl2html="http://srophe.org/srophe/bibl2html" at "bibl2html.xqm";
+import module namespace tei2html="http://srophe.org/srophe/tei2html" at "tei2html.xqm";
+import module namespace rel="http://srophe.org/srophe/related" at "../lib/get-related.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
 
 import module namespace functx="http://www.functx.com";
 

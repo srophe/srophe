@@ -2,7 +2,7 @@ xquery version "3.1";
 (:~  
  : Builds HTML search forms and HTMl search results Srophe Collections and sub-collections   
  :) 
-module namespace search="http://syriaca.org/srophe/search";
+module namespace search="http://srophe.org/srophe/search";
 
 (:eXist templating module:)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
@@ -11,18 +11,20 @@ import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace kwic="http://exist-db.org/xquery/kwic";
 
 (: Import Srophe application modules. :)
-import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
-import module namespace data="http://syriaca.org/srophe/data" at "../lib/data.xqm";
-import module namespace global="http://syriaca.org/srophe/global" at "../lib/global.xqm";
-import module namespace facet="http://expath.org/ns/facet" at "facet.xqm";
-import module namespace page="http://syriaca.org/srophe/page" at "../lib/paging.xqm";
-import module namespace slider = "http://syriaca.org/srophe/slider" at "../lib/date-slider.xqm";
-import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
+import module namespace data="http://srophe.org/srophe/data" at "../lib/data.xqm";
+import module namespace global="http://srophe.org/srophe/global" at "../lib/global.xqm";
+import module namespace facet="http://expath.org/ns/facet" at "../lib/facet.xqm";
+import module namespace sf="http://srophe.org/srophe/facets" at "../lib/facets.xql";
+import module namespace page="http://srophe.org/srophe/page" at "../lib/paging.xqm";
+import module namespace slider = "http://srophe.org/srophe/slider" at "../lib/date-slider.xqm";
+import module namespace tei2html="http://srophe.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
 
 (: Syriaca.org search modules :)
-import module namespace bibls="http://syriaca.org/srophe/bibls" at "bibl-search.xqm";
+import module namespace bibls="http://srophe.org/srophe/bibls" at "bibl-search.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
+(:declare namespace facet="http://expath.org/ns/facet";:)
 
 (: Variables:)
 declare variable $search:start {request:get-parameter('start', 1) cast as xs:integer};
@@ -36,19 +38,17 @@ declare variable $search:perpage {request:get-parameter('perpage', 20) cast as x
  : Search results stored in map for use by other HTML display functions 
 :)
 declare %templates:wrap function search:search-data($node as node(), $model as map(*), $collection as xs:string?, $sort-element as xs:string?){
-    let $queryExpr := if($collection = 'bibl') then
+    (:let $queryExpr := if($collection = 'bibl') then
                             bibls:query-string()
-                      else search:query-string($collection)                        
-    let $hits := if($queryExpr != '') then 
-                     data:search($collection, $queryExpr, $sort-element)
-                 else data:search($collection, '', $sort-element)
+                      else search:query-string($collection)
+    :)                      
+    let $hits := data:search($collection, '', $sort-element)
     return
         map {
                 "hits" :
                     if(exists(request:get-parameter-names())) then $hits 
                     else if(ends-with(request:get-url(), 'search.html')) then ()
-                    else $hits,
-                "query" : $queryExpr
+                    else $hits
         } 
 };
 
@@ -58,35 +58,72 @@ declare %templates:wrap function search:search-data($node as node(), $model as m
 declare 
     %templates:default("start", 1)
 function search:show-hits($node as node()*, $model as map(*), $collection as xs:string?, $kwic as xs:string?) {
-<div class="indent" id="search-results" xmlns="http://www.w3.org/1999/xhtml">
-    {
-            let $hits := $model("hits")
-            for $hit at $p in subsequence($hits, $search:start, $search:perpage)
-            let $id := replace($hit/descendant::tei:idno[1],'/tei','')
-            let $kwic := if($kwic = ('true','yes','true()','kwic')) then kwic:expand($hit) else () 
-            return 
-             <div class="row record" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
-                 <div class="col-md-1" style="margin-right:-1em; padding-top:.25em;">        
-                     <span class="badge" style="margin-right:1em;">{$search:start + $p - 1}</span>
-                 </div>
-                 <div class="col-md-11" style="margin-right:-1em; padding-top:.25em;">
-                     {tei2html:summary-view($hit, '', $id)}
-                     {
-                        if($kwic//exist:match) then 
-                           tei2html:output-kwic($kwic, $id)
-                        else ()
-                     }
-                 </div>
-             </div>   
-  }  
-</div>
+    let $hits := $model("hits")
+    let $facet-config := global:facet-definition-file($collection)
+    return 
+        if(not(empty($facet-config))) then 
+            <div class="row" id="search-results" xmlns="http://www.w3.org/1999/xhtml">
+                <div class="col-md-8 col-md-push-4">
+                    <div class="indent" id="search-results" xmlns="http://www.w3.org/1999/xhtml">{
+                            let $hits := $model("hits")
+                            for $hit at $p in subsequence($hits, $search:start, $search:perpage)
+                            let $id := replace($hit/descendant::tei:idno[1],'/tei','')
+                            let $kwic := if($kwic = ('true','yes','true()','kwic')) then kwic:expand($hit) else () 
+                            return 
+                             <div class="row record" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
+                                 <div class="col-md-1" style="margin-right:-1em; padding-top:.25em;">        
+                                     <span class="badge" style="margin-right:1em;">{$search:start + $p - 1}</span>
+                                 </div>
+                                 <div class="col-md-11" style="margin-right:-1em; padding-top:.25em;">
+                                     {tei2html:summary-view($hit, '', $id)}
+                                     {
+                                        if($kwic//exist:match) then 
+                                           tei2html:output-kwic($kwic, $id)
+                                        else ()
+                                     }
+                                 </div>
+                             </div>   
+                    }</div>
+                </div>
+                <div class="col-md-4 col-md-pull-8">{
+                 let $hits := $model("hits")
+                 let $facet-config := global:facet-definition-file($collection)
+                 return 
+                     if(not(empty($facet-config))) then 
+                         sf:display($model("hits"),$facet-config)
+                     else ()  
+                }</div>
+        </div>
+        else 
+         <div class="indent" id="search-results" xmlns="http://www.w3.org/1999/xhtml">
+         {
+                 let $hits := $model("hits")
+                 for $hit at $p in subsequence($hits, $search:start, $search:perpage)
+                 let $id := replace($hit/descendant::tei:idno[1],'/tei','')
+                 let $kwic := if($kwic = ('true','yes','true()','kwic')) then kwic:expand($hit) else () 
+                 return 
+                  <div class="row record" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
+                      <div class="col-md-1" style="margin-right:-1em; padding-top:.25em;">        
+                          <span class="badge" style="margin-right:1em;">{$search:start + $p - 1}</span>
+                      </div>
+                      <div class="col-md-11" style="margin-right:-1em; padding-top:.25em;">
+                          {tei2html:summary-view($hit, '', $id)}
+                          {
+                             if($kwic//exist:match) then 
+                                tei2html:output-kwic($kwic, $id)
+                             else ()
+                          }
+                      </div>
+                  </div>   
+         }</div>
 };
 
 (:~
  : Build advanced search form using either search-config.xml or the default form search:default-search-form()
  : @param $collection. Optional parameter to limit search by collection. 
  : @note Collections are defined in repo-config.xml
- : @note Additional Search forms can be developed to replace the default search form. 
+ : @note Additional Search forms can be developed to replace the default search form.
+ : @depreciated: do a manual HTML build, add xquery keyboard options 
 :)
 declare function search:search-form($node as node(), $model as map(*), $collection as xs:string?){
 if(exists(request:get-parameter-names())) then ()
@@ -106,7 +143,8 @@ else
  : search-config.xml provides a simple mechinisim for creating custom inputs and XPaths, 
  : For more complicated advanced search options, especially those that require multiple XPath combinations
  : we recommend you add your own customizations to search.xqm
- : @param $search-config a values to use for the default search form and for the XPath search filters. 
+ : @param $search-config a values to use for the default search form and for the XPath search filters.
+ : @depreciated: do a manual HTML build, add xquery keyboard options 
 :)
 declare function search:build-form($search-config) {
     let $config := doc($search-config)
@@ -213,46 +251,4 @@ declare function search:default-search-form() {
             <br class="clearfix"/><br/>
         </div>
     </form>
-};
-
-(:~   
- : Builds general search string from main syriaca.org page and search api.
-:)
-declare function search:query-string($collection as xs:string?) as xs:string?{
-let $search-config := concat($config:app-root, '/', string(config:collection-vars($collection)/@app-root),'/','search-config.xml')
-let $collection-data := string(config:collection-vars($collection)/@data-root)
-return
-    if($collection != '') then 
-        if(doc-available($search-config)) then 
-           concat("collection('",$config:data-root,"/",$collection,"')//tei:TEI",facet:facet-filter(global:facet-definition-file($collection)),slider:date-filter(()),data:dynamic-paths($search-config))
-        else if($collection = 'places') then  
-            concat("collection('",$config:data-root,"')//tei:TEI",
-            facet:facet-filter(global:facet-definition-file($collection)),
-            slider:date-filter(()),
-            data:keyword-search(),
-            data:element-search('placeName',request:get-parameter('placeName', '')),
-            data:element-search('title',request:get-parameter('title', '')),
-            data:element-search('bibl',request:get-parameter('bibl', '')),
-            data:uri(),
-            data:element-search('term',request:get-parameter('term', ''))
-          )
-        else
-            concat("collection('",$config:data-root,"/",$collection-data,"')//tei:TEI",facet:facet-filter(global:facet-definition-file($collection)),
-            facet:facet-filter(global:facet-definition-file($collection)),
-            slider:date-filter(()),
-            data:keyword-search(),
-            data:element-search('placeName',request:get-parameter('placeName', '')),
-            data:element-search('title',request:get-parameter('title', '')),
-            data:element-search('bibl',request:get-parameter('bibl', '')),
-            data:uri()
-          )
-    else concat("collection('",$config:data-root,"')//tei:TEI",
-        facet:facet-filter(global:facet-definition-file($collection)),facet:facet-filter(global:facet-definition-file($collection)),
-        slider:date-filter(()),
-        data:keyword-search(),
-        data:element-search('placeName',request:get-parameter('placeName', '')),
-        data:element-search('title',request:get-parameter('title', '')),
-        data:element-search('bibl',request:get-parameter('bibl', '')),
-        data:uri()
-        )
 };

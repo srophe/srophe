@@ -3,8 +3,8 @@ xquery version "3.1";
  : Define facet expresions to be used by index configuration file to build Lucene facets and fields
  : Replaces facet.xqm model which is too slow.  
 :)
-module namespace facetdef="http://syriaca.org/srophe/facetdef";
-import module namespace global="http://syriaca.org/srophe/global" at "global.xqm";
+module namespace facetdef="http://srophe.org/srophe/facetdef";
+import module namespace global="http://srophe.org/srophe/global" at "global.xqm";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 (:

@@ -1,11 +1,11 @@
 xquery version "3.1";
 
 (: Syriaca.org restxq file. :)
-module namespace api="http://syriaca.org/srophe/api";
+module namespace api="http://srophe.org/srophe/api";
 
 (: Syriaca.org modules :)
-import module namespace data="http://syriaca.org/srophe/data" at "lib/data.xqm";
-import module namespace cntneg="http://syriaca.org/srophe/cntneg" at "content-negotiation/content-negotiation.xqm"; 
+import module namespace data="http://srophe.org/srophe/data" at "lib/data.xqm";
+import module namespace cntneg="http://srophe.org/srophe/cntneg" at "content-negotiation/content-negotiation.xqm"; 
 
 (: Namespaces :)
 declare namespace json="http://www.json.org";

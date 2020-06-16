@@ -1,14 +1,15 @@
 xquery version "3.0";
 (:~
  : Builds search information for spear sub-collection
- : Search string is passed to search.xqm for processing.  
+ : Search string is passed to search.xqm for processing. 
+ : @depreciated 
  :)
-module namespace bibls="http://syriaca.org/srophe/bibls";
+module namespace bibls="http://srophe.org/srophe/bibls";
 import module namespace functx="http://www.functx.com";
 
-import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
-import module namespace data="http://syriaca.org/srophe/data" at "../lib/data.xqm";
-import module namespace global="http://syriaca.org/srophe/global" at "../lib/global.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
+import module namespace data="http://srophe.org/srophe/data" at "../lib/data.xqm";
+import module namespace global="http://srophe.org/srophe/global" at "../lib/global.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "facet.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";

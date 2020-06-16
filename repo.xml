@@ -12,5 +12,6 @@
     <prepare>pre-install.xql</prepare>
     <finish>post-install.xql</finish>
 
-<deployed>2019-12-05T20:19:27.735-05:00</deployed>
+
+<deployed>2020-04-30T11:58:12.259-04:00</deployed>
 </meta>

@@ -16,7 +16,7 @@ xquery version "3.0";
  :
  :)
 
-module namespace slider = "http://syriaca.org/srophe/slider";
+module namespace slider = "http://srophe.org/srophe/slider";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 (:

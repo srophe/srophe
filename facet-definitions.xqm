@@ -4,7 +4,7 @@ xquery version "3.1";
  : Replaces facet.xqm model which is too slow.  
 :)
 
-module namespace facetdef="http://syriaca.org/srophe/facetdef";
+module namespace facetdef="http://srophe.org/srophe/facetdef";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 (:

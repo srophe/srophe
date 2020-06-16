@@ -1,6 +1,6 @@
 xquery version "3.0";
 
-module namespace cntneg="http://syriaca.org/srophe/cntneg";
+module namespace cntneg="http://srophe.org/srophe/cntneg";
 (:~
  : Module for content negotiation based on work done by Steve Baskauf
  : https://github.com/baskaufs/guid-o-matic
@@ -24,15 +24,15 @@ module namespace cntneg="http://syriaca.org/srophe/cntneg";
  : Content serialization modules.
  : Additional modules can be added. 
 :)
-import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
-import module namespace feed="http://syriaca.org/srophe/atom" at "atom.xqm";
-import module namespace geojson="http://syriaca.org/srophe/geojson" at "geojson.xqm";
-import module namespace geokml="http://syriaca.org/srophe/geokml" at "geokml.xqm";
-import module namespace jsonld="http://syriaca.org/srophe/jsonld" at "jsonld.xqm";
-import module namespace tei2rdf="http://syriaca.org/srophe/tei2rdf" at "tei2rdf.xqm";
-import module namespace tei2ttl="http://syriaca.org/srophe/tei2ttl" at "tei2ttl.xqm";
-import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "tei2html.xqm";
-import module namespace tei2txt="http://syriaca.org/srophe/tei2txt" at "tei2txt.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
+import module namespace feed="http://srophe.org/srophe/atom" at "atom.xqm";
+import module namespace geojson="http://srophe.org/srophe/geojson" at "geojson.xqm";
+import module namespace geokml="http://srophe.org/srophe/geokml" at "geokml.xqm";
+import module namespace jsonld="http://srophe.org/srophe/jsonld" at "jsonld.xqm";
+import module namespace tei2rdf="http://srophe.org/srophe/tei2rdf" at "tei2rdf.xqm";
+import module namespace tei2ttl="http://srophe.org/srophe/tei2ttl" at "tei2ttl.xqm";
+import module namespace tei2html="http://srophe.org/srophe/tei2html" at "tei2html.xqm";
+import module namespace tei2txt="http://srophe.org/srophe/tei2txt" at "tei2txt.xqm";
 
 (: These are needed for rending as HTML via existdb templating module, can be removed if not using 
 import module namespace config="http://syriaca.org/config" at "config.xqm";

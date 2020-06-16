@@ -1,6 +1,6 @@
 xquery version "3.0";
 
-module namespace geokml="http://syriaca.org/srophe/geokml";
+module namespace geokml="http://srophe.org/srophe/geokml";
 (:~
  : Module returns coordinates as geoJSON
  : Formats include geoJSON 

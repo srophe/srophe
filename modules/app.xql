@@ -13,6 +13,7 @@ import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://syriaca.org/srophe/config" at "config.xqm";
 import module namespace data="http://syriaca.org/srophe/data" at "lib/data.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "lib/facet.xqm";
+import module namespace sf="http://syriaca.org/srophe/facets" at "lib/facets.xql";
 import module namespace global="http://syriaca.org/srophe/global" at "lib/global.xqm";
 import module namespace maps="http://syriaca.org/srophe/maps" at "lib/maps.xqm";
 import module namespace page="http://syriaca.org/srophe/page" at "lib/paging.xqm";
@@ -27,6 +28,7 @@ import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "conten
 declare namespace http="http://expath.org/ns/http-client";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace html="http://www.w3.org/1999/xhtml";
+declare namespace srophe="https://srophe.app";
 
 (: Global Variables:)
 declare variable $app:start {request:get-parameter('start', 1) cast as xs:integer};
@@ -134,14 +136,12 @@ declare function app:display-nodes($node as node(), $model as map(*), $paths as 
  : Used by templating module, not needed if full record is being displayed 
 :)
 declare function app:h1($node as node(), $model as map(*)){
- global:tei2html(
- <srophe-title xmlns="http://www.tei-c.org/ns/1.0">{(
-    if($model("hits")/descendant::*[@syriaca-tags='#syriaca-headword']) then
-        $model("hits")/descendant::*[@syriaca-tags='#syriaca-headword']
-    else $model("hits")/descendant::tei:titleStmt[1]/tei:title[1], 
-    $model("hits")/descendant::tei:publicationStmt/tei:idno[@type="URI"][1]
-    )}
- </srophe-title>)
+    (<div class="title">
+        <h1><span id="title">{tei2html:tei2html($model("hits")/descendant::tei:titleStmt[1]/tei:title[1])}</span></h1>
+    </div>,
+    if($model("hits")/descendant::tei:publicationStmt/tei:idno[@type='URI']) then
+       tei2html:idno-title-display(replace($model("hits")/descendant::tei:publicationStmt/tei:idno[@type='URI'],'/tei',''))
+    else ())
 }; 
   
 (:~ 
@@ -299,7 +299,8 @@ declare function app:display-facets($node as node(), $model as map(*), $collecti
     let $facet-config := global:facet-definition-file($collection)
     return 
         if(not(empty($facet-config))) then 
-           (facet:output-html-facets($hits, $facet-config/descendant::facet:facets/facet:facet-definition))
+            sf:display($model("hits"),$facet-config)
+           (:(facet:output-html-facets($hits, $facet-config/descendant::facet:facets/facet:facet-definition)):)
         else ()
 };
 
@@ -307,7 +308,6 @@ declare function app:display-facets($node as node(), $model as map(*), $collecti
 declare function app:display-slider($node as node(), $model as map(*), $collection as xs:string*, $date-element as xs:string?){
     slider:browse-date-slider($model("hits"),$date-element)
 };
-
 
 (:~
  : bibl module relationships
@@ -329,6 +329,7 @@ declare function app:cited($node as node(), $model as map(*)){
         </div>
   else ()
 };
+
 (:~
  : Generic contact form can be added to any page by calling:
  : <div data-template="app:contact-form"/>
@@ -424,7 +425,24 @@ declare function app:wiki-page-title($node, $model){
 :)
 declare function app:wiki-page-content($node, $model){
     let $wiki-data := $model("hits")
-    return $wiki-data//html:div[@id='wiki-body'] 
+    return 
+        app:wiki-data($wiki-data//html:div[@id='wiki-body']) 
+};
+
+(:~
+ : Typeswitch to processes wiki anchors links for use with Syriaca.org documentation pages. 
+ : @param $wiki pulls content from specified wiki or wiki page. 
+:)
+declare function app:wiki-data($nodes as node()*) {
+    for $node in $nodes
+    return 
+        typeswitch($node)
+            case element() return
+                element { node-name($node) } {
+                    if($node/@id) then attribute id { replace($node/@id,'user-content-','') } else (),
+                    $node/@*[name()!='id'], app:wiki-data($node/node())
+                }
+            default return $node               
 };
 
 (:~

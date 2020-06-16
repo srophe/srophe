@@ -1,75 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <facets xmlns="http://expath.org/ns/facet">
-    <facet-definition name="Subjects">
+    <facet-definition name="subjects" label="Subjects">
         <group-by>
             <sub-path>descendant::tei:relation[@ref="dc:subject" and @type="subject"]/tei:desc</sub-path>
         </group-by>
         <max-values show="5">100</max-values>
-        <order-by direction="descending">count</order-by>
+        <order-by direction="descending">value</order-by>
     </facet-definition>
-    <facet-definition name="Authors">
-        <group-by>
+    <facet-definition name="author" label="Authors">
+        <group-by function="biblAuthors">
             <sub-path>descendant::tei:biblStruct/descendant::tei:surname</sub-path>
         </group-by>
         <max-values show="5">100</max-values>
         <order-by direction="descending">count</order-by>
     </facet-definition>
-    <facet-definition name="Manuscript Location">
-        <group-by>
-            <sub-path>descendant::tei:relation[@ref="dcterms:references"]/tei:desc/tei:msDesc/tei:msIdentifier/tei:settlement</sub-path>
-        </group-by>
-        <max-values show="5">100</max-values>
-        <order-by direction="descending">count</order-by>
-    </facet-definition>
-    <facet-definition name="Manuscript Collection">
-        <group-by>
-            <sub-path>descendant::tei:relation[@ref="dcterms:references"]/tei:desc/tei:msDesc/tei:msIdentifier/tei:collection</sub-path>
-        </group-by>
-        <max-values show="5">100</max-values>
-        <order-by direction="descending">count</order-by>
-    </facet-definition>
-    <facet-definition name="Manuscript Shelfmark">
-        <group-by>
-            <sub-path>descendant::tei:relation[@ref="dcterms:references"]/tei:desc/tei:msDesc/string-join(tei:msIdentifier/*, ", ")</sub-path>
-        </group-by>
-        <max-values show="5">100</max-values>
-        <order-by direction="descending">count</order-by>
-    </facet-definition>
-    <facet-definition name="Translator">
-        <group-by>
-            <sub-path>descendant::tei:relation[@ref="dc:subject" and @type="translator"]/tei:desc</sub-path>
-        </group-by>
-        <max-values show="5">100</max-values>
-        <order-by direction="descending">count</order-by>
-    </facet-definition>
-    <facet-definition name="Translation Source Language">
-        <group-by>
-            <sub-path>descendant::tei:relation[@ref="dc:subject" and @type="source"]/tei:desc</sub-path>
-        </group-by>
-        <max-values show="5">100</max-values>
-        <order-by direction="descending">count</order-by>
-    </facet-definition>   
-    <facet-definition name="Citation Script">
-        <range type="xs:string">
-            <bucket eq="matches(.,'\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}|\p{IsLatinExtendedAdditional}','i')" name="A-Z" order="1"/>
-            <bucket eq="matches(.,'\p{IsArabic}','i')" name="ا-ي" order="2"/>
-            <bucket eq="matches(.,'\p{IsHebrew}','i')" name="א-ת" order="1"/>
-            <bucket eq="not(matches(.,'\p{IsArabic}|\p{IsHebrew}|\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}|\p{IsLatinExtendedAdditional}','i'))" name="Other" order="1"/>
-        </range>
-        <group-by>
-            <sub-path>descendant::tei:titleStmt/tei:title[1]</sub-path>
-        </group-by>
-        <max-values show="5">25</max-values>
-        <order-by direction="descending">count</order-by>
-    </facet-definition>
-    <facet-definition name="Community of Origin">
-        <group-by>
-            <sub-path>descendant::tei:relation[@ref="dc:subject" and @type="provenance"]/tei:desc</sub-path>
-        </group-by>
-        <max-values show="5">100</max-values>
-        <order-by direction="descending">count</order-by>
-    </facet-definition>
-    <facet-definition name="Publication Date">
+    <facet-definition name="publicationDate" label="Publication Date">
         <range type="xs:year">
             <bucket gt="2000-01-01" name="2000 &gt;" order="14"/>
             <bucket gt="1975-01-01" lt="2000-01-01" name="1975-2000" order="13"/>
