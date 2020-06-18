@@ -13,11 +13,13 @@ declare namespace html="http://www.w3.org/1999/xhtml";
 
 declare function rel:get-related($uris as xs:string?) as map(xs:string, function(*)){
     let $map := map{}
-    for $uri at $i in tokenize($uris,' ')
-    let $data := data:get-document($uri)
-    where not(empty($data))
-    return map:put($map, $uri, $data) 
+    return map:merge(
+        for $uri at $i in tokenize($uris,' ')
+        let $data := data:get-document($uri)
+        where not(empty($data))
+        return map:put($map, $uri, $data)) 
 };
+
 
 (:~
  : Get related record names

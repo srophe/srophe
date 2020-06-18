@@ -8,7 +8,8 @@ module namespace data="http://srophe.org/srophe/data";
 import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
 import module namespace global="http://srophe.org/srophe/global" at "global.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "facet.xqm";
-import module namespace sf = "http://srophe.org/srophe/facets" at "facets.xql";
+import module namespace sf="http://srophe.org/srophe/facets" at "facets.xql";
+import module namespace slider = "http://srophe.org/srophe/slider" at "date-slider.xqm";
 import module namespace functx="http://www.functx.com";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -113,45 +114,21 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
         else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', '')
         else ()     
     let $eval-string := concat(data:build-collection-path($collection),
-                facet:facet-filter(global:facet-definition-file($collection)),
-                data:element-filter($element))    
+                        facet:facet-filter(global:facet-definition-file($collection)),slider:date-filter(()),
+                        data:element-filter($element))    
     let $hits := util:eval($eval-string)
-    return 
-        (: Generic :)             
+    return   
         if(request:get-parameter('view', '') = 'map') then 
             for $hit in $hits
             let $root := $hit/ancestor::tei:TEI
             let $id := $root/descendant::tei:publicationStmt/tei:idno[1]
             group by $facet-grp := $id
             where $root[1]//tei:geo
-            return <browse xmlns="http://www.tei-c.org/ns/1.0" sort="{$sort[1]}">{$root[1]}</browse>
-        else if($collection = 'bibl' and not(request:get-parameter('view', ''))) then
-            for $hit in $hits[matches(.,'\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}','i')]
-            let $root := $hit/ancestor-or-self::tei:TEI
-            where $hit[matches(substring(global:build-sort-string(.,''),1,1),global:get-alpha-filter(),'i')]
-            order by global:build-sort-string(data:add-sort-options-bibl($root, request:get-parameter('sort-element', '')),'') 
-            return $root
-        else if(request:get-parameter('view', '') = 'A-Z') then 
-            for $hit in $hits[matches(.,'\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}','i')]
-            let $root := $hit/ancestor-or-self::tei:TEI
-            let $sort := global:build-sort-string(data:add-sort-options-bibl($root, request:get-parameter('sort-element', '')),'')
-            where $hit[matches(substring(global:build-sort-string($root,''),1,1),global:get-alpha-filter(),'i')]
-            order by $sort 
-            return <browse xmlns="http://www.tei-c.org/ns/1.0">{$root}</browse>
-        else if(request:get-parameter('view', '') = 'ܐ-ܬ') then
-            for $hit in $hits[matches(.,'\p{IsSyriac}','i')]
-            let $root := $hit/ancestor-or-self::tei:TEI
-            order by global:build-sort-string(data:add-sort-options-bibl($root, request:get-parameter('sort-element', '')),'') 
-            return $root                            
-        else if(request:get-parameter('view', '') = 'ا-ي') then
-            for $hit in $hits[matches(.,'\p{IsArabic}','i')]
-            let $root := $hit/ancestor-or-self::tei:TEI
-            order by global:build-sort-string(data:add-sort-options-bibl($root, request:get-parameter('sort-element', '')),'ar') 
-            return $root 
+            return $root[1]
         else if(request:get-parameter('view', '') = 'other') then
             for $hit in $hits[not(matches(substring(global:build-sort-string(.,''),1,1),'\p{IsSyriac}|\p{IsArabic}|\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}|\p{IsLatinExtendedAdditional}','i'))]
             let $root := $hit/ancestor-or-self::tei:TEI
-            order by global:build-sort-string(data:add-sort-options-bibl($root, request:get-parameter('sort-element', '')),'') 
+            order by global:build-sort-string(data:add-sort-options-bibl($root, request:get-parameter('sort-element', '')),'') collation 'http://www.w3.org/2013/collation/UCA' 
             return $root                               
         else if(request:get-parameter('alpha-filter', '') = ('ALL','all')) then 
             for $hit in $hits
@@ -162,8 +139,8 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
                 else global:build-sort-string($hit,'')
             let $id := $root/descendant::tei:publicationStmt/tei:idno[1]
             group by $facet-grp := $id
-            order by $sort[1] 
-            return <browse xmlns="http://www.tei-c.org/ns/1.0" sort="{$sort[1]}">{$root[1]}</browse>              
+            order by $sort[1] collation 'http://www.w3.org/2013/collation/UCA'
+            return $root[1]              
         else if(request:get-parameter('alpha-filter', '') != '') then 
             for $hit in $hits
             let $root := $hit/ancestor::tei:TEI
@@ -171,9 +148,9 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
                 if(request:get-parameter('sort-element', '') != '') then 
                     global:build-sort-string(data:add-sort-options($root, request:get-parameter('sort-element', '')),request:get-parameter('lang', ''))
                 else global:build-sort-string($hit,'')
-            order by $sort 
+            order by $sort collation 'http://www.w3.org/2013/collation/UCA'
             where matches($sort,global:get-alpha-filter())
-            return <browse xmlns="http://www.tei-c.org/ns/1.0" sort="{$sort}">{$root}</browse>             
+            return $root             
         else
             for $hit in $hits
             let $root := $hit/ancestor::tei:TEI
@@ -181,8 +158,8 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
                 if(request:get-parameter('sort-element', '') != '') then 
                     global:build-sort-string(data:add-sort-options($root, request:get-parameter('sort-element', '')),request:get-parameter('lang', ''))
                 else global:build-sort-string($hit,'')
-            order by $sort 
-            return <browse xmlns="http://www.tei-c.org/ns/1.0" sort="{$sort}">{$root}</browse>              
+            order by $sort ascending collation 'http://www.w3.org/2013/collation/UCA' 
+            return $root
 };
 
 (:~
@@ -192,27 +169,11 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
 :)
 declare function data:search($collection as xs:string*, $queryString as xs:string?, $sort-element as xs:string?) {                      
     let $eval-string := if($queryString != '') then $queryString 
-                        else concat(data:build-collection-path($collection), data:create-query($collection))
-    let $fields :=  
-            string-join(
-            for $param in request:get-parameter-names()[starts-with(., 'field-')]
-            let $dimension := substring-after($param, 'field-')
-            return concat(' +', $dimension, ':',  data:clean-string(request:get-parameter($param, ()))),''
-            )
-    let $fullText := if(request:get-parameter('keyword', ()) != '') then
-                        data:clean-string(request:get-parameter('keyword', ()))
-                     else if(request:get-parameter('fullText', ()) != '') then
-                        data:clean-string(request:get-parameter('fullText', ()))
-                     else ()
-    let $query := if($fullText != '') then 
-                    $fullText || $fields
-                  else $fields
-    let $hits := 
-            if($query != '') then  
-                if($fullText != '') then
-                    collection($config:data-root || '/' || $collection)//tei:body[ft:query(., ($query), sf:facet-query())] | collection($config:data-root || '/' || $collection)//tei:fileDesc[ft:query(., ($query), sf:facet-query())]
-                else collection($config:data-root || '/' || $collection)//tei:body[ft:query(., ($query), sf:facet-query())]
-            else collection($config:data-root || '/' || $collection)//tei:body[ft:query(., (),sf:facet-query())]    
+                        else concat(data:build-collection-path($collection), data:create-query($collection),slider:date-filter(()))
+    let $hits :=
+            if(request:get-parameter-names() = '' or empty(request:get-parameter-names())) then 
+                collection($config:data-root || '/' || $collection)//tei:body[ft:query(., (),sf:facet-query())]
+            else util:eval($eval-string)//tei:body[ft:query(., (),sf:facet-query())]              
     return
         if(request:get-parameter('sort-element', '') != '' and request:get-parameter('sort-element', '') != 'relevance') then 
             for $hit in $hits

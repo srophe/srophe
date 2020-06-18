@@ -1,7 +1,0 @@
-<search-config>
-    <field name="keyword" expression="descendant-or-self::tei:body" function="fullText"/>
-    <field name="placeName" expression="descendant::tei:placeName"/>
-    <field name="location" expression="descendant::tei:location"/>
-    <field name="events" expression="descendant::tei:event"/>
-    <field name="idno" expression="descendant::tei:idno"/>
-</search-config>

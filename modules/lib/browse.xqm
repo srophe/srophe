@@ -13,6 +13,7 @@ import module namespace config="http://srophe.org/srophe/config" at "../config.x
 import module namespace data="http://srophe.org/srophe/data" at "data.xqm";
 import module namespace tei2html="http://srophe.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
 import module namespace timeline = "http://srophe.org/srophe/timeline" at "lib/timeline.xqm";
+import module namespace sf="http://srophe.org/srophe/facets" at "facets.xql";
 import module namespace maps="http://srophe.org/srophe/maps" at "maps.xqm";
 import module namespace page="http://srophe.org/srophe/page" at "paging.xqm";
 
@@ -45,8 +46,7 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
 :)
 declare function browse:show-hits($node as node(), $model as map(*), $collection, $sort-options as xs:string*, $facets as xs:string?){
   let $hits := $model("hits")
-  return 
-    (
+  return
     if($browse:view = 'map') then 
         <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">
             {browse:get-map($hits)}
@@ -77,7 +77,6 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                 </div>
             )}
         </div>
-    )
 };
 
 (:

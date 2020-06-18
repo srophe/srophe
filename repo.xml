@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <meta xmlns="http://exist-db.org/xquery/repo">
     <description>The Srophé web application</description>
-    <author/>
-    <author/>
-    <website/>
+    <author>srophe.org</author>
+    <website>srophe.org</website>
     <status>alpha</status>
     <license>GNU-LGPL</license>
     <copyright>true</copyright>
@@ -11,7 +10,5 @@
     <target>srophe</target>
     <prepare>pre-install.xql</prepare>
     <finish>post-install.xql</finish>
-
-
-<deployed>2020-04-30T11:58:12.259-04:00</deployed>
+    <deployed>2020-06-17T16:53:43.337-04:00</deployed>
 </meta>

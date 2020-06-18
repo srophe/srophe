@@ -38,11 +38,10 @@ declare variable $search:perpage {request:get-parameter('perpage', 20) cast as x
  : Search results stored in map for use by other HTML display functions 
 :)
 declare %templates:wrap function search:search-data($node as node(), $model as map(*), $collection as xs:string?, $sort-element as xs:string?){
-    (:let $queryExpr := if($collection = 'bibl') then
+    let $queryExpr := if($collection = 'bibl') then
                             bibls:query-string()
-                      else search:query-string($collection)
-    :)                      
-    let $hits := data:search($collection, '', $sort-element)
+                      else ()                     
+    let $hits := data:search($collection, $queryExpr, $sort-element)
     return
         map {
                 "hits" :

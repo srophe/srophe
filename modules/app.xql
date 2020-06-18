@@ -4,24 +4,24 @@ xquery version "3.1";
  : Output TEI to HTML via eXist-db templating system. 
  : Add your own custom modules at the end of the file. 
 :)
-module namespace app="http://syriaca.org/srophe/templates";
+module namespace app="http://srophe.org/srophe/templates";
 
 (:eXist templating module:)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 
 (: Import Srophe application modules. :)
-import module namespace config="http://syriaca.org/srophe/config" at "config.xqm";
-import module namespace data="http://syriaca.org/srophe/data" at "lib/data.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "config.xqm";
+import module namespace data="http://srophe.org/srophe/data" at "lib/data.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "lib/facet.xqm";
-import module namespace sf="http://syriaca.org/srophe/facets" at "lib/facets.xql";
-import module namespace global="http://syriaca.org/srophe/global" at "lib/global.xqm";
-import module namespace maps="http://syriaca.org/srophe/maps" at "lib/maps.xqm";
-import module namespace page="http://syriaca.org/srophe/page" at "lib/paging.xqm";
-import module namespace rel="http://syriaca.org/srophe/related" at "lib/get-related.xqm";
-import module namespace slider = "http://syriaca.org/srophe/slider" at "lib/date-slider.xqm";
-import module namespace timeline = "http://syriaca.org/srophe/timeline" at "lib/timeline.xqm";
-import module namespace teiDocs="http://syriaca.org/srophe/teiDocs" at "teiDocs/teiDocs.xqm";
-import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "content-negotiation/tei2html.xqm";
+import module namespace sf="http://srophe.org/srophe/facets" at "lib/facets.xql";
+import module namespace global="http://srophe.org/srophe/global" at "lib/global.xqm";
+import module namespace maps="http://srophe.org/srophe/maps" at "lib/maps.xqm";
+import module namespace page="http://srophe.org/srophe/page" at "lib/paging.xqm";
+import module namespace rel="http://srophe.org/srophe/related" at "lib/get-related.xqm";
+import module namespace slider = "http://srophe.org/srophe/slider" at "lib/date-slider.xqm";
+import module namespace timeline = "http://srophe.org/srophe/timeline" at "lib/timeline.xqm";
+import module namespace teiDocs="http://srophe.org/srophe/teiDocs" at "teiDocs/teiDocs.xqm";
+import module namespace tei2html="http://srophe.org/srophe/tei2html" at "content-negotiation/tei2html.xqm";
 
 
 (: Namespaces :)
@@ -454,28 +454,6 @@ declare function app:wiki-menu($node, $model, $wiki-uri){
     let $wiki-data := app:wiki-rest-request($wiki-uri)
     let $menu := app:wiki-links($wiki-data//html:div[@id='wiki-rightbar']/descendant::html:ul, $wiki-uri)
     return $menu
-};
-
-(:~
- : Typeswitch to processes wiki menu links for use with Syriaca.org documentation pages. 
- : @param $wiki pulls content from specified wiki or wiki page. 
-:)
-declare function app:wiki-links($nodes as node()*, $wiki) {
-    for $node in $nodes
-    return 
-        typeswitch($node)
-            case element(html:a) return
-                let $wiki-path := substring-after($wiki,'https://github.com')
-                let $href := concat($config:nav-base, replace($node/@href, $wiki-path, "/documentation/wiki.html?wiki-page="),'&amp;wiki-uri=', $wiki)
-                return
-                    <a href="{$href}">
-                        {$node/@* except $node/@href, $node/node()}
-                    </a>
-            case element() return
-                element { node-name($node) } {
-                    $node/@*, app:wiki-links($node/node(), $wiki)
-                }
-            default return $node               
 };
 
 (:~
