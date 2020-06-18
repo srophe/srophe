@@ -1,11 +1,11 @@
 xquery version "3.0";
 (: Get and build TEI relationships :)
-module namespace rel="http://syriaca.org/srophe/related";
-import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
-import module namespace global="http://syriaca.org/srophe/global" at "global.xqm";
-import module namespace data="http://syriaca.org/srophe/data" at "data.xqm";
-import module namespace maps="http://syriaca.org/srophe/maps" at "maps.xqm";
-import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
+module namespace rel="http://srophe.org/srophe/related";
+import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
+import module namespace global="http://srophe.org/srophe/global" at "global.xqm";
+import module namespace data="http://srophe.org/srophe/data" at "data.xqm";
+import module namespace maps="http://srophe.org/srophe/maps" at "maps.xqm";
+import module namespace tei2html="http://srophe.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
 
 import module namespace functx="http://www.functx.com";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -13,11 +13,13 @@ declare namespace html="http://www.w3.org/1999/xhtml";
 
 declare function rel:get-related($uris as xs:string?) as map(xs:string, function(*)){
     let $map := map{}
-    for $uri at $i in tokenize($uris,' ')
-    let $data := data:get-document($uri)
-    where not(empty($data))
-    return map:put($map, $uri, $data) 
+    return map:merge(
+        for $uri at $i in tokenize($uris,' ')
+        let $data := data:get-document($uri)
+        where not(empty($data))
+        return map:put($map, $uri, $data)) 
 };
+
 
 (:~
  : Get related record names
@@ -66,7 +68,7 @@ declare function rel:relationship-sentence($relationship as node()*){
                 string-join(
                 for $r in $relationship/descendant-or-self::tei:relation
                 return string-join(($r/@active/string(),$r/@passive/string(),$r/@mutual/string()),' '),' ')
-            let $related-map := rel:get-related($uris)
+            let $related-map := if($uris != '') then rel:get-related($uris) else ()
     return        
         if($relationship/@ref) then 
             if($relationship/@mutual) then
@@ -168,11 +170,14 @@ declare function rel:build-relationships($node as item()*,$idno as xs:string?, $
                     if($relationship-type != '') then
                         $node/descendant-or-self::tei:relation[@ref=$relationship-type]
                     else $node/descendant-or-self::tei:relation                        
-            let $related-map := rel:get-related($uris)
+            let $related-map := if($uris != '') then rel:get-related($uris) else ()
             let $related-geo := 
-                for $record in map:keys(rel:get-related($uris))
-                where map:get($related-map,$record)//tei:geo
-                return map:get($related-map,$record)
+                if($uris != '') then 
+                    for $record in map:keys(rel:get-related($uris))
+                    where map:get($related-map,$record)//tei:geo
+                    return map:get($related-map,$record)
+                else ()
+
             return
                 (if($map = 'map' and  $related-geo != '') then
                     maps:build-map($related-geo,count($related-geo//tei:geo))

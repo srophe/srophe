@@ -1,6 +1,6 @@
 xquery version "3.0";
 
-import module namespace config="http://syriaca.org/srophe/config" at "modules/config.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "modules/config.xqm";
 
 declare variable $exist:path external;
 declare variable $exist:resource external;

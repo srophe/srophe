@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en">
+<tei:TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xml:lang="en">
     <teiHeader>
-        <fileDesc>
-            <titleStmt>
-                <title xml:lang="en">Syriaca.org Editors</title>
-                <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
+        <tei:fileDesc>
+            <tei:titleStmt>
+                <tei:title xml:lang="en">Syriaca.org Editors</tei:title>
+                <tei:sponsor>Syriaca.org: The Syriac Reference Portal</tei:sponsor>
                 <funder>The Andrew W. Mellon Foundation</funder>
                 <funder>The National Endowment for the Humanities</funder>
                 <funder>The International Balzan Prize Foundation</funder>
@@ -13,28 +13,28 @@
                 <editor role="general" ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</editor>
                 <editor role="creator" ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</editor>
                 <respStmt>
-                    <resp>List compiled and expanded by</resp>
+                    <tei:resp>List compiled and expanded by</tei:resp>
                     <name ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</name>
                 </respStmt>
                 <respStmt>
-                    <resp>List expanded by</resp>
+                    <tei:resp>List expanded by</tei:resp>
                     <name ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</name>
                 </respStmt>
                 <respStmt>
-                    <resp>List expanded by</resp>
+                    <tei:resp>List expanded by</tei:resp>
                     <name ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
                 </respStmt>
                 <respStmt>
-                    <resp>List expanded by</resp>
+                    <tei:resp>List expanded by</tei:resp>
                     <name ref="http://syriaca.org/documentation/editors.xml#dschwartz">Daniel L. Schwartz</name>
                 </respStmt>                
-            </titleStmt>
+            </tei:titleStmt>
             <editionStmt>
-                <edition n="1.0"/>
+                <tei:edition n="1.0"/>
             </editionStmt>
             <publicationStmt>
-                <authority>Syriaca.org: The Syriac Reference Portal</authority>
-                <idno type="URI">http://syriaca.org/documentation/editors.xml</idno>
+                <tei:authority>Syriaca.org: The Syriac Reference Portal</tei:authority>
+                <tei:idno type="URI">http://syriaca.org/documentation/editors.xml</tei:idno>
                 <availability>
                     <licence target="http://creativecommons.org/licenses/by/3.0/">
                         Distributed under a Creative Commons Attribution 3.0 Unported License
@@ -43,36 +43,36 @@
                 <date>2017-08-08</date>
             </publicationStmt>
             <sourceDesc>
-                <p>Born digital.</p>
+                <tei:p>Born digital.</tei:p>
             </sourceDesc>
-        </fileDesc>
-        <encodingDesc>
+        </tei:fileDesc>
+        <tei:encodingDesc>
             <editorialDecl>
-                <p>A list of editors for Syriaca.org, in no particular order.</p>
+                <tei:p>A list of editors for Syriaca.org, in no particular order.</tei:p>
             </editorialDecl>
-        </encodingDesc>
+        </tei:encodingDesc>
         <revisionDesc>
-            <change type="reminder">Please be sure to update the publication date when changes are made here!</change>
-            <change when="2017-08-08" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Mario Kozah, Haya Al Thani, Saif al-Murikhi, Abdul Rahman Chamseddine, Abdulrahim Abu-Husayn, and resp statements for other editors who ahve modified this file</change>
-            <change when="2017-06-23" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: André Binggeli, Françoise Briquel-Chatonnet, Alain Desreumaux, Emilie Villey, Youssef Dergham, Margherita Farina, Simone I. M. Pratelli, Flavia Ruani, Eleonora Serra</change>
-            <change when="2017-05-09" who="http://syriaca.org/documentation/editors.xml#dschwartz">ADDED: Edward Keogh, Jimmy Daccache, Katayoun Torabi, Reyhan Dumaz, Ashoor Yousif, Simcha Gross, Ralph Barczok, Maria E. Doerfler, Kelli Gibson, Jeffrey Wickes, Joshua Falconer, Ute Possekel, Eric Garret, Erin Galgay Walsh, Muriel Debie, Joshua McManaway, and Nick Elder</change>
-            <change when="2017-03-02" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Griogry Kessel and Nicolas Bamballi</change>
-            <change when="2016-08-03" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Ugo Zanetti and Claude Detienne</change>
-            <change when="2016-08-03" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: J. M. Fiey as contributor</change>
-            <change when="2016-07-29" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Sergey Minov, Daniel Salem, and Kristian Heal as contributors</change>
-            <change when="2015-07-10" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Andrea Schmidt and Philip Forness as area editors</change>
-            <change when="2015-06-29" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Dina Boero as contributor</change>
-            <change when="2015-05-12" who="http://syriaca.org/documentation/editors.xml#dmichelson">ADDED: More MSS editors list</change>
-            <change when="2015-05-12" who="http://syriaca.org/documentation/editors.xml#dmichelson">ADDED: MSS editors list</change>
-            <change when="2015-05-06" who="http://syriaca.org/documentation/editors.xml#dmichelson">ADDED: MSS editors list</change>
-            <change when="2014-07-29" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Adam Carter McCollum</change>
-            <change when="2014-07-18" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Luke Yarbrough</change>
-            <change when="2013-03-25" who="http://syriaca.org/documentation/editors.xml#tcarlson">CREATED: editors list</change>
+            <tei:change type="reminder">Please be sure to update the publication date when changes are made here!</tei:change>
+            <tei:change when="2017-08-08" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Mario Kozah, Haya Al Thani, Saif al-Murikhi, Abdul Rahman Chamseddine, Abdulrahim Abu-Husayn, and resp statements for other editors who ahve modified this file</tei:change>
+            <tei:change when="2017-06-23" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: André Binggeli, Françoise Briquel-Chatonnet, Alain Desreumaux, Emilie Villey, Youssef Dergham, Margherita Farina, Simone I. M. Pratelli, Flavia Ruani, Eleonora Serra</tei:change>
+            <tei:change when="2017-05-09" who="http://syriaca.org/documentation/editors.xml#dschwartz">ADDED: Edward Keogh, Jimmy Daccache, Katayoun Torabi, Reyhan Dumaz, Ashoor Yousif, Simcha Gross, Ralph Barczok, Maria E. Doerfler, Kelli Gibson, Jeffrey Wickes, Joshua Falconer, Ute Possekel, Eric Garret, Erin Galgay Walsh, Muriel Debie, Joshua McManaway, and Nick Elder</tei:change>
+            <tei:change when="2017-03-02" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Griogry Kessel and Nicolas Bamballi</tei:change>
+            <tei:change when="2016-08-03" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Ugo Zanetti and Claude Detienne</tei:change>
+            <tei:change when="2016-08-03" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: J. M. Fiey as contributor</tei:change>
+            <tei:change when="2016-07-29" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Sergey Minov, Daniel Salem, and Kristian Heal as contributors</tei:change>
+            <tei:change when="2015-07-10" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Andrea Schmidt and Philip Forness as area editors</tei:change>
+            <tei:change when="2015-06-29" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Dina Boero as contributor</tei:change>
+            <tei:change when="2015-05-12" who="http://syriaca.org/documentation/editors.xml#dmichelson">ADDED: More MSS editors list</tei:change>
+            <tei:change when="2015-05-12" who="http://syriaca.org/documentation/editors.xml#dmichelson">ADDED: MSS editors list</tei:change>
+            <tei:change when="2015-05-06" who="http://syriaca.org/documentation/editors.xml#dmichelson">ADDED: MSS editors list</tei:change>
+            <tei:change when="2014-07-29" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Adam Carter McCollum</tei:change>
+            <tei:change when="2014-07-18" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Luke Yarbrough</tei:change>
+            <tei:change when="2013-03-25" who="http://syriaca.org/documentation/editors.xml#tcarlson">CREATED: editors list</tei:change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPerson>
+    <tei:text>
+        <tei:body>
+            <tei:listPerson>
                 <person xml:id="dmichelson">
                     <persName xml:lang="en">
                         <forename>David</forename>
@@ -115,7 +115,7 @@
                 </person>
                 <person xml:id="rakhrass">
                     <persName xml:lang="en">
-                        <title>Dayroyo</title>
+                        <tei:title>Dayroyo</tei:title>
                         <forename>Roger-Youssef</forename>
                         <surname>Akhrass</surname>
                     </persName>
@@ -528,7 +528,7 @@
                 <org xml:id="uasyriacresearchgroup">
                     <name xml:lang="en">The Syriac Research Group, University of Alabama</name>
                 </org>
-            </listPerson>
-        </body>
-    </text>
-</TEI>
+            </tei:listPerson>
+        </tei:body>
+    </tei:text>
+</tei:TEI>

@@ -4,7 +4,7 @@ xquery version "3.0";
  : Used by oai, can be plugged into other outputs as well.
  :)
  
-module namespace tei2="http://syriaca.org/srophe/tei2dc";
+module namespace tei2="http://srophe.org/srophe/tei2dc";
 declare namespace dc="http://purl.org/dc/elements/1.1/";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";

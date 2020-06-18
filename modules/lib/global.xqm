@@ -1,11 +1,11 @@
 xquery version "3.1";
 (: Global Srophe helper functions. :)
-module namespace global="http://syriaca.org/srophe/global";
+module namespace global="http://srophe.org/srophe/global";
 
 import module namespace http="http://expath.org/ns/http-client" at "java:org.exist.xquery.modules.httpclient.HTTPClientModule";
 
 (: Import Srophe application modules. :)
-import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace html="http://www.w3.org/1999/xhtml";
@@ -38,7 +38,7 @@ if($config:get-config//repo:collection[@name=$collection]/@xslt != '') then
         <param name="app-root" value="{$config:app-root}"/>
         <param name="nav-base" value="{$config:nav-base}"/>
         <param name="base-uri" value="{$config:base-uri}"/>
-        <param name="base-uri" value="{$collection}"/>
+        <param name="collection" value="{$collection}"/>
     </parameters>
     )      
 else 
@@ -48,7 +48,7 @@ else
         <param name="app-root" value="{$config:app-root}"/>
         <param name="nav-base" value="{$config:nav-base}"/>
         <param name="base-uri" value="{$config:base-uri}"/>
-        <param name="base-uri" value="{$collection}"/>
+        <param name="collection" value="{$collection}"/>
     </parameters>
     )
 };

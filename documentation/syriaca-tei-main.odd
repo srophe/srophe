@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:rng="http://relaxng.org/ns/structure/1.0" xml:lang="en">
+<tei:TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xml:lang="en">
     <teiHeader>
-        <fileDesc>
-            <titleStmt>
-                <title>Syriaca Main ODD File</title>
+        <tei:fileDesc>
+            <tei:titleStmt>
+                <tei:title>Syriaca Main ODD File</tei:title>
                 <author>Daniel Schwartz</author>
-            </titleStmt>
+            </tei:titleStmt>
             <publicationStmt>
-                <p>for use by whoever wants it</p>
+                <tei:p>for use by whoever wants it</tei:p>
             </publicationStmt>
             <notesStmt>
-                <note type="ns">http://www.example.org/ns/nonTEI</note>
+                <tei:note type="ns">http://www.example.org/ns/nonTEI</tei:note>
             </notesStmt>
             <sourceDesc>
-                <p>created on Tue May 20 2014 09:06:59 GMT-0500 (CDT)</p>
+                <tei:p>created on Tue May 20 2014 09:06:59 GMT-0500 (CDT)</tei:p>
             </sourceDesc>
-        </fileDesc>
+        </tei:fileDesc>
     </teiHeader>
-    <text>
+    <tei:text>
         <front>
             <divGen type="toc"/>
         </front>
-        <body>
-            <p>My TEI Customization starts with modules tei, core, textstructure and header</p>
+        <tei:body>
+            <tei:p>My TEI Customization starts with modules tei, core, textstructure and header</tei:p>
             <schemaSpec docLang="en" ident="syriacaMainODD" prefix="tei_" xml:lang="en">
                 <classSpec ident="att.global" mode="change" module="tei" type="atts">
                     <attList>
@@ -200,10 +200,10 @@
                                 </valItem>
                             </valList>
                             <remarks versionDate="2016-12-07">
-                                <p>All elements should have an <att>xml:lang</att> value, either inherited from an ancestor element or declared explicitly. 
+                                <tei:p>All elements should have an <att>xml:lang</att> value, either inherited from an ancestor element or declared explicitly. 
                                     See the <ref target="http://syriaca.org/documentation/isostandards.html">Syriaca.org documentation</ref> for more information 
                                 on the usage of particular tags. Note that <att>xml:lang</att> describes the language of the content of the node. For indicating 
-                                the language of a work or bibliographic resource, see the documentation about the <gi>textLang</gi> and <gi>lang</gi> elements.</p>
+                                the language of a work or bibliographic resource, see the documentation about the <gi>textLang</gi> and <gi>lang</gi> elements.</tei:p>
                             </remarks>
                         </attDef>
                     </attList>
@@ -291,11 +291,11 @@
                         </egXML>
                     </exemplum>
                     <remarks versionDate="2016-11-09">
-                        <p>Syriaca.org uses the <gi>lang</gi> element inside <gi>bibl</gi> elements for modern translations and ancient versions 
+                        <tei:p>Syriaca.org uses the <gi>lang</gi> element inside <gi>bibl</gi> elements for modern translations and ancient versions 
                             to indicate the language of the version to which the <gi>bibl</gi> refers. This is different from the <att>xml:lang</att>
                             attribute which shows the language of this element, and also different from the <gi>textLang</gi> element which describes 
                             the language of the bibliographic item. (In some cases this is different from the language of the version. For example, the 
-                            bibliographic item may point to an English translation of an ancient Armenian version.)</p>
+                            bibliographic item may point to an English translation of an ancient Armenian version.)</tei:p>
                     </remarks>
                 </elementSpec>
                 <elementSpec ident="bibl" module="core" mode="change">
@@ -559,13 +559,13 @@
                         </egXML>
                     </exemplum>
                     <remarks versionDate="2016-11-23">
-                        <p>Inside the main <gi>bibl</gi> of a work entity, authors are linked to 
+                        <tei:p>Inside the main <gi>bibl</gi> of a work entity, authors are linked to 
                         their record in the Syriac Biographical Dictionary using a URI in the 
                         <att>ref</att> attribute. For the purpose of displaying the author's 
                         name on the work's HTML page, the English and Syriac headwords are included 
                         as <gi>persName</gi> elements separated by a dash. The nature of the author's 
                         connection to a work may be further specified using the <att>role</att>
-                        attribute on <gi>author</gi>.</p>
+                        attribute on <gi>author</gi>.</tei:p>
                     </remarks>
                 </elementSpec>
                 <elementSpec ident="editor" module="core" mode="change">
@@ -597,13 +597,13 @@
                         </egXML>
                     </exemplum>
                     <remarks versionDate="2016-11-23">
-                        <p>Inside the main <gi>bibl</gi> of a work entity, editors are linked to 
+                        <tei:p>Inside the main <gi>bibl</gi> of a work entity, editors are linked to 
                             their record in the Syriac Biographical Dictionary using a URI in the 
                             <att>ref</att> attribute. For the purpose of displaying the editor's 
                             name on the work's HTML page, the English and Syriac headwords are included 
                             as <gi>persName</gi> elements separated by a dash. The nature of the editor's 
                             connection to a work may be further specified using the <att>role</att>
-                            attribute on <gi>editor</gi>.</p>
+                            attribute on <gi>editor</gi>.</tei:p>
                     </remarks>
                 </elementSpec>
                 <elementSpec ident="body" module="textstructure" mode="change">
@@ -626,10 +626,10 @@
                         </egXML>
                     </exemplum>
                     <remarks versionDate="2016-11-24">
-                        <p>When possible, all work records should include the <gi>textLang</gi> element with at least a 
+                        <tei:p>When possible, all work records should include the <gi>textLang</gi> element with at least a 
                         <att>mainLang</att> attribute indicating the primary language of the conceptual work using a BCP 47 code. 
                             The element should not contain any text unless additional explanation is needed beyond the machine-readable 
-                        language codes.</p>
+                        language codes.</tei:p>
                     </remarks>
                 </elementSpec>
                 <elementSpec ident="date" module="core" mode="change">
@@ -650,14 +650,14 @@
                         </attDef>
                         <attDef ident="notBefore" mode="change">
                             <remarks versionDate="2016-11-24">
-                                <p>Provides a terminus post quem. Use this when the exact date is not known. See <ref target="http://syriaca.org/exist/apps/srophe/documentation/dates.html">the Syriaca.org documentation</ref> for editorial conventions 
-                                    regarding dates.</p>
+                                <tei:p>Provides a terminus post quem. Use this when the exact date is not known. See <ref target="http://syriaca.org/exist/apps/srophe/documentation/dates.html">the Syriaca.org documentation</ref> for editorial conventions 
+                                    regarding dates.</tei:p>
                             </remarks>
                         </attDef>
                         <attDef ident="notAfter" mode="change">
                             <remarks versionDate="2016-11-24">
-                                <p>Provides a terminus ad quem. Use this when the exact date is not known. See <ref target="http://syriaca.org/exist/apps/srophe/documentation/dates.html">the Syriaca.org documentation</ref> for editorial conventions 
-                                    regarding dates.</p>
+                                <tei:p>Provides a terminus ad quem. Use this when the exact date is not known. See <ref target="http://syriaca.org/exist/apps/srophe/documentation/dates.html">the Syriaca.org documentation</ref> for editorial conventions 
+                                    regarding dates.</tei:p>
                             </remarks>
                         </attDef>
                     </attList>
@@ -667,10 +667,10 @@
                         </egXML>
                     </exemplum>
                     <remarks versionDate="2016-11-24">
-                        <p>Dates should include both a machine-readable version (using attributes like <att>when</att>, 
+                        <tei:p>Dates should include both a machine-readable version (using attributes like <att>when</att>, 
                             <att>notBefore</att>, <att>notAfter</att>) and a human-readable version as text in the element content. 
                             See <ref target="http://syriaca.org/exist/apps/srophe/documentation/dates.html">the Syriaca.org documentation</ref> for editorial conventions 
-                            regarding dates.</p>
+                            regarding dates.</tei:p>
                     </remarks>
                 </elementSpec>
                 <elementSpec ident="extent" module="header" mode="change">
@@ -688,8 +688,8 @@
                         </egXML>
                     </exemplum>
                     <remarks versionDate="2016-11-24">
-                        <p>Should contain a <gi>measure</gi> element which provides both machine-readable attribute values and human-readable text.
-                        For work entities, the <gi>extent</gi> element is recommended to give a sense of the size of the work.</p>
+                        <tei:p>Should contain a <gi>measure</gi> element which provides both machine-readable attribute values and human-readable text.
+                        For work entities, the <gi>extent</gi> element is recommended to give a sense of the size of the work.</tei:p>
                     </remarks>
                 </elementSpec>
                 <elementSpec ident="measure" module="core" mode="change">
@@ -729,10 +729,10 @@
                                 </valItem>
                             </valList>
                             <remarks versionDate="2011-11-24">
-                                <p>When describing the extent of written or conceptual works, the unit is required, but may 
+                                <tei:p>When describing the extent of written or conceptual works, the unit is required, but may 
                                 be expressed using whatever terms are native to the particular work or most appropriate to it 
                                 (section, chapter, verse, etc.). An approximate or sample measurement of the number of folios 
-                                or pages the work comprises may also be used to give a general sense of the size of the work.</p>
+                                or pages the work comprises may also be used to give a general sense of the size of the work.</tei:p>
                             </remarks>
                         </attDef>
                     </attList>
@@ -747,9 +747,9 @@
                         </egXML>
                     </exemplum>
                     <remarks versionDate="2011-11-24">
-                        <p>Measures should be given using both machine-readable values (in the <att>quantity</att> and <att>unit</att> 
+                        <tei:p>Measures should be given using both machine-readable values (in the <att>quantity</att> and <att>unit</att> 
                             attributes) and human-readable text (in the element content). See <gi>extent</gi> regarding describing the 
-                            extent of a conceptual work.</p>
+                            extent of a conceptual work.</tei:p>
                     </remarks>
                 </elementSpec>
                 <elementSpec ident="note" module="core" mode="change">
@@ -840,9 +840,9 @@
                         </egXML>
                     </exemplum>
                     <remarks versionDate="2011-11-24">
-                        <p>Notes are used for various kinds of text. In entity records, Syriaca.org typically uses notes as 
+                        <tei:p>Notes are used for various kinds of text. In entity records, Syriaca.org typically uses notes as 
                             containers for sentence-length to paragraph-length text. The <att>type</att> attribute is required and determines how the 
-                        note is displayed on the page.</p>
+                        note is displayed on the page.</tei:p>
                     </remarks>
                 </elementSpec>
                 <elementSpec ident="relation" module="namesdates" mode="change">
@@ -943,24 +943,24 @@
                         </attDef>
                         <attDef ident="active" mode="change">
                             <remarks versionDate="2016-11-24">
-                                <p>This should contain either the full URI of a Syriaca.org entity (person, place, work, etc.), 
+                                <tei:p>This should contain either the full URI of a Syriaca.org entity (person, place, work, etc.), 
                             or a hash URI (fragment identifier introduced with #) for a node within the document. A full URI is preferred where one exists. 
-                            When the relation is serialized as RDF, the value of <att>active</att> identifies the subject resource.</p>
+                            When the relation is serialized as RDF, the value of <att>active</att> identifies the subject resource.</tei:p>
                             </remarks>
                         </attDef>
                         <attDef ident="passive" mode="change">
                             <remarks versionDate="2016-11-24">
-                                <p>This should contain either the full URI of a Syriaca.org entity (person, place, work, etc.), 
+                                <tei:p>This should contain either the full URI of a Syriaca.org entity (person, place, work, etc.), 
                                 or a hash URI (fragment identifier introduced with #) for a node within the document. A full URI is preferred where one exists. 
-                                When the relation is serialized as RDF, the value of <att>passive</att> identifies the object resource.</p>
+                                When the relation is serialized as RDF, the value of <att>passive</att> identifies the object resource.</tei:p>
                             </remarks>
                         </attDef>
                         <attDef ident="mutual" mode="change">
                             <remarks versionDate="2016-11-24">
-                                <p>This should contain identifiers for two or more Syriaca.org entities or nodes, either as full URIs, 
+                                <tei:p>This should contain identifiers for two or more Syriaca.org entities or nodes, either as full URIs, 
                                 or as hash URIs (fragment identifiers introduced with #) in the case of nodes within the document. When the relation is serialized as RDF, 
                                 a triple is created for each pairing of values in <att>mutual</att>, such that each entity referenced in <att>mutual</att> 
-                                is represented in different triples as a subject and as an object.</p>
+                                is represented in different triples as a subject and as an object.</tei:p>
                             </remarks>
                         </attDef>
                     </attList>
@@ -976,8 +976,8 @@
                                 </listRelation>
                             </bibl>
                         </egXML>
-                        <p>This relation links the <gi>bibl</gi> describing a translation to the <gi>bibl</gi> from which it was translated. Note the use of both a 
-                        <att>type</att> in addition to a <att>ref</att> to make the relation more specific. It is also linked to the work entity containing it.</p>
+                        <tei:p>This relation links the <gi>bibl</gi> describing a translation to the <gi>bibl</gi> from which it was translated. Note the use of both a 
+                        <att>type</att> in addition to a <att>ref</att> to make the relation more specific. It is also linked to the work entity containing it.</tei:p>
                     </exemplum>
                     <exemplum versionDate="2016-11-24">
                         <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -987,15 +987,15 @@
                                 </desc>
                             </relation>
                         </egXML>
-                        <p>This relation shows that the work described in this record is part 1 of a larger work.</p>
+                        <tei:p>This relation shows that the work described in this record is part 1 of a larger work.</tei:p>
                     </exemplum>
                     <remarks versionDate="2011-11-24">
-                        <p>
+                        <tei:p>
                             <gi>relation</gi> is used to link Syriaca.org entities to each other, when possible in a semantically robust, RDF-friendly way. 
                         The values of <att>active</att>, <att>ref</att>, and <att>passive</att> should be construable as RDF triples. For this reason, 
                             <att>ref</att> is required, as is either <att>active</att> and <att>passive</att>, or <att>mutual</att>. The <gi>relation</gi> 
                         may also contain text inside a <gi>desc</gi> if such must be visualized on the record, but this text should be standardized 
-                        to the extent possible.</p>
+                        to the extent possible.</tei:p>
                     </remarks>
                 </elementSpec>
                 <elementSpec ident="label" module="core" mode="change">
@@ -1024,12 +1024,12 @@
                                 <valItem ident="item-in-collection"/>
                             </valList>
                             <remarks versionDate="2016-11-24">
-                                <p>If used with @type="order", the <att>subtype</att> should reflect the kind of thing being ordered.</p>
+                                <tei:p>If used with @type="order", the <att>subtype</att> should reflect the kind of thing being ordered.</tei:p>
                             </remarks>
                         </attDef>
                         <attDef ident="n" mode="change">
                             <remarks versionDate="2016-11-24">
-                                <p>If used with @type="order", <att>n</att> should contain the numeric value of the order of the parent item within a larger sequence.</p>
+                                <tei:p>If used with @type="order", <att>n</att> should contain the numeric value of the order of the parent item within a larger sequence.</tei:p>
                             </remarks>
                         </attDef>
                     </attList>
@@ -1041,15 +1041,15 @@
                                 </desc>
                             </relation>
                         </egXML>
-                        <p>This relation shows that the work described in this record is part 1 of a larger work.</p>
+                        <tei:p>This relation shows that the work described in this record is part 1 of a larger work.</tei:p>
                     </exemplum>
                     <remarks versionDate="2016-11-24">
-                        <p>When used in a <gi>desc</gi> within a <gi>relation</gi> having @ref="dct:isPartOf", <gi>label</gi> can be used to used to designate the 
+                        <tei:p>When used in a <gi>desc</gi> within a <gi>relation</gi> having @ref="dct:isPartOf", <gi>label</gi> can be used to used to designate the 
                             order of the parent item within a larger sequence. In this case, <att>type</att>, <att>subtype</att>, and <att>n</att> are all required and 
-                        the text content of <gi>label</gi> should contain a human-readable description (e.g., "part 1").</p>
+                        the text content of <gi>label</gi> should contain a human-readable description (e.g., "part 1").</tei:p>
                     </remarks>
                 </elementSpec>
             </schemaSpec>
-        </body>
-    </text>
-</TEI>
+        </tei:body>
+    </tei:text>
+</tei:TEI>

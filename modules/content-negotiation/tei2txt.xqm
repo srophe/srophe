@@ -3,8 +3,8 @@ xquery version "3.0";
  : Builds tei conversions to plain text.
  :)
  
-module namespace tei2txt="http://syriaca.org/srophe/tei2txt";
-import module namespace bibl2html="http://syriaca.org/srophe/bibl2html" at "bibl2html.xqm";
+module namespace tei2txt="http://srophe.org/srophe/tei2txt";
+import module namespace bibl2html="http://srophe.org/srophe/bibl2html" at "bibl2html.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace html="http://www.w3.org/1999/xhtml";

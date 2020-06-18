@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<search-config>
+    <!--  <field name="author" expression="./ancestor::tei:TEI//tei:author" function="functionName"/> -->
+    <field name="keyword" expression="descendant-or-self::tei:body" function="fullText"/>
+    <field name="title" expression="ancestor::tei:TEI//tei:title" function="title"/>
+    <field name="author" expression="ancestor::tei:TEI//tei:author" function="author"/>
+    <field name="placeName" expression="descendant::tei:placeName"/>
+    <field name="persName" expression="descendant::tei:persName"/>
+    <field name="idno" expression="descendant::tei:idno"/>
+</search-config>

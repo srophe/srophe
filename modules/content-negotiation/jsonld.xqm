@@ -1,14 +1,14 @@
 xquery version "3.0";
 
-module namespace jsonld="http://syriaca.org/srophe/jsonld";
+module namespace jsonld="http://srophe.org/srophe/jsonld";
 (:~
  : Module returns JSON-LD
  : @author Winona Salesky <wsalesky@gmail.com>
  : @authored 2018-10-10
 :)
 
-import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "tei2html.xqm";
-import module namespace tei2rdf="http://syriaca.org/srophe/tei2rdf" at "tei2rdf.xqm";
+import module namespace tei2html="http://srophe.org/srophe/tei2html" at "tei2html.xqm";
+import module namespace tei2rdf="http://srophe.org/srophe/tei2rdf" at "tei2rdf.xqm";
 
 declare namespace output="http://www.w3.org/2010/xslt-xquery-serialization";
 declare namespace sparql="http://www.w3.org/2005/sparql-results#";

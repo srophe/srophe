@@ -3,9 +3,9 @@ xquery version "3.0";
  : Builds tei conversions. Citation module. 
  :)
  
-module namespace bibl2html="http://syriaca.org/srophe/bibl2html";
-import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "tei2html.xqm";
-import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
+module namespace bibl2html="http://srophe.org/srophe/bibl2html";
+import module namespace tei2html="http://srophe.org/srophe/tei2html" at "tei2html.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
 
 declare namespace html="http://purl.org/dc/elements/1.1/";
 declare namespace tei="http://www.tei-c.org/ns/1.0";

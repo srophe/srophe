@@ -1,7 +1,7 @@
 xquery version "3.0";
 
-import module namespace d3xquery="http://syriaca.org/srophe/d3xquery" at "d3xquery.xqm";
-import module namespace config="http://syriaca.org/srophe/config" at "../modules/config.xqm";
+import module namespace d3xquery="http://srophe.org/srophe/d3xquery" at "d3xquery.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "../modules/config.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace json="http://www.json.org";

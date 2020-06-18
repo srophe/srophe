@@ -6,14 +6,14 @@ xquery version "3.0";
  : @authored 2018-04-12
 :)
 
-import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
 
 (: Content serialization modules. :)
-import module namespace cntneg="http://syriaca.org/srophe/cntneg" at "content-negotiation.xqm";
-import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "tei2html.xqm";
+import module namespace cntneg="http://srophe.org/srophe/cntneg" at "content-negotiation.xqm";
+import module namespace tei2html="http://srophe.org/srophe/tei2html" at "tei2html.xqm";
 
 (: Data processing module. :)
-import module namespace data="http://syriaca.org/srophe/data" at "../lib/data.xqm";
+import module namespace data="http://srophe.org/srophe/data" at "../lib/data.xqm";
 
 (: Import KWIC module:)
 import module namespace kwic="http://exist-db.org/xquery/kwic";

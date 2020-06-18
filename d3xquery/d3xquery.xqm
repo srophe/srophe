@@ -1,6 +1,6 @@
 xquery version "3.1";
 
-module namespace d3xquery="http://syriaca.org/srophe/d3xquery";
+module namespace d3xquery="http://srophe.org/srophe/d3xquery";
 import module namespace functx="http://www.functx.com";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace json="http://www.json.org";

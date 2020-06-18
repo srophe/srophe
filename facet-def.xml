@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <facets xmlns="http://expath.org/ns/facet">
     <!-- A simple facet for browsing by Syriaca.org series -->
-    <facet-definition name="Series">
+    <facet-definition name="series" label="Series">
         <group-by>
-            <sub-path>descendant::tei:seriesStmt/tei:title</sub-path>
+            <sub-path>ancestor::tei:TEI/descendant::tei:seriesStmt/tei:title</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
     </facet-definition>
-    <!-- A simple facet for browsing by Syriaca.org place names (filtering on English) -->
-    <facet-definition name="Places">
+    <!-- A simple facet for browsing by Syriaca.org place names (filtering on English) 
+    <facet-definition name="placeName" label="Places">
         <group-by>
             <sub-path>descendant::tei:placeName[@xml:lang='en']</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="descending">count</order-by>
     </facet-definition>
-    <!-- A simple facet for browsing by Syriaca.org person names (filtering on English) -->
-    <facet-definition name="Persons">
+    <facet-definition name="persName" label="Persons">
         <group-by>
             <sub-path>descendant::tei:persName[@xml:lang='en']</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="descending">count</order-by>
     </facet-definition>
-    <facet-definition name="Sources">
+    -->
+    <facet-definition name="bibl" label="Sources">
         <group-by>
-            <sub-path>descendant::tei:body/descendant::tei:bibl/tei:ptr/@target</sub-path>
+            <sub-path>descendant::tei:bibl/tei:ptr/@target</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>
     <!-- Range example filters on Syriaca.org dates -->
-    <facet-definition name="Century">
+    <facet-definition name="date" label="Century">
         <range type="xs:year">
             <bucket lt="0001" name="BC dates" order="22"/>
             <bucket gt="0001-01-01" lt="0100-01-01" name="1-100" order="21"/>

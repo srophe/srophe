@@ -3,21 +3,24 @@ xquery version "3.1";
  : Builds HTML browse pages for Srophe Collections and sub-collections 
  : Alphabetical English and Syriac Browse lists, browse by type, browse by date, map browse. 
  :)
-module namespace browse="http://syriaca.org/srophe/browse";
+module namespace browse="http://srophe.org/srophe/browse";
 
 (:eXist templating module:)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 
 (: Import Srophe application modules. :)
-import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
-import module namespace data="http://syriaca.org/srophe/data" at "data.xqm";
-import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
-import module namespace maps="http://syriaca.org/srophe/maps" at "maps.xqm";
-import module namespace page="http://syriaca.org/srophe/page" at "paging.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
+import module namespace data="http://srophe.org/srophe/data" at "data.xqm";
+import module namespace tei2html="http://srophe.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
+import module namespace timeline = "http://srophe.org/srophe/timeline" at "lib/timeline.xqm";
+import module namespace sf="http://srophe.org/srophe/facets" at "facets.xql";
+import module namespace maps="http://srophe.org/srophe/maps" at "maps.xqm";
+import module namespace page="http://srophe.org/srophe/page" at "paging.xqm";
 
 (: Namespaces :)
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace html="http://www.w3.org/1999/xhtml";
+declare namespace srophe="https://srophe.app";
 
 (: Global Variables :)
 declare variable $browse:alpha-filter {request:get-parameter('alpha-filter', '')};
@@ -43,8 +46,7 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
 :)
 declare function browse:show-hits($node as node(), $model as map(*), $collection, $sort-options as xs:string*, $facets as xs:string?){
   let $hits := $model("hits")
-  return 
-    (
+  return
     if($browse:view = 'map') then 
         <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">
             {browse:get-map($hits)}
@@ -75,7 +77,6 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                 </div>
             )}
         </div>
-    )
 };
 
 (:
