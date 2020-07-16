@@ -1,5 +1,6 @@
 xquery version "3.1";
 (:~ 
+ : @depreciated, use facets.xql for eXist v5+ to take advantage of built in Lucene facets and fields
  : Srophe facets v2.0 
  : Removes in memory nodes created by orginal 
  : 
