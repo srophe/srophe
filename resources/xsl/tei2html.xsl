@@ -320,6 +320,24 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <xsl:template match="t:body">
+        <bdi>
+            <div class="body">
+                <xsl:sequence select="local:attributes(.)"/>
+                <div class="section" style="display:block;">
+                    <xsl:apply-templates/>
+                </div>
+                <xsl:if test="//t:note[@place='foot']">
+                    <div class="footnotes" lang="en">
+                        <h2>Footnotes</h2>
+                        <bdi>
+                            <xsl:apply-templates select="//t:note[@place='foot']" mode="footnote"/>
+                        </bdi>
+                    </div>    
+                </xsl:if>
+            </div>
+        </bdi>
+    </xsl:template>
     
     <!-- C -->
     <xsl:template name="citationInfo">
@@ -534,6 +552,46 @@
                 </div>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <xsl:template match="t:note" mode="footnote">
+        <p class="footnote-text">
+            <xsl:if test="@n">
+                <xsl:attribute name="id" select="concat('note',@n)"/>
+                <span class="notes footnote-refs">
+                    <span class="footnote-ref">‎<xsl:value-of select="@n"/>
+                    </span> </span>
+            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="t:quote">
+                    <xsl:apply-templates/>
+                </xsl:when>
+                <xsl:when test="t:p">
+                    <xsl:for-each select="t:p">
+                        <span>
+                            <xsl:sequence select="local:attributes(.)"/>
+                            <xsl:apply-templates/>
+                        </span>                        
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <span>
+                        <xsl:sequence select="local:attributes(.)"/>
+                        <xsl:apply-templates/>
+                    </span>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:if test="@source">
+                <xsl:sequence select="local:add-footnotes(@source,.)"/>
+            </xsl:if>
+        </p>   
+    </xsl:template>
+    <xsl:template match="t:note" mode="abstract">
+        <p>
+            <xsl:apply-templates/>
+            <xsl:if test="@source">
+                <xsl:sequence select="local:add-footnotes(@source,.)"/>
+            </xsl:if>
+        </p>
     </xsl:template>
     
     <!-- P -->
