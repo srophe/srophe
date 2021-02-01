@@ -13,6 +13,17 @@
 .api-param {width:20%}
 .api-desc {width:55%}
 .api-method {width:10%}
+.anchor { 
+    display: block;
+    position: relative; 
+    top:-25px !important;
+    visibility: hidden; 
+    }   
+.anchor:before {
+  content:"";
+  float: left;
+  height: 0px;
+}
 
 /* B */
 .image-banner {

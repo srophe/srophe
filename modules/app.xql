@@ -380,6 +380,7 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
    </div>
 };
 
+
 (:~
  : Select page view, record or html content
  : If no record is found redirect to 404
@@ -416,10 +417,8 @@ declare function app:wiki-rest-request($wiki-uri as xs:string?){
  : Pulls github wiki data H1.  
 :)
 declare function app:wiki-page-title($node, $model){
-    let $content := $model("hits")//html:div[@id='wiki-body']
-    return $content/descendant::html:h1[1]
+    $model("hits")//html:h1[contains(@class,'gh-header-title')]
 };
-
 (:~
  : Pulls github wiki content.  
 :)
@@ -452,8 +451,30 @@ declare function app:wiki-data($nodes as node()*) {
 :)
 declare function app:wiki-menu($node, $model, $wiki-uri){
     let $wiki-data := app:wiki-rest-request($wiki-uri)
-    let $menu := app:wiki-links($wiki-data//html:div[@id='wiki-rightbar']/descendant::html:ul, $wiki-uri)
+    let $menu := app:wiki-links($wiki-data//html:div[@class='wiki-rightbar']/descendant::html:ul, $wiki-uri)
     return $menu
+};
+
+(:~
+ : Typeswitch to processes wiki menu links for use with Syriaca.org documentation pages. 
+ : @param $wiki pulls content from specified wiki or wiki page. 
+:)
+declare function app:wiki-links($nodes as node()*, $wiki) {
+    for $node in $nodes
+    return 
+        typeswitch($node)
+            case element(html:a) return
+                let $wiki-path := substring-after($wiki,'https://github.com')
+                let $href := concat($config:nav-base, replace($node/@href, $wiki-path, "/documentation/wiki.html?wiki-page="),'&amp;wiki-uri=', $wiki)
+                return
+                    <a href="{$href}">
+                        {$node/@* except $node/@href, $node/node()}
+                    </a>
+            case element() return
+                element { node-name($node) } {
+                    $node/@*, app:wiki-links($node/node(), $wiki)
+                }
+            default return $node               
 };
 
 (:~

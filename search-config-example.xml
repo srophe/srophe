@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <search-config>
-    <!--  <field name="author" expression="./ancestor::tei:TEI//tei:author" function="functionName"/> -->
+    <!-- Used for sorting, do not delete -->
+    <field name="title" expression="descendant-or-self::tei:body" function="title" type="sort"/>
+    <field name="titleSyriac" expression="descendant-or-self::tei:body" function="titleSyriac" type="sort"/>
+    <field name="titleArabic" expression="descendant-or-self::tei:body" function="titleArabic" type="sort"/>
+    <field name="author" expression="descendant-or-self::tei:body" function="author" type="sort"/>
+    <!-- add display fields -->
     <field name="keyword" expression="descendant-or-self::tei:body" function="fullText"/>
     <field name="title" expression="ancestor::tei:TEI//tei:title" function="title"/>
     <field name="author" expression="ancestor::tei:TEI//tei:author" function="author"/>
