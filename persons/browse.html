@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/persons.html" data-template-at="content">
+    <div class="container top-padding">
+    <h1 class="banner">Browse works cited by title </h1>
+    <div class="main-content-block">
+        <!-- Calls xquery functions -->
+        <div data-template="search:search-data" data-template-collection="persons" id="search-results-panel">   
+            <div class="container padding-top">
+                <br/>
+                <div data-template="app:pageination" data-template-collection="persons" data-template-sort-options="title,author,pubDate,pubPlace"/>
+                <div class="row">
+                    <div class="col-md-4 facet-display">
+                        <div class="slider-container">
+                            <div id="slider" data-template="app:display-slider" data-template-date-element="descendant::tei:imprint[1]/tei:date"/>
+                        </div>
+                        <div data-template="app:display-facets" data-template-collection="persons"/>
+                    </div>
+                    <div class="col-md-8">
+                        <div data-template="app:display-map" data-template-collection="persons"/>
+                        <div data-template="search:show-hits" data-template-collection="persons"/>
+                        <div class="page-bottom">
+                            <div data-template="app:pageination" data-template-collection="persons"/>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+            </div>
+        </div>
+    </div>
+        
+    </div>
+</div>
