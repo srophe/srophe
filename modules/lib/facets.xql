@@ -40,7 +40,7 @@ declare variable $sf:sortFields := map { "fields": ("title","titleSyriac","title
 :)
 declare function sf:build-index(){
 <collection xmlns="http://exist-db.org/collection-config/1.0">
-    <index xmlns="http://exist-db.org/collection-config/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:srophe="https://srophe.app">
+    <index xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:srophe="https://srophe.app">
         <lucene diacritics="no">
             <module uri="http://srophe.org/srophe/facets" prefix="sf" at="xmldb:exist:///{$config:app-root}/modules/lib/facets.xql"/>
             <text qname="tei:body">{
