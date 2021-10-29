@@ -37,7 +37,7 @@
         -->
         <document-ids type="document-url">document-url</document-ids>
         <!--<html-render type="xquery"></html-render>-->
-        <html-render type="xslt"/>
+        <html-render type="xquery"/>
         <!-- Map rendering -->
         <maps>
             <!--  <option selected="true" api-key="API_KEY_HERE">google</option> -->

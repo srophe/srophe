@@ -477,29 +477,6 @@ declare function app:wiki-links($nodes as node()*, $wiki) {
             default return $node               
 };
 
-(:~
- : Typeswitch to processes wiki menu links for use with Syriaca.org documentation pages. 
- : @param $wiki pulls content from specified wiki or wiki page. 
-:)
-declare function app:wiki-links($nodes as node()*, $wiki) {
-    for $node in $nodes
-    return 
-        typeswitch($node)
-            case element(html:a) return
-                let $wiki-path := substring-after($wiki,'https://github.com')
-                let $href := concat($config:nav-base, replace($node/@href, $wiki-path, "/documentation/wiki.html?wiki-page="),'&amp;wiki-uri=', $wiki)
-                return
-                    <a href="{$href}">
-                        {$node/@* except $node/@href, $node/node()}
-                    </a>
-            case element() return
-                element { node-name($node) } {
-                    $node/@*, app:wiki-links($node/node(), $wiki)
-                }
-            default return
-                $node               
-};
-
 (:~ 
  : Enables shared content with template expansion.  
  : Used for shared menus in navbar where relative links can be problematic 
@@ -596,16 +573,4 @@ declare %templates:wrap function app:build-editor-list($node as node(), $model a
             <li>{normalize-space($name)}</li>
             else ''
         else ''  
-};
-
-(:~ 
- : Adds google analytics from config.xml
- : @param $node
- : @param $model
- : @param $path path to html content file, relative to app root. 
-:)
-declare  
-    %templates:wrap 
-function app:google-analytics($node as node(), $model as map(*)){
-   $config:get-config//google_analytics/text() 
 };
