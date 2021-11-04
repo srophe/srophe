@@ -85,8 +85,12 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
 declare function browse:display-hits($hits){
     for $hit in subsequence($hits, $browse:start,$browse:perpage)
     let $sort-title := 
-        if($browse:lang != 'en' and $browse:lang != 'syr') then 
-            <span class="sort-title" lang="{$browse:lang}" xml:lang="{$browse:lang}">{(if($browse:lang='ar') then attribute dir { "rtl" } else (), string($hit/@sort-title))}</span> 
+        if($browse:lang != 'en') then 
+            <span class="sort-title" lang="{$browse:lang}" xml:lang="{$browse:lang}">{(if($browse:lang='ar' or $browse:lang='syr') then attribute dir { "rtl" } else (), 
+                if($browse:lang = 'syr') then ft:field($hit, "titleSyriac")[1]
+                else if($browse:lang = 'ar') then ft:field($hit, "titleArabic")[1]
+                else ()
+            )}</span> 
         else () 
     let $uri := replace($hit/descendant::tei:publicationStmt/tei:idno[1],'/tei','')
     return 

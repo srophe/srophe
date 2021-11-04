@@ -1,5 +1,7 @@
 xquery version "3.0";
-(: Get and build TEI relationships :)
+(: Get and build TEI relationships 
+ : @depreciated, use relationships.xqm instead
+:)
 module namespace rel="http://srophe.org/srophe/related";
 import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
 import module namespace global="http://srophe.org/srophe/global" at "global.xqm";
