@@ -125,21 +125,24 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
             and request:get-parameter('alpha-filter', '') != 'all') then
                 for $hit in $hits
                 let $root := $hit/ancestor-or-self::tei:TEI
-                            let $s := 
+                let $s := 
                     if(contains($sort, 'author')) then ft:field($hit, "author")[1]
                     else if(request:get-parameter('sort', '') = 'title') then 
                         if(request:get-parameter('lang', '') = 'syr') then ft:field($hit, "titleSyriac")[1]
                         else if(request:get-parameter('lang', '') = 'ar') then ft:field($hit, "titleArabic")[1]
                         else ft:field($hit, "title")
+                    else if(request:get-parameter('lang', '') = 'syr') then ft:field($hit, "titleSyriac")[1]
+                    else if(request:get-parameter('lang', '') = 'ar') then ft:field($hit, "titleArabic")[1]
                     else if(request:get-parameter('sort', '') != '' and request:get-parameter('sort', '') != 'title' and not(contains($sort, 'author'))) then
                         if($collection = 'bibl') then
                             data:add-sort-options-bibl($hit, $sort)
-                        else data:add-sort-options($hit, $sort)                    
-                    else ft:field($hit, "title")                
-                order by $s collation 'http://www.w3.org/2013/collation/UCA'
-                where matches($s,global:get-alpha-filter())
+                        else data:add-sort-options($hit, $sort) 
+                    else ft:field($hit, "title")  
+                    
+                order by $s[1] collation 'http://www.w3.org/2013/collation/UCA'
+                where matches($s[1],global:get-alpha-filter())
                 return $root
-        else
+        else 
                 for $hit in $hits
                 let $root := $hit/ancestor-or-self::tei:TEI
                 let $s := 
@@ -151,10 +154,10 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
                         else if(request:get-parameter('sort', '') != '' and request:get-parameter('sort', '') != 'title' and not(contains($sort, 'author'))) then
                             if($collection = 'bibl') then
                                 data:add-sort-options-bibl($hit, $sort)
-                            else data:add-sort-options($hit, $sort)                    
+                            else data:add-sort-options($hit, $sort)  
                         else ft:field($hit, "title")                
-                order by $s collation 'http://www.w3.org/2013/collation/UCA', ft:field($hit, "author")[1]  collation 'http://www.w3.org/2013/collation/UCA'
-                return $root
+                order by $s[1] collation 'http://www.w3.org/2013/collation/UCA', ft:field($hit, "author")[1]  collation 'http://www.w3.org/2013/collation/UCA'
+                return $root 
 };
 
 (:~
