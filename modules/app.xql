@@ -18,6 +18,7 @@ import module namespace global="http://srophe.org/srophe/global" at "lib/global.
 import module namespace maps="http://srophe.org/srophe/maps" at "lib/maps.xqm";
 import module namespace page="http://srophe.org/srophe/page" at "lib/paging.xqm";
 import module namespace rel="http://srophe.org/srophe/related" at "lib/get-related.xqm";
+import module namespace relations="http://srophe.org/srophe/relationships" at "lib/relationships.xqm";
 import module namespace slider = "http://srophe.org/srophe/slider" at "lib/date-slider.xqm";
 import module namespace timeline = "http://srophe.org/srophe/timeline" at "lib/timeline.xqm";
 import module namespace teiDocs="http://srophe.org/srophe/teiDocs" at "teiDocs/teiDocs.xqm";
@@ -231,7 +232,11 @@ declare %templates:wrap function app:pageination($node as node()*, $model as map
 :)                   
 declare function app:internal-relationships($node as node(), $model as map(*), $relationship-type as xs:string?, $display as xs:string?, $map as xs:string?,$label as xs:string?){
     if($model("hits")//tei:relation) then 
-        rel:build-relationships($model("hits")//tei:relation,request:get-parameter('id', ''),$relationship-type, $display, $map, $label)
+        <div id="internalRelationships">
+           <h3>{if($label != '') then $label else 'Internal Relationships' }</h3> 
+           {relations:display-internal-relatiobships($model("hits"), replace($model("hits")//tei:idno[@type='URI'][1],'/tei',''), $relationship-type)}
+           
+        </div>
     else ()
 };
 
@@ -246,7 +251,7 @@ declare function app:external-relationships($node as node(), $model as map(*), $
     let $title := if(contains($rec/descendant::tei:title[1]/text(),' — ')) then 
                         substring-before($rec/descendant::tei:title[1],' — ') 
                    else $rec/descendant::tei:title[1]/text()
-    return rel:external-relationships($recid, $title[1], $relationship-type, $sort, $count, $label)
+    return <div class="dynamicContent" data-url="{concat($config:nav-base,'/modules/data.xql?currentID=',$recid,'&amp;relationship=external&amp;relationshipType=',$relationship-type,'&amp;label=',$label)}"></div>
 };
 
 (:~
@@ -273,6 +278,7 @@ declare function app:display-map($node as node(), $model as map(*)){
 
 (:~
  : Display Dates using timelinejs
+ : @depreciataed: timeline functions are depreciated. 
  :)                 
 declare function app:display-timeline($node as node(), $model as map(*)){
     if($model("hits")/descendant::tei:body/descendant::*[@when or @notBefore or @notAfter]) then

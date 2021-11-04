@@ -2,7 +2,7 @@
 <div xmlns="http://www.w3.org/1999/xhtml" data-template="templates:surround" data-template-with="templates/geo.html" data-template-at="content">
     <div class="container top-padding">
         <h1>Browse Gazetteer</h1>
-        <div data-template="browse:get-all" data-template-element="tei:place/tei:placeName">
+        <div data-template="browse:get-all" data-template-collection="places">
             <!-- Example limits data to places collection, see example entry in repo-config.xml -->    
             <!--        <div data-template="browse:get-all" data-template-collection="places">-->
             <div class="tabbable"> 
@@ -12,12 +12,12 @@
                         <a href="browse.html" default="default">English</a>
                     </li>
                     <li>
-                        <a href="browse.html?lang=syr&amp;element=tei:place/tei:placeName&amp;alpha-filter=ܐ" lang="syr" dir="rtl">
+                        <a href="browse.html?lang=syr&amp;alpha-filter=ܐ" lang="syr" dir="rtl">
                         ܠܫܢܐ ܣܘܪܝܝܐ
                     </a>
                     </li>
                     <li>
-                        <a href="browse.html?lang=ar&amp;element=tei:place/tei:placeName&amp;alpha-filter=ا" lang="ar" dir="rtl">
+                        <a href="browse.html?lang=ar&amp;alpha-filter=ا" lang="ar" dir="rtl">
                         اللغة العربية
                     </a>
                     </li>
@@ -29,9 +29,9 @@
                 <div class="tab-content">
                     <div class="tab-pane active">
                         <div class="row">
-                            <div data-template="browse:show-hits"/>
+                            <div data-template="browse:show-hits" data-template-collection="places"/>
                         </div>
-                        <div data-template="app:pageination"/>
+                        <div data-template="app:pageination" data-template-collection="places"/>
                     </div>
                 </div>
             </div>

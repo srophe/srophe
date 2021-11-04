@@ -80,7 +80,15 @@ $('.togglelink').click(function(e){
         }
 });           
 
-
+//Load dynamic content
+$('.dynamicContent').each(function(index, element) { 
+    var url = $(this).data('url');
+    var current = $(this) 
+    $.get(url, function(data) {
+        $(current).html(data);    
+        console.log('testing');
+    }); 
+   });
 
 if (navigator.appVersion.indexOf("Mac") > -1 || navigator.appVersion.indexOf("Linux") > -1) {
     $('.get-syriac').show();
