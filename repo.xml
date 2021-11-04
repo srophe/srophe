@@ -10,5 +10,5 @@
     <target>majlis</target>
     <prepare>pre-install.xql</prepare>
     <finish>post-install.xql</finish>
-    <deployed>2020-06-17T16:53:43.337-04:00</deployed>
-</meta>
+    
+<deployed>2021-10-29T11:31:14.218-04:00</deployed></meta>
