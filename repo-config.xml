@@ -15,9 +15,9 @@
         <!-- Web Site URL -->
         <url>http://syriaca.org/</url>
         <!-- Root of app for building dynamic links. Default is eXist app root  /exist/apps/srophe -->
-        <nav-base>/exist/apps/srophe</nav-base>
+        <nav-base>/exist/apps/majlis</nav-base>
         <!-- eXist app root for app deployment-->
-        <app-root>srophe</app-root>
+        <app-root>majlis</app-root>
         <!-- eXist data app root for TEI application.  -->
         <data-root>majlis-data</data-root>
         <!-- Base URI for identifiers in app data -->

@@ -9,16 +9,12 @@
                     <div data-template="app:display-nodes" data-template-paths="descendant::tei:text"/>
                 </div>
                 <div class="col-md-5 col-lg-4 right-menu">
+                    <!-- Make dynamic -->
                     <div data-template="app:display-map"/>
-                    <br/>
-                    <div data-template="app:display-timeline"/>
-                    <br/>
-                    <!--<div data-template="app:internal-relationships" data-template-display="list-description"/>-->
-                    <div data-template="app:internal-relationships" data-template-display="sentence"/>
-                    <br/>
-                    <div data-template="app:external-relationships"/>
-                    <!-- Button trigger corrections email modal -->
-                    <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button> 
+                    <!-- Relationsips listed in the TEI record  display: list/sentence -->
+                    <div data-template="app:internal-relationships" data-template-label="Internal Relationships"/>
+                    <!-- Relationships referencing this TEI record -->
+                    <div data-template="app:external-relationships" data-template-label="External Relationships"/>
                 </div>
             </div>
             <div>
