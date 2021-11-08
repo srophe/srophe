@@ -319,7 +319,6 @@ declare function app:display-slider($node as node(), $model as map(*), $collecti
  : bibl module relationships
 :)                   
 declare function app:cited($node as node(), $model as map(*)){
-    (:rel:cited($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')], request:get-parameter('start', 1),request:get-parameter('perpage', 5)):)
     if($model("hits")//tei:relation[@ref='dcterms:references']) then
         <div class="panel panel-default">
             <div class="panel-heading"><h3 class="panel-title">Cited Manuscripts</h3></div>

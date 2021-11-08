@@ -7,6 +7,7 @@
 @import url("syr-font-families.css");
 
 /* A */
+.abstract {}
 .alpha-pages {margin:-1.5em 0 1em 0;}
 #advancedSearch {padding:2em 1em; background-color:#F7F7F9;}
 .api-path {width:15%}
@@ -24,6 +25,7 @@
   float: left;
   height: 0px;
 }
+
 
 /* B */
 .image-banner {
@@ -240,9 +242,11 @@ img{ margin:0px }
 .keboard-btn {margin-left:-1em;}
 
 /* L */
+.label {color:black;}
 /* Styles for languages and scripts for Syriac styles */
 /* styles for languages and scripts */
 :lang(en) {
+    font-size: 1em;
 	font-family: arial, sans-serif;
 }
 
@@ -385,6 +389,7 @@ pre {
 .results {margin-top:4em;}
 .result {border-bottom:1px dotted #eee; padding-top:.5em; padding-bottom: 1em;}
 .results-list-desc {display:block;}
+.relation .short-rec-view {margin: 1em;}
 .relationship-type {font-color:#666666; display:block;}
 .row { margin-left: 0px; margin-right: 0px;}
 
@@ -479,7 +484,7 @@ pre {
     
 /* TEI styles */
 .tei-desc {display:block;margin:1em;}
-.tei-event {display:block;}
+/* .tei-event {display:block;} */
 .tei-footnote-refs, .tei-footnote-tgt {
     font-size: .7em;
     line-height: 0.5em;
@@ -492,11 +497,12 @@ pre {
     margin-left:-1.5em;
     padding-right:.5em;    
 }
-
+.tei-event p {display:inline-block;}
+.tei-note {margin: 1em;}
 .tei-quote .tei-placeName {color: #6699cc; font-weight:bold;}
 /*.tei-title > .tei-title {font-style:italic;} */
 .top-padding {margin-top:4.5em !important;}
-
+.text-block {margin-left:1em; display:block;}
 /* W */
 .white-link{color:white;}
 .white-link:focus, .white-link:active:focus, .white-link.active:focus {

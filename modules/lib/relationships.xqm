@@ -124,8 +124,12 @@ declare function relations:display-internal-relatiobships($data as node()*, $cur
     group by $relationship := $rel-type
     return 
         let $ids := string-join(($related/@active/string(),$related/@passive/string(),$related/@mutual/string()),' ')
+        let $ids := 
+            string-join(
+                distinct-values(
+                    tokenize($ids,' ')[not(. = $currentID)]),' ')
         let $count := count(tokenize($ids,' ')[not(. = $currentID)])
-        let $relationship-type := $relationship (:rel:translate-relationship-type($rel-type):)
+        let $relationship-type := $relationship 
         return 
             <div class="relation internal-relationships"  xmlns="http://www.w3.org/1999/xhtml">
                 <h4 class="relationship-type">{$title}&#160;{relations:stringify-relationship-type($relationship)} ({$count})</h4>
