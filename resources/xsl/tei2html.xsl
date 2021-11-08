@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:srophe="https://srophe.app" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
@@ -606,7 +605,7 @@
     <!-- Main page modules for syriaca.org display -->
     <xsl:template match="t:person">
         <xsl:if test="t:desc[@type='abstract'] | t:desc[starts-with(@xml:id, 'abstract-en')] | t:note[@type='abstract']">
-            <div class="tei-desc text">
+            <div class="tei-desc text abstract">
                 <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']"/>
             </div>
         </xsl:if>
@@ -665,10 +664,10 @@
             <div id="event">
                 <h3>Event<xsl:if test="count(t:event[not(@type='attestation')]) &gt; 1">s</xsl:if>
                 </h3>
-                <div class="tei-events tei-desc text">
+                <div class="text-block">
                     <xsl:for-each select="t:event[not(@type='attestation')]">
                         <xsl:sort select="if(exists(@notBefore)) then @notBefore else @when"/>
-                        <span class="tei-event">
+                        <span class="text-block">
                             <xsl:apply-templates select="."/>
                         </span>
                     </xsl:for-each>
@@ -680,11 +679,11 @@
         <xsl:if test="t:event[@type='attestation']">
             <div id="attestation">
                 <h3>Attestation<xsl:if test="count(t:event[@type='attestation']) &gt; 1">s</xsl:if></h3>
-                <div class="tei-events tei-desc text">
+                <div class="text-block">
                     <!-- Sorts events on dates, checks first for @notBefore and if not present, uses @when -->
                     <xsl:for-each select="t:event[@type='attestation']">
                         <xsl:sort select="if(exists(@notBefore)) then @notBefore else @when"/>
-                        <span class="tei-event">
+                        <span class="text-block">
                             <xsl:apply-templates select="."/>     
                         </span>
                     </xsl:for-each>
@@ -697,10 +696,11 @@
             <xsl:apply-templates select="t:note[not(@type='description')]"/>
         </xsl:if>
         
-        <xsl:variable name="status" select="string(//t:revisionDesc/@status)"/>
-        <span class="rec-status {$status} btn btn-info">Status: <xsl:value-of select="$status"/></span>
-        
         <div class="info-btns">  
+        <xsl:variable name="status" select="string(//t:revisionDesc/@status)"/>
+        <xsl:if test="$status != ''">
+            <span class="rec-status {$status} btn btn-info">Status: <xsl:value-of select="$status"/></span>    
+        </xsl:if>
             <!-- Button trigger corrections email modal -->
             <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button> 
             <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">
@@ -776,10 +776,10 @@
             <div id="event">
                 <h3>Event<xsl:if test="count(t:event[not(@type='attestation')]) &gt; 1">s</xsl:if>
                 </h3>
-                <div class="tei-events tei-desc text">
+                <div class="text-block">
                     <xsl:for-each select="t:event[not(@type='attestation')]">
                         <xsl:sort select="if(exists(@notBefore)) then @notBefore else @when"/>
-                        <span class="tei-event">
+                        <span class="text-block">
                             <xsl:apply-templates select="."/>
                         </span>
                     </xsl:for-each>
@@ -791,11 +791,11 @@
         <xsl:if test="t:event[@type='attestation']">
             <div id="attestation">
                 <h3>Attestation<xsl:if test="count(t:event[@type='attestation']) &gt; 1">s</xsl:if></h3>
-                <div class="tei-events tei-desc text">
+                <div class="text-block">
                     <!-- Sorts events on dates, checks first for @notBefore and if not present, uses @when -->
                     <xsl:for-each select="t:event[@type='attestation']">
                         <xsl:sort select="if(exists(@notBefore)) then @notBefore else @when"/>
-                        <span class="tei-event">
+                        <span class="text-block">
                             <xsl:apply-templates select="."/>     
                         </span>
                     </xsl:for-each>
@@ -831,16 +831,18 @@
             </div>
         </xsl:if>
         
-        <xsl:variable name="status" select="string(//t:revisionDesc/@status)"/>
-        <span class="rec-status {$status} btn btn-info">Status: <xsl:value-of select="$status"/></span>
-        
         <div class="info-btns">  
+            <xsl:variable name="status" select="string(//t:revisionDesc/@status)"/>
+            <xsl:if test="$status != ''">
+                <span class="rec-status {$status} btn btn-info">Status: <xsl:value-of select="$status"/></span>    
+            </xsl:if>
             <!-- Button trigger corrections email modal -->
             <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button> 
             <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">
                 Is this record complete?
             </a>
         </div>
+        
         <!-- Build see also -->
         <xsl:call-template name="link-icons-list">
             <xsl:with-param name="title">
@@ -1042,16 +1044,18 @@
             <xsl:apply-templates select="t:note[not(@type='description')]"/>
         </xsl:if>
         
-        <xsl:variable name="status" select="string(//t:revisionDesc/@status)"/>
-        <span class="rec-status {$status} btn btn-info">Status: <xsl:value-of select="$status"/></span>
-        
         <div class="info-btns">  
+            <xsl:variable name="status" select="string(//t:revisionDesc/@status)"/>
+            <xsl:if test="$status != ''">
+                <span class="rec-status {$status} btn btn-info">Status: <xsl:value-of select="$status"/></span>    
+            </xsl:if>
             <!-- Button trigger corrections email modal -->
             <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button> 
             <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">
                 Is this record complete?
             </a>
         </div>
+        
         <!-- Build see also -->
         <xsl:call-template name="link-icons-list">
             <xsl:with-param name="title">
@@ -1156,16 +1160,18 @@
             </div>
         </xsl:if>
        
-        <xsl:variable name="status" select="string(//t:revisionDesc/@status)"/>
-        <span class="rec-status {$status} btn btn-info">Status: <xsl:value-of select="$status"/></span>
-        
         <div class="info-btns">  
+            <xsl:variable name="status" select="string(//t:revisionDesc/@status)"/>
+            <xsl:if test="$status != ''">
+                <span class="rec-status {$status} btn btn-info">Status: <xsl:value-of select="$status"/></span>    
+            </xsl:if>
             <!-- Button trigger corrections email modal -->
             <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button> 
             <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">
                 Is this record complete?
             </a>
         </div>
+       
         <!-- Build see also -->
         <xsl:call-template name="link-icons-list">
             <xsl:with-param name="title">
