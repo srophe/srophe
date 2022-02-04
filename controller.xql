@@ -99,7 +99,16 @@ else if(ends-with($exist:path,('/tei','/xml','/txt','/pdf','/json','/geojson','/
     local:content-negotiation($exist:path, $exist:resource)
 else if(ends-with($exist:resource,('.tei','.xml','.txt','.pdf','.json','.geojson','.kml','.jsonld','.rdf','.ttl','.atom'))) then
     local:content-negotiation($exist:path, $exist:resource)
-    
+else if(request:get-parameter('doc', '') != '') then
+     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+            <view>
+                <forward url="{$exist:controller}/modules/view.xql"/>
+            </view>
+            <error-handler>
+       			<forward url="{$exist:controller}/error-page.html" method="get"/>
+       			<forward url="{$exist:controller}/modules/view.xql"/>
+       		</error-handler>
+        </dispatch>
 (: Checks for any record uri patterns as defined in repo.xml :)    
 else if(replace($exist:path, $exist:resource,'') =  $exist:record-uris) then
     if($exist:resource = ('index.html','search.html','browse.html','about.html')) then    

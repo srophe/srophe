@@ -34,7 +34,11 @@ declare function data:get-document() {
     (: Get document by document path. :)
     else if(request:get-parameter('doc', '') != '') then 
         if(starts-with(request:get-parameter('doc', ''),$config:data-root)) then 
-            doc(xmldb:encode-uri(request:get-parameter('doc', '') || '.xml'))
+            if(ends-with(request:get-parameter('doc', ''),'.xml')) then
+                 doc(xmldb:encode-uri(request:get-parameter('doc', '')))
+            else doc(xmldb:encode-uri(request:get-parameter('doc', '') || '.xml'))
+        else if(ends-with(request:get-parameter('doc', ''),'.xml')) then
+            doc(xmldb:encode-uri($config:data-root || "/" || request:get-parameter('doc', '')))
         else doc(xmldb:encode-uri($config:data-root || "/" || request:get-parameter('doc', '') || '.xml'))
     else ()
 };

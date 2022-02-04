@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <meta xmlns="http://exist-db.org/xquery/repo">
     <!-- 
         Application configuration file for the Srophe application. 
@@ -33,7 +32,7 @@
             xpath to unique identifier for record, syriaca.org uses tei:idno[@type='URL'], this is the default value 
             To use documnet location instead of URIs change to: 
             <document-ids type="document-url">document-url</document-ids>
-            URI example: <id-path type="URI">tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='URL']</id-path>
+            URI example: <document-ids type="URI">tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='URL']</document-ids
         -->
         <document-ids type="document-url">document-url</document-ids>
         <!--<html-render type="xquery"></html-render>-->
@@ -65,10 +64,12 @@
                 record-URI-pattern="URI for building links to record views."
                 app-root="folder name in app" 
                 data-root="folder name in data"/>-->
+            <!--
             <collection name="places" title="The Syriac Gazetteer" app-root="/geo/" data-root="places" record-URI-pattern="http://syriaca.org/place/"/>
             <collection name="persons" title="SBD" app-root="/" data-root="persons" record-URI-pattern="http://syriaca.org/person/"/>
             <collection name="works" title="NHSL" app-root="/" data-root="works" record-URI-pattern="http://syriaca.org/work/"/>
             <collection name="bibl" title="Works Cited" app-root="/bibl/" data-root="bibl" record-URI-pattern="http://syriaca.org/bibl/"/>
+            -->
         </collections>
     </config>
 </meta>
