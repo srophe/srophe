@@ -520,5 +520,8 @@ pre {
     float:left;
     margin-left:3em;
     }
-.caret {float:left; margin-left:.5em; margin-top:.5em;}    
+.caret {float:left; margin-left:.5em; margin-top:.5em;} 
+
+/* Hide imported down arrow from github wiki menu */
+.js-wiki-sidebar-toc-toggle-chevron-button {display:none;}
 }
