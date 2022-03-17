@@ -1,0 +1,20 @@
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
+    <div class="container top-padding">
+        <h1>Build Collection indexes</h1>     
+        <hr/>
+        <p>The Srophé Application allows users to customize collection facets and fields via the collection.xconf file. 
+            On initiating an application or making changes to fields/facets in the facet-config.xml files the collection 
+            indexes will need to be rebuilt and the collections will need to be re-indexed. 
+            This can take up to 20 minutes if you have a large collection. 
+        </p>
+        <p class="hint indent">*This is an infrequent occurance as data is automatically indexed when loaded into eXist. 
+            A re-index is only required if a change is need in what fields or facets are available to the application. </p>
+        <p class="hint indent">**You will need administrative permissions to run this script.</p>
+        <!-- Sed this via javascript, return when finished, have little spinny progress bar thing.  -->
+        <a class="btn btn-default btn-rounded btn-light btn-sm text-center getContent" href="#" data-url="modules/index.xql">
+            <span class="glyphicon glyphicon-refresh spinning"/>
+            Build Collection Indexes
+        </a>
+        <p/>
+    </div>
+</div>
