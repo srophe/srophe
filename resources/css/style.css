@@ -186,6 +186,7 @@ footer .poweredby img { width: 75px; }
 .geo-home #map {border-bottom:4px solid #456889}
 
 /* H */
+.hint {font-size:small; font-style:italic; font-color:grey;}
 .home-page-text {
     color:white; font-size:1.75em; margin-top:2em;
     font-weight:200;
@@ -348,6 +349,9 @@ img{ margin:0px }
 .navbar .icon-text {display:inline-block; margin-top:-.85em; vertical-align: middle; font-weight:500;}
 .navbar .nav-text {display:inline-block; line-height:1.5em; margin-top:.25em;}
 
+/* M */
+.message {font-size:large;}
+
 /* O */
 .overlay {
     font-weight:200;
@@ -481,7 +485,7 @@ pre {
     overflow:visible;
     text-align:center;
     }
-    
+.top-padding{padding-top:3em;}  
 /* TEI styles */
 .tei-desc {display:block;margin:1em;}
 /* .tei-event {display:block;} */
@@ -524,4 +528,21 @@ pre {
 
 /* Hide imported down arrow from github wiki menu */
 .js-wiki-sidebar-toc-toggle-chevron-button {display:none;}
+}
+
+
+/* TEST */
+.glyphicon.spinning {
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin2 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg); }
+    to { transform: scale(1) rotate(360deg); }
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
 }
