@@ -1,5 +1,4 @@
 $(document).ready(function() {
-$('.spinning').hide();
 // Main javascript functions used by place pages
 // validate contact forms
 $.validator.setDefaults({
@@ -89,6 +88,9 @@ $('.dynamicContent').each(function(index, element) {
         $(current).html(data);    
     }); 
    });
+
+//hide spinner on load
+$('.spinning').hide();
 
 //Load dynamic content
 $('.getContent').click(function(index, element) { 
