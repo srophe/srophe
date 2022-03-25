@@ -71,5 +71,27 @@
             <collection name="bibl" title="Works Cited" app-root="/bibl/" data-root="bibl" record-URI-pattern="http://syriaca.org/bibl/"/>
             -->
         </collections>
+        <!-- Configure Sort fields for the whole app. 
+            Sort fields are used for sorting in browse and search. Facets should be defined separately in a facet-conf.xml document.
+            If no fields are defined the default fields will be used: 
+            title, author, titleSyriac, titleArabic
+            
+            If the field is a straight xpath, include it below (see publicationDate for an example), 
+            If there is logic required in creating your field you will need to add a custom function
+            in the facets.xql file with a corresponding name here (see title for an example). 
+            
+            <sortFields>
+                <fields function="title">title</fields>
+                <fields function="author">author</fields>
+                <fields xpath="tei:TEI/descendant::tei:sourceDesc/tei:bibl/tei:date/@when"></fields>
+            </sortFields>
+        
+        -->
+        <sortFields>
+            <fields function="title">title</fields>
+            <fields function="titleSyriac">titleSyriac</fields>
+            <fields function="titleArabic">titleArabic</fields>
+            <fields function="author">author</fields>
+        </sortFields>
     </config>
 </meta>

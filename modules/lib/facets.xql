@@ -30,8 +30,16 @@ declare variable $sf:QUERY_OPTIONS := map {
     "leading-wildcard": "yes",
     "filter-rewrite": "yes"
 };
+
+declare variable $sf:sortFieldsConfig := $config:get-config//*:sortFields/*:fields;
+
 (: Add sort fields to browse and search options. Used for sorting, add sort fields and functions, add sort function:)
-declare variable $sf:sortFields := map { "fields": ("title", "author","titleSyriac","titleArabic") };
+declare variable $sf:sortFields :=  let $fields := 
+                                        if($sf:sortFieldsConfig != '') then
+                                            for $f in $sf:sortFieldsConfig
+                                            return $f 
+                                        else ("title", "author","titleSyriac","titleArabic")
+                                    return map { "fields": $fields };
 
 (:~ 
  : Build indexes for fields and facets as specified in facet-def.xml and search-config.xml files
@@ -42,7 +50,8 @@ declare function sf:build-index(){
     <index xmlns="http://exist-db.org/collection-config/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:srophe="https://srophe.app">
         <lucene diacritics="no">
             <module uri="http://srophe.org/srophe/facets" prefix="sf" at="xmldb:exist:///{$config:app-root}/modules/lib/facets.xql"/>
-            <text qname="tei:body">{
+            <text qname="tei:body">
+            {
             let $facets :=     
                 for $f in collection($config:app-root)//facet:facet-definition
                 let $path := document-uri(root($f))
@@ -54,26 +63,27 @@ declare function sf:build-index(){
                        <facet dimension="{functx:words-to-camel-case($facet-grp)}" expression="sf:facet(descendant-or-self::tei:body, {concat("'",$path[1],"'")}, {concat("'",$facet-grp,"'")})"/>                
                     else 
                         <facet dimension="{functx:words-to-camel-case($facet-grp)}" expression="{replace($f[1]/facet:group-by/facet:sub-path/text(),"&#34;","'")}"/>
-            (:
-            let $fields :=  
-                    for $f in collection($config:app-root)//*:search-config/*:field
-                    let $path := document-uri(root($f))
-                    group by $field-grp := $f/@name
-                    where $field-grp != 'keyword' and  $field-grp != 'fullText'
-                    return 
-                        if($f[1]/@function != '') then 
-                            <field name="{functx:words-to-camel-case($field-grp)}" expression="sf:field(descendant-or-self::tei:body, {concat("'",$path[1],"'")}, {concat("'",$field-grp,"'")})"/>
-                        else 
-                            <field name="{functx:words-to-camel-case($field-grp)}" expression="{string($f[1]/@expression)}"/>
-             :)       
             return 
                 $facets
-            }              
-                <!-- Predetermined sort fields -->               
-                <field name="title" expression="sf:field(descendant-or-self::tei:body,'title')"/>
-                <field name="titleSyriac" expression="sf:field(descendant-or-self::tei:body, 'titleSyriac')"/>
-                <field name="titleArabic" expression="sf:field(descendant-or-self::tei:body, 'titleArabic')"/>
-                <field name="author" expression="sf:field(descendant-or-self::tei:body, 'author')"/>
+            }
+            {
+                if($sf:sortFieldsConfig != '') then 
+                    for $f in $sf:sortFieldsConfig
+                    return 
+                    element field {
+                            attribute { "name" } {$f/text()},
+                            attribute { "expression" } {
+                                if($f/@xpath[. != '']) then
+                                    if(starts-with($f/@xpath,'tei:TEI')) then concat('ancestor-or-self::',$f/@xpath) else string($f/@xpath)
+                                else concat("sf:field(descendant-or-self::tei:body,'",$f/text(),"')")
+                            }
+                           }
+                else 
+                   ( <field name="title" expression="sf:field(descendant-or-self::tei:body,'title')"/>,
+                    <field name="titleSyriac" expression="sf:field(descendant-or-self::tei:body, 'titleSyriac')"/>,
+                    <field name="titleArabic" expression="sf:field(descendant-or-self::tei:body, 'titleArabic')"/>,
+                    <field name="author" expression="sf:field(descendant-or-self::tei:body, 'author')"/>)
+            }
             </text>
             <text qname="tei:fileDesc"/>
             <text qname="tei:biblStruct"/>
@@ -569,3 +579,5 @@ declare function sf:facet-authors($element as item()*, $facet-definition as item
     else $element/ancestor-or-self::tei:TEI/descendant::tei:titleStmt/descendant::tei:author
 };
 
+
+(: Custom Fields and facets:)

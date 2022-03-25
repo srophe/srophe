@@ -58,8 +58,6 @@
     <xsl:import href="collations.xsl"/>
     <!-- Syriaca.org stylesheets -->
 <!--    <xsl:import href="link-icons.xsl"/>-->
-    <!-- SPEAR -->
-    <xsl:import href="spear.xsl"/>
     
  <!-- =================================================================== -->
  <!-- set output so we get (mostly) indented HTML -->
