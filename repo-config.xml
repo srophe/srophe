@@ -88,12 +88,11 @@
                 <fields function="titleSyriac">titleSyriac</fields>
                 <fields function="titleArabic">titleArabic</fields>
                 <fields function="author">author</fields>
-                <fields xpath="tei:TEI/descendant::tei:sourceDesc/tei:bibl/tei:date/@when"></fields>
             </sortFields>
         
         -->
         <sortFields>
-            <fields xpath="tei:TEI/descendant::tei:sourceDesc/tei:bibl/tei:title">title</fields>
+            <fields function="title">title</fields>
             <fields function="titleSyriac">titleSyriac</fields>
             <fields function="titleArabic">titleArabic</fields>
             <fields function="author">author</fields>
