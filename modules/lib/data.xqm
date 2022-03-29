@@ -159,6 +159,8 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
                             if(request:get-parameter('lang', '') = 'syr') then ft:field($hit, "titleSyriac")[1]
                             else if(request:get-parameter('lang', '') = 'ar') then ft:field($hit, "titleArabic")[1]
                             else ft:field($hit, "title")
+                        else if(request:get-parameter('sort', '') = $data:SORT_FIELDS) then
+                            ft:field($hit, request:get-parameter('sort', ''))[1]
                         else if(request:get-parameter('sort', '') != '' and request:get-parameter('sort', '') != 'title' and not(contains($sort, 'author'))) then
                             if($collection = 'bibl') then
                                 data:add-sort-options-bibl($hit, $sort)
