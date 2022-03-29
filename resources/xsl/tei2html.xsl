@@ -484,6 +484,88 @@
         </xsl:if>
     </xsl:template>
     
+    <!-- M -->
+    <xsl:template name="miradorViewer">
+        <xsl:variable name="manifestString">
+            <xsl:choose>
+                <xsl:when test="descendant::t:ref[@type='IIIF']">
+                    <xsl:value-of select="descendant::t:ref[@type='IIIF'][1]/@target"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="descendant::t:monogr/t:ref[1]/@target"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="manifest">
+            <xsl:choose>
+                <xsl:when test="matches($manifestString, 'https?://archive.org/details/(.*)')">
+                    <xsl:value-of select="replace($manifestString,'https?://archive.org/details/(.*)','https://iiif.archivelab.org/iiif/$1/manifest.json')"/>
+                </xsl:when>
+                <xsl:when test="matches($manifestString, 'https?://reader.digitale-sammlungen.de/resolve/display/(.*?).html')">
+                    <xsl:value-of select="replace($manifestString,'https?://reader.digitale-sammlungen.de/resolve/display/(.*?).html','https://api.digitale-sammlungen.de/iiif/presentation/v2/$1/manifest')"/>
+                </xsl:when>
+                <xsl:when test="matches($manifestString, 'https?://mdz-nbn-resolving.de/urn:nbn:de:bvb:(\d+)-([a-z0-9]+)-([a-z0-9]+)')">
+                    <xsl:value-of select="replace($manifestString,'https?://mdz-nbn-resolving.de/urn:nbn:de:bvb:(\d+)-([a-z0-9]+)-([a-z0-9]+)','https://api.digitale-sammlungen.de/iiif/presentation/v2/$2/manifest')"/>
+                </xsl:when>
+                <xsl:when test="matches($manifestString, 'https?://(www.)?mdz-nbn-resolving.de/urn/resolver.pl\?urn=urn:nbn:de:bvb:(\d+)-([a-z0-9]+)-([a-z0-9]+)')">
+                    <xsl:value-of select="replace($manifestString,'https?://(www.)?mdz-nbn-resolving.de/urn/resolver.pl\?urn=urn:nbn:de:bvb:(\d+)-([a-z0-9]+)-([a-z0-9]+)','https://api.digitale-sammlungen.de/iiif/presentation/v2/$3/manifest')"/>
+                </xsl:when>
+                <xsl:when test="matches($manifestString, 'https://gallica.bnf.fr/(ark:/[A-Za-z0-9]+/[A-Za-z0-9]+)(.*)')">
+                    <xsl:value-of select="replace($manifestString,'https://gallica.bnf.fr/(ark:/[A-Za-z0-9]+/[A-Za-z0-9]+)(.*)','https://gallica.bnf.fr/iiif/$1/manifest.json')"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:if test="$manifest != ''">
+            <div>
+                <script src="https://unpkg.com/mirador@latest/dist/mirador.min.js"/>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mirador" style="margin:1em; padding:1em; z-index: 1; min-height:600px; poisition: relative;">
+                            <div id="mirador"/>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript"> 
+                    <![CDATA[
+                                var mirador = Mirador.viewer({
+                                "id": "mirador",
+                                "manifests": {"]]><xsl:value-of select="$manifest"/><![CDATA[": {
+                                "provider": ""
+                                }
+                                },
+                                "windows": [
+                                  {
+                                  "loadedManifest": "]]><xsl:value-of select="$manifest"/><![CDATA[",
+                                  "thumbnailNavigationPosition": 'far-right'
+                                  }
+                                ],
+                                "window": {
+                                  "allowFullscreen": "true",
+                                  "views": [ 
+                                    { "key": 'single' },
+                                    { "key": 'book' },
+                                    { "key": 'gallery' },
+                                  ]
+                                },
+                               "workspace": {
+                                  "type": 'mosaic',
+                                },
+                                "workspaceControlPanel": {
+                                  "enabled": "false"
+                                },
+                                "theme" :{
+                                  "palette": {
+                                    "primary": {
+                                      "main": '#009440'
+                                    }
+                                  }
+                                }
+                                });]]>
+                </script>
+            </div> 
+        </xsl:if>
+    </xsl:template>
+    
     <!-- N -->
     <xsl:template match="t:note">
         <xsl:variable name="xmlid" select="@xml:id"/>
