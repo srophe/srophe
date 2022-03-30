@@ -86,10 +86,24 @@ $('.dynamicContent').each(function(index, element) {
     var current = $(this) 
     $.get(url, function(data) {
         $(current).html(data);    
-        console.log('testing');
     }); 
    });
 
+//hide spinner on load
+$('.spinning').hide();
+
+//Load dynamic content
+$('.getContent').click(function(index, element) { 
+    var url = $(this).data('url');
+    var current = $(this) 
+    $('.spinning').show();
+    $.get(url, function(data) {
+        $(current).html(data);
+        $('.spinning').hide();
+        console.log('Getting data...')
+    }); 
+   });
+   
 if (navigator.appVersion.indexOf("Mac") > -1 || navigator.appVersion.indexOf("Linux") > -1) {
     $('.get-syriac').show();
 }

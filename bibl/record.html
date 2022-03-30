@@ -1,34 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/bibl.html" data-template-at="content">
-    <div data-template="app:fix-links" class="record">
+    <div data-template="app:fix-links" class="main-content-block">
         <div class="interior-content">
-            <div data-template="app:h1"/>
+            <!--            <div data-template="app:h1"/>-->
+            <br/>
             <div data-template="app:other-data-formats" data-template-formats="print,tei,rdf,text"/>
             <div class="row">
                 <div class="col-md-7 col-lg-8">
-                    <div data-template="app:display-nodes" data-template-paths="descendant::tei:text"/>
+                    <div data-template="app:display-nodes" data-template-paths="descendant-or-self::tei:TEI"/>
                 </div>
                 <div class="col-md-5 col-lg-4 right-menu">
-                    <!-- 
-                    <div data-template="app:display-map"/>
+                    <div data-template="app:display-related-places-map"/>
                     <br/>
-                    <div data-template="app:display-timeline"/>
+                    <div data-template="app:internal-relationships" data-template-label="Relationships"/>
                     <br/>
-                    -->
-                    <!--<div data-template="app:internal-relationships" data-template-display="list-description"/>-->
-<!--                    <div data-template="app:internal-relationships" data-template-display="sentence"/>-->
-                    <br/>
-<!--                    <div data-template="app:external-relationships"/>-->
-                    <!-- Button trigger corrections email modal -->
-<!--                    <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button> -->
+                    <div data-template="app:external-relationships" data-template-label="Additional Relationships"/>
+                    <!-- Worldcat?  -->
+                    <!--                    <div data-template="app:external-relationships"/>-->
                 </div>
             </div>
             <div>
                 <!-- Entry Citation information, pass TEI header to citation.xsl -->
-                <div data-template="app:display-nodes" data-template-paths="descendant::tei:teiHeader"/>
+                <!--                <div data-template="app:display-nodes" data-template-paths="descendant::tei:teiHeader"/>-->
             </div>
         </div>
     </div>
     <!-- Modal email form-->
-    <div data-template="app:contact-form" data-template-collection="bibl"/>
+    <div data-template="app:contact-form" data-template-collection="bibl"/>    
 </div>

@@ -20,6 +20,8 @@ declare variable $data:QUERY_OPTIONS := map {
     "filter-rewrite": "yes"
 };
 
+declare variable $data:SORT_FIELDS := $config:get-config//*:sortFields/*:fields;
+
 (:~
  : Return document by id/tei:idno or document path
  : Return by id if get-parameter $id
@@ -29,12 +31,16 @@ declare function data:get-document() {
     (: Get document by id or tei:idno:)
     if(request:get-parameter('id', '') != '') then  
         if($config:document-id) then 
-           collection($config:data-root)//tei:idno[. = request:get-parameter('id', '')]/ancestor::tei:TEI
+           collection($config:data-root)//tei:idno[. = request:get-parameter('id', '')][@type='URI']/ancestor::tei:TEI
         else collection($config:data-root)/id(request:get-parameter('id', ''))/ancestor::tei:TEI
     (: Get document by document path. :)
     else if(request:get-parameter('doc', '') != '') then 
         if(starts-with(request:get-parameter('doc', ''),$config:data-root)) then 
-            doc(xmldb:encode-uri(request:get-parameter('doc', '') || '.xml'))
+            if(ends-with(request:get-parameter('doc', ''),'.xml')) then
+                 doc(xmldb:encode-uri(request:get-parameter('doc', '')))
+            else doc(xmldb:encode-uri(request:get-parameter('doc', '') || '.xml'))
+        else if(ends-with(request:get-parameter('doc', ''),'.xml')) then
+            doc(xmldb:encode-uri($config:data-root || "/" || request:get-parameter('doc', '')))
         else doc(xmldb:encode-uri($config:data-root || "/" || request:get-parameter('doc', '') || '.xml'))
     else ()
 };
@@ -47,7 +53,7 @@ declare function data:get-document() {
 declare function data:get-document($id as xs:string?) {
     if(starts-with($id,'http')) then
         if($config:document-id) then 
-            collection($config:data-root)//tei:idno[. = $id]/ancestor::tei:TEI
+            collection($config:data-root)//tei:idno[. = $id][@type='URI']/ancestor::tei:TEI
         else collection($config:data-root)/id($id)/ancestor::tei:TEI
     else if(starts-with($id,$config:data-root)) then 
             doc(xmldb:encode-uri($id || '.xml'))
@@ -114,7 +120,7 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
     let $sort := 
         if(request:get-parameter('sort', '') != '') then request:get-parameter('sort', '') 
         else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', '')
-        else ()         
+        else ()  
     let $hits := util:eval(data:build-collection-path($collection))[descendant::tei:body[ft:query(., (),sf:facet-query())]]                        
     return 
         if(request:get-parameter('view', '') = 'map') then $hits  
@@ -133,6 +139,8 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
                         else ft:field($hit, "title")
                     else if(request:get-parameter('lang', '') = 'syr') then ft:field($hit, "titleSyriac")[1]
                     else if(request:get-parameter('lang', '') = 'ar') then ft:field($hit, "titleArabic")[1]
+                    else if(request:get-parameter('sort', '') = $data:SORT_FIELDS) then
+                        ft:field($hit, request:get-parameter('sort', ''))[1]
                     else if(request:get-parameter('sort', '') != '' and request:get-parameter('sort', '') != 'title' and not(contains($sort, 'author'))) then
                         if($collection = 'bibl') then
                             data:add-sort-options-bibl($hit, $sort)
@@ -151,6 +159,8 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
                             if(request:get-parameter('lang', '') = 'syr') then ft:field($hit, "titleSyriac")[1]
                             else if(request:get-parameter('lang', '') = 'ar') then ft:field($hit, "titleArabic")[1]
                             else ft:field($hit, "title")
+                        else if(request:get-parameter('sort', '') = $data:SORT_FIELDS) then
+                            ft:field($hit, request:get-parameter('sort', ''))[1]
                         else if(request:get-parameter('sort', '') != '' and request:get-parameter('sort', '') != 'title' and not(contains($sort, 'author'))) then
                             if($collection = 'bibl') then
                                 data:add-sort-options-bibl($hit, $sort)
@@ -186,6 +196,8 @@ declare function data:search($collection as xs:string*, $queryString as xs:strin
                         if(request:get-parameter('lang', '') = 'syr') then ft:field($hit, "titleSyriac")[1]
                         else if(request:get-parameter('lang', '') = 'ar') then ft:field($hit, "titleArabic")[1]
                         else ft:field($hit, "title")
+                    else if(request:get-parameter('sort', '') = $data:SORT_FIELDS) then
+                        ft:field($hit, request:get-parameter('sort', ''))[1]
                     else if(request:get-parameter('sort', '') != '' and request:get-parameter('sort', '') != 'title' and not(contains($sort, 'author'))) then
                         if($collection = 'bibl') then
                             data:add-sort-options-bibl($hit, $sort)
@@ -199,6 +211,45 @@ declare function data:search($collection as xs:string*, $queryString as xs:strin
             return $hit/ancestor-or-self::tei:TEI        
 };
 
+(:~
+ : API search functions. Called from content-negotiation.xql
+ : Build a search XPath based on search parameters. 
+ : Add sort options. 
+:)
+declare function data:apiSearch($collection as xs:string*, $element as xs:string?, $queryString as xs:string?, $sort-element as xs:string?) {                      
+    let $elementSearch :=  
+                if(exists($element) and $element != '') then  
+                    for $e in $element
+                    return concat("/descendant::tei:",$element,"[ft:query(.,'",data:clean-string($queryString),"',data:search-options())]")            
+                else ()                        
+    let $eval-string := concat(data:build-collection-path($collection), $elementSearch)
+    let $hits := util:eval($eval-string)     
+    let $sort := if($sort-element != '') then 
+                    $sort-element
+                 else if(request:get-parameter('sort', '') != '') then
+                    request:get-parameter('sort', '')
+                 else if(request:get-parameter('sort-element', '') != '') then
+                    request:get-parameter('sort-element', '')
+                 else ()
+    return 
+        if((request:get-parameter('sort-element', '') != '' and request:get-parameter('sort-element', '') != 'relevance') or ($sort-element != '' and $sort-element != 'relevance')) then 
+            for $hit in $hits
+            let $s := 
+                    if(contains($sort, 'author')) then ft:field($hit, "author")[1]
+                    else if(request:get-parameter('sort', '') = 'title') then 
+                        if(request:get-parameter('lang', '') = 'syr') then ft:field($hit, "titleSyriac")[1]
+                        else if(request:get-parameter('lang', '') = 'ar') then ft:field($hit, "titleArabic")[1]
+                        else ft:field($hit, "title")
+                    else if(request:get-parameter('sort', '') = $data:SORT_FIELDS) then
+                        ft:field($hit, request:get-parameter('sort', ''))[1]                  
+                    else $hit              
+            order by $s collation 'http://www.w3.org/2013/collation/UCA'
+            return $hit
+        else 
+            for $hit in $hits
+            order by ft:score($hit) descending
+            return $hit 
+};
 (:~   
  : Builds general search string.
 :)

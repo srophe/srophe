@@ -7,6 +7,7 @@
 @import url("syr-font-families.css");
 
 /* A */
+.abstract {}
 .alpha-pages {margin:-1.5em 0 1em 0;}
 #advancedSearch {padding:2em 1em; background-color:#F7F7F9;}
 .api-path {width:15%}
@@ -24,6 +25,7 @@
   float: left;
   height: 0px;
 }
+
 
 /* B */
 .image-banner {
@@ -184,6 +186,7 @@ footer .poweredby img { width: 75px; }
 .geo-home #map {border-bottom:4px solid #456889}
 
 /* H */
+.hint {font-size:small; font-style:italic; font-color:grey;}
 .home-page-text {
     color:white; font-size:1.75em; margin-top:2em;
     font-weight:200;
@@ -240,9 +243,11 @@ img{ margin:0px }
 .keboard-btn {margin-left:-1em;}
 
 /* L */
+.label {color:black;}
 /* Styles for languages and scripts for Syriac styles */
 /* styles for languages and scripts */
 :lang(en) {
+    font-size: 1em;
 	font-family: arial, sans-serif;
 }
 
@@ -344,6 +349,9 @@ img{ margin:0px }
 .navbar .icon-text {display:inline-block; margin-top:-.85em; vertical-align: middle; font-weight:500;}
 .navbar .nav-text {display:inline-block; line-height:1.5em; margin-top:.25em;}
 
+/* M */
+.message {font-size:large;}
+
 /* O */
 .overlay {
     font-weight:200;
@@ -385,6 +393,7 @@ pre {
 .results {margin-top:4em;}
 .result {border-bottom:1px dotted #eee; padding-top:.5em; padding-bottom: 1em;}
 .results-list-desc {display:block;}
+.relation .short-rec-view {margin: 1em;}
 .relationship-type {font-color:#666666; display:block;}
 .row { margin-left: 0px; margin-right: 0px;}
 
@@ -476,10 +485,10 @@ pre {
     overflow:visible;
     text-align:center;
     }
-    
+.top-padding{padding-top:3em;}  
 /* TEI styles */
 .tei-desc {display:block;margin:1em;}
-.tei-event {display:block;}
+/* .tei-event {display:block;} */
 .tei-footnote-refs, .tei-footnote-tgt {
     font-size: .7em;
     line-height: 0.5em;
@@ -492,11 +501,12 @@ pre {
     margin-left:-1.5em;
     padding-right:.5em;    
 }
-
+.tei-event p {display:inline-block;}
+.tei-note {margin: 1em;}
 .tei-quote .tei-placeName {color: #6699cc; font-weight:bold;}
 /*.tei-title > .tei-title {font-style:italic;} */
 .top-padding {margin-top:4.5em !important;}
-
+.text-block {margin-left:1em; display:block;}
 /* W */
 .white-link{color:white;}
 .white-link:focus, .white-link:active:focus, .white-link.active:focus {
@@ -514,5 +524,25 @@ pre {
     float:left;
     margin-left:3em;
     }
-.caret {float:left; margin-left:.5em; margin-top:.5em;}    
+.caret {float:left; margin-left:.5em; margin-top:.5em;} 
+
+/* Hide imported down arrow from github wiki menu */
+.js-wiki-sidebar-toc-toggle-chevron-button {display:none;}
+}
+
+
+/* Loading spinner icon */
+.glyphicon.spinning {
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin2 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg); }
+    to { transform: scale(1) rotate(360deg); }
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
 }
