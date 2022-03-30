@@ -80,11 +80,11 @@ else if(contains($exist:path,'/documentation/') and ends-with($exist:path,('.tei
 else if (contains($exist:path,'/api/')) then
   if (ends-with($exist:path,"/")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-        <redirect url="/api-documentation/index.html"/>
+        <redirect url="{concat($config:nav-base,'/api-documentation/index.html')}"/>
     </dispatch> 
    else if($exist:resource = 'index.html') then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-        <redirect url="/api-documentation/index.html"/>
+        <redirect url="{concat($config:nav-base,'/api-documentation/index.html')}"/>
     </dispatch>
     else if($exist:resource = 'oai') then
      <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
@@ -113,10 +113,10 @@ else if (contains($exist:path,'/api/')) then
                 <add-parameter name="format" value="{if($format = 'json') then 'geojson' else if($format='kml') then 'kml' else 'xml'}"/>
             </forward>
         </dispatch>
-    else 
+    else
         <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-            <redirect url="/api-documentation/index.html"/>
-        </dispatch> 
+            <redirect url="{concat($config:nav-base,'/api-documentation/index.html')}"/>
+        </dispatch>
 (: Passes data to content negotiation module:)
 else if(request:get-parameter('format', '') != '' and request:get-parameter('format', '') != 'html') then
     local:content-negotiation($exist:path, $exist:resource)
