@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" data-template="app:get-work" lang="en">
     <head>
-        <title data-template="app:record-title">App Title</title>
+        <title data-template="app:record-title" data-template-collection="places">App Title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta data-template="config:app-meta"/>
-        <link rel="shortcut icon" href="$nav-base/favicon.ico"/>
+        <!-- DC -->
+        <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"/>
+        <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/"/>
         <!-- Bootstrap 3 -->
         <link rel="stylesheet" type="text/css" href="$nav-base/resources/bootstrap/css/bootstrap.min.css"/>
+        <!-- Smart menus -->
         <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/sm-core-css.css"/>
         <!-- Srophe styles -->
         <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/syr-icon-fonts.css"/>
@@ -86,21 +89,15 @@
                     <span class="icon-bar"/>
                     <span class="icon-bar"/>
                 </button>
-                <a class="navbar-brand banner-container" href="$nav-base/index.html"> 
+                <a class="navbar-brand banner-container" href="$nav-base/geo/index.html"> 
                     <span class="syriaca-icon syriaca-syriaca banner-icon" data-template="app:logo"/>
-                    <span class="banner-text" data-template="config:app-title">App Title</span>
+                    <span class="banner-text" data-template="config:collection-title" data-template-collection="persons">Collection Title</span>
                 </a>
             </div>
             <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="$nav-base/index.html" class="nav-text">Home</a>
-                    </li>
-                    <li>
-                        <a href="$nav-base/browse.html" class="nav-text">Browse</a>
-                    </li>
-                    <li>
-                        <a href="$nav-base/documentation/index.html" class="nav-text">Documentation </a>
+                        <a href="$nav-base/persons/browse.html" class="nav-text">Browse</a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle lonely-caret" data-toggle="dropdown"> 
@@ -129,7 +126,7 @@
                             </li>
                             <li>
                                 <a href="$nav-base/d3xquery/index.html">
-                                    <span class="icon-text">Relationship Visualization</span>
+                                    <span class="icon-text">Visualize relationships</span>
                                 </a>
                             </li>
                         </ul>
@@ -139,7 +136,7 @@
                     </li>
                     <li>
                         <div id="search-wrapper">
-                            <form class="navbar-form navbar-right search-box" role="search" action="$nav-base/search.html" method="get">
+                            <form class="navbar-form navbar-right search-box" role="search" action="$nav-base/persons/search.html" method="get">
                                 <div class="form-group">
                                     <input type="text" class="form-control keyboard" placeholder="search" name="keyword" id="keywordNav"/>
                                     <span data-template="app:keyboard-select-menu" data-template-input-id="keywordNav"/>

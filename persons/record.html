@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/geo.html" data-template-at="content">
+    <div data-template="app:fix-links" class="record">
+        <div class="interior-content">
+            <div data-template="app:h1"/>
+            <div data-template="app:other-data-formats" data-template-formats="print,tei,rdf,text"/>
+            <div class="row">
+                <div class="col-md-7 col-lg-8">
+                    <div data-template="app:display-nodes" data-template-paths="descendant::tei:text"/>
+                </div>
+                <div class="col-md-5 col-lg-4 right-menu">
+                    <!-- Make dynamic -->
+                    <div data-template="app:display-map"/>
+                    <!-- Relationsips listed in the TEI record  display: list/sentence -->
+                    <div data-template="app:internal-relationships" data-template-label="Internal Relationships"/>
+                    <!-- Relationships referencing this TEI record -->
+                    <div data-template="app:external-relationships" data-template-label="External Relationships"/>
+                </div>
+            </div>
+            <div>
+                <!-- Entry Citation information, pass TEI header to citation.xsl -->
+                <div data-template="app:display-nodes" data-template-paths="descendant::tei:teiHeader"/>
+            </div>
+        </div>
+    </div>
+    <!-- Modal email form-->
+    <div data-template="app:contact-form"/>
+</div>
