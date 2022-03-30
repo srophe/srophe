@@ -1,5 +1,5 @@
 xquery version "3.1";
-
+(: @depreciated, not reliable. see content-negotiation/content-negotiation.xql, paths are established by controller.xql :)
 (: Syriaca.org restxq file. :)
 module namespace api="http://srophe.org/srophe/api";
 
