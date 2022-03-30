@@ -7,7 +7,7 @@
     <license>GNU-LGPL</license>
     <copyright>true</copyright>
     <type>application</type>
-    <target>majlis</target>
+    <target>srophe</target>
     <prepare>pre-install.xql</prepare>
     <finish>post-install.xql</finish>
     
