@@ -15,13 +15,13 @@
         <!-- Web Site URL -->
         <url>http://syriaca.org/</url>
         <!-- Root of app for building dynamic links. Default is eXist app root  /exist/apps/srophe -->
-        <nav-base>/exist/apps/majlis</nav-base>
+        <nav-base>/exist/apps/srophe</nav-base>
         <!-- eXist app root for app deployment-->
-        <app-root>majlis</app-root>
+        <app-root>srophe</app-root>
         <!-- eXist data app root for TEI application.  -->
-        <data-root>majlis-data</data-root>
+        <data-root>srophe-data</data-root>
         <!-- Base URI for identifiers in app data -->
-        <base_uri>https://majlis.net</base_uri>
+        <base_uri>http://syriaca.org</base_uri>
         <!-- 
             Path to ODD file. Can be used in XSLT or XQuery transformations for controlled values. 
             Path to ODD file from app-root, or as an absolute path. 
@@ -64,10 +64,12 @@
                 record-URI-pattern="URI for building links to record views."
                 app-root="folder name in app" 
                 data-root="folder name in data"/>-->
-            <collection name="places" title="The Syriac Gazetteer" app-root="/geo/" data-root="places" record-URI-pattern="https://majlis.net/place/"/>
-            <collection name="persons" title="Persons Data" app-root="/persons/" data-root="persons" record-URI-pattern="https://majlis.net/person/"/>
-            <collection name="works" title="NHSL" app-root="/" data-root="works" record-URI-pattern="https://majlis.net/work/"/>
-            <collection name="bibl" title="Works Cited" app-root="/bibl/" data-root="bibl" record-URI-pattern="https://majlis.net/bibl/"/>
+            <!--
+            <collection name="places" title="The Syriac Gazetteer" app-root="/geo/" data-root="places" record-URI-pattern="http://syriaca.org/place/"/>
+            <collection name="persons" title="SBD" app-root="/" data-root="persons" record-URI-pattern="http://syriaca.org/person/"/>
+            <collection name="works" title="NHSL" app-root="/" data-root="works" record-URI-pattern="http://syriaca.org/work/"/>
+            <collection name="bibl" title="Works Cited" app-root="/bibl/" data-root="bibl" record-URI-pattern="http://syriaca.org/bibl/"/>
+            -->
         </collections>
         <!-- Configure Sort fields for the whole app. 
             Sort fields are used for sorting in browse and search. Facets should be defined separately in a facet-conf.xml document.
