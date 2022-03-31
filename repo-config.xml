@@ -34,7 +34,7 @@
             <document-ids type="document-url">document-url</document-ids>
             URI example: <document-ids type="URI">tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='URL']</document-ids
         -->
-        <document-ids type="document-url">document-url</document-ids>
+        <document-ids type="URI">tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='URL']</document-ids>
         <!--<html-render type="xquery"></html-render>-->
         <html-render type="xslt"/>
         <!-- Map rendering -->
@@ -55,6 +55,9 @@
             <option id="ms-Arabic (101)">Arabic Mod. Standard</option>
             <option id="qwerty">English QWERTY</option>
         </keyboard-options>
+        <!-- Zotero group -->
+        <zotero-group-api>https://api.zotero.org/groups/YOURGROUPID</zotero-group-api>
+        <zotero group="YOURGROUPID"/>
         
         <!-- Configure Collections. Optional -->
         <collections>
@@ -70,6 +73,7 @@
             <collection name="works" title="NHSL" app-root="/" data-root="works" record-URI-pattern="http://syriaca.org/work/"/>
             <collection name="bibl" title="Works Cited" app-root="/bibl/" data-root="bibl" record-URI-pattern="http://syriaca.org/bibl/"/>
             -->
+            <collection name="bibl" title="Works Cited" app-root="/bibl/" data-root="bibl" record-URI-pattern="http://syriaca.org/bibl/"/>
         </collections>
         <!-- Configure Sort fields for the whole app. 
             Sort fields are used for sorting in browse and search. Facets should be defined separately in a facet-conf.xml document.

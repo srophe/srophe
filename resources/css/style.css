@@ -238,7 +238,7 @@ img{ margin:0px }
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
 }
-
+.interior-content {margin-top: 2em; }
 /* K */
 .keboard-btn {margin-left:-1em;}
 
@@ -364,6 +364,15 @@ img{ margin:0px }
     box-decoration-break: clone;
 }
 
+.otherDataFormats {
+    display: block;
+    margin-top: 3em;
+    width: 95%;
+    clear: both;
+    margin-bottom: 1em;
+    text-align: right;
+}
+    }
 /* P */
 .paging {display:block; clear:both;}
 .param {font-weight:500;}

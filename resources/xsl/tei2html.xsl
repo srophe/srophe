@@ -486,6 +486,8 @@
     
     <!-- M -->
     <xsl:template name="miradorViewer">
+        <xsl:param name="manifest"/>
+        <!-- BA specific functions
         <xsl:variable name="manifestString">
             <xsl:choose>
                 <xsl:when test="descendant::t:ref[@type='IIIF']">
@@ -515,6 +517,7 @@
                 </xsl:when>
             </xsl:choose>
         </xsl:variable>
+        -->
         <xsl:if test="$manifest != ''">
             <div>
                 <script src="https://unpkg.com/mirador@latest/dist/mirador.min.js"/>

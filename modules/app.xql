@@ -153,7 +153,7 @@ declare %templates:wrap function app:other-data-formats($node as node(), $model 
 let $id := (:replace($model("hits")/descendant::tei:idno[contains(., $config:base-uri)][1],'/tei',''):)request:get-parameter('id', '')
 return 
     if($formats) then
-        <div class="container" style="width:100%;clear:both;margin-bottom:1em; text-align:right;">
+        <div class="container otherDataFormats">
             {
                 for $f in tokenize($formats,',')
                 return 
@@ -258,13 +258,10 @@ declare function app:external-relationships($node as node(), $model as map(*), $
  : Passes any tei:geo coordinates in results set to map function. 
  : Suppress map if no coords are found. 
 :)                   
-declare function app:display-related-places-map($relationships as item()*){
-    if(contains($relationships,'/place/')) then
-        let $places := for $place in tokenize($relationships,' ')
-                       return data:get-document($place)
-        return maps:build-map($places,count($places//tei:geo))
-    else ()
+declare function app:display-related-places-map($node as node(), $model as map(*), $relationship-type as xs:string?, $display as xs:string?, $map as xs:string?,$label as xs:string?){
+   relations:related-places-map($model("hits"), $model("hits")//tei:idno[@type='URI'][starts-with(.,$config:base-uri)][1])
 };
+
 
 (:~
  : Passes any tei:geo coordinates in results set to map function. 
