@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://expath.org/ns/pkg" name="http://syriaca.org/zotero2bibl" abbrev="zotero2bibl" version="1.6" spec="1.0">
+    <title>Zotero to TEI Bibliography</title>
+</package>

@@ -248,7 +248,7 @@ declare function data:apiSearch($collection as xs:string*, $element as xs:string
         else 
             for $hit in $hits
             order by ft:score($hit) descending
-            return $hit 
+            return $hit
 };
 (:~   
  : Builds general search string.

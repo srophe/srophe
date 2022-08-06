@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<meta xmlns="http://exist-db.org/xquery/repo">
+  <description>Accesses Zotero API to load Zotero library into eXistdb and keep the eXistdb version up to date with the Zotero library. Canonical data lives in Zotero.</description>
+  <author>Srophe Software</author>
+  <website>https://github.com/srophe/zotero2bibl</website>
+  <status>alpha</status>
+  <license>GNU-LGPL</license>
+  <copyright>true</copyright>
+  <type>application</type>
+  <target>zotero2bibl</target>
+  <prepare>pre-install.xql</prepare>
+  <finish>post-install.xql</finish>
+  <deployed>2017-12-08T10:14:34.294-05:00</deployed>
+</meta>

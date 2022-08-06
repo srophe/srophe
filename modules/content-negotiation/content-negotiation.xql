@@ -35,10 +35,12 @@ declare namespace srophe="https://srophe.app";
  : @param $author accepts string value. May only be used when $element = 'title'    
 :)
 declare function local:search-element($element as xs:string?, $q as xs:string*, $collection as xs:string*){                     
-    let $element := if($element != '') then 
-                     $element
-                 else 'body' 
-    let $hits := data:apiSearch($collection, $element, $q, ())
+    let $e := if($element = 'citation') then 
+                        'biblStruct'
+                    else if($element != '') then 
+                        $element
+                    else 'body' 
+    let $hits := data:apiSearch($collection, $e, $q, ())
     return 
         if(count($hits) gt 0) then 
             <json:value>
@@ -49,20 +51,49 @@ declare function local:search-element($element as xs:string?, $q as xs:string*, 
                     {
                      for $hit in $hits
                      let $id := replace($hit/ancestor-or-self::tei:TEI/descendant::tei:publicationStmt/tei:idno[@type='URI'][1],'/tei','')
+                     let $headword := if($hit[contains(@srophe:tags,'#syriaca-headword')]) then
+                                        normalize-space(string-join($hit//text(),' '))
+                                      else if($hit/following-sibling::*[contains(@srophe:tags,'#syriaca-headword')]) then
+                                        normalize-space(string-join($hit/following-sibling::*[contains(@srophe:tags,'#syriaca-headword')][1]//text(),' '))
+                                      else if($hit/preceding-sibling::*[contains(@srophe:tags,'#syriaca-headword')]) then
+                                        normalize-space(string-join($hit/preceding-sibling::*[contains(@srophe:tags,'#syriaca-headword')][1]//text(),' '))
+                                      else normalize-space(string-join($hit/ancestor-or-self::tei:TEI/descendant::tei:title[1]//text(),' '))
+                     group by $recID := $id
                      return
                          <json:value json:array="true">
-                            <id>{$id}</id>
-                            <headword>{if($hit[contains(@srophe:tags,'#syriaca-headword')]) then 'true' else 'false'}</headword>
-                            {element {xs:QName($element)} { normalize-space(string-join($hit//text(),' ')) }}
-                            {
-                            if($element = 'persName') then 
-                                <date>{
-                                normalize-space(string-join($hit/ancestor-or-self::tei:TEI/descendant::tei:body/descendant::tei:birth/descendant-or-self::text() 
-                                | $hit/ancestor-or-self::tei:TEI/descendant::tei:body/descendant::tei:death/descendant-or-self::text() | 
-                                $hit/ancestor-or-self::tei:TEI/descendant::tei:body/descendant::tei:floruit/descendant-or-self::text(),' '))
-                                }</date>
-                            else ()
-                            }
+                            <id>{$recID}</id>
+                            <title>
+                                {
+                                if($element = 'citation') then 
+                                    <bibl xmlns="http://www.tei-c.org/ns/1.0">
+                                        <bibl><ptr target="{$recID}"/></bibl>
+                                        {$hit/ancestor-or-self::tei:TEI/descendant::tei:bibl[@type='formatted'][@subtype='citation']}
+                                    </bibl>
+                                else 
+                                    element {xs:QName($element)}
+                                        {attribute { "ref" } { $recID }, $headword[1] }
+                                }
+                            </title>
+                            {'' (:Not sure what the utility is here :)
+                            (:
+                                for $h in $hit
+                                return 
+                                    if($element = 'citation') then 
+                                        <bibl>
+                                            <ptr target="{$recID}"/>
+                                        </bibl>
+                                    else 
+                                        (element {xs:QName($element)}
+                                            {attribute { "ref" } { $recID }, normalize-space(string-join($h//text(),' ')) },
+                                        if($element = 'persName') then 
+                                            <date>{
+                                            normalize-space(string-join($hit/ancestor-or-self::tei:TEI/descendant::tei:body/descendant::tei:birth/descendant-or-self::text() 
+                                            | $hit/ancestor-or-self::tei:TEI/descendant::tei:body/descendant::tei:death/descendant-or-self::text() | 
+                                            $hit/ancestor-or-self::tei:TEI/descendant::tei:body/descendant::tei:floruit/descendant-or-self::text(),' '))
+                                            }</date>
+                                        else ()
+                                        )
+                            :)}
                          </json:value>                           
                      }
                 </results>
@@ -155,6 +186,6 @@ return
                 else cntneg:content-negotiation($data,'geojson',())
             else 
                 let $format := if(request:get-parameter('format', '') = 'xml') then 'xml' else 'json'
-                return cntneg:content-negotiation($data, 'json', ())
+                return cntneg:content-negotiation($data, $format, ())
         else cntneg:content-negotiation($data, $format, $path)    
     else ()

@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:srophe="https://srophe.app" data-template="app:get-work" lang="en">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+      
+      <title data-template="app:record-title">App Title</title>
+      
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      
+      <meta data-template="config:app-meta"/>
+      
+      <link rel="shortcut icon" href="$nav-base/favicon.ico"/>
+      
+      <!-- Bootstrap 3 -->
+      
+      <link rel="stylesheet" type="text/css" href="$nav-base/resources/bootstrap/css/bootstrap.min.css"/>
+      
+      <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/sm-core-css.css"/>
+      
+      <!-- Srophe styles -->
+      
+      <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/syr-icon-fonts.css"/>
+      
+      <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/style.css"/>
+      
+      <link rel="stylesheet" type="text/css" media="print" href="$nav-base/resources/css/print.css"/>
+      
+      <!-- Leaflet -->
+      
+      <link rel="stylesheet" href="$nav-base/resources/leaflet/leaflet.css"/>
+      
+      <link rel="stylesheet" href="$nav-base/resources/leaflet/leaflet.awesome-markers.css"/>
+      
+      <!-- JQuery -->
+      
+      <link href="$nav-base/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet"/>
+      <script type="text/javascript" src="$nav-base/resources/js/jquery.min.js"/>
+      <script type="text/javascript" src="$nav-base/resources/jquery-ui/jquery-ui.min.js"/>
+      <script type="text/javascript" src="$nav-base/resources/js/jquery.smartmenus.min.js"/>
+      <script type="text/javascript" src="$nav-base/resources/js/clipboard.min.js"/>
+      
+      <!-- Bootstrap -->
+      <script type="text/javascript" src="$nav-base/resources/bootstrap/js/bootstrap.min.js"/>
+      
+      <!-- ReCaptcha -->
+      <script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"/>
+      
+      <!-- keyboard widget css & script -->
+      <link href="$nav-base/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
+      
+      <link href="$nav-base/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet"/>
+      
+      <link href="$nav-base/resources/keyboard/syr/syr.css" rel="stylesheet"/>
+      <script type="text/javascript" src="$nav-base/resources/keyboard/syr/jquery.keyboard.js"/>
+      <script type="text/javascript" src="$nav-base/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"/>
+      <script type="text/javascript" src="$nav-base/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"/>
+      <script type="text/javascript" src="$nav-base/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"/>
+      <script type="text/javascript" src="$nav-base/resources/keyboard/syr/keyboardSupport.js"/>
+      <script type="text/javascript" src="$nav-base/resources/keyboard/syr/syr.js"/>
+      <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Greek.min.js"/>
+      <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Russian.min.js"/>
+      <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Arabic.min.js"/>
+      <script type="text/javascript">
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
+
+                $('.keyboard').keyboard({
+                    openOn: null,
+                    stayOpen: false,
+                    alwaysOpen: false,
+                    autoAccept: true,
+                    usePreview: false,
+                    initialFocus: true,
+                    rtl : true,
+                    layout: 'syriac-phonetic',
+                    hidden: function(event, keyboard, el){
+                       //  keyboard.destroy();
+                     }
+                });
+
+                $('.keyboard-select').click(function () {
+                    var keyboardID = '#' + $(this).data("keyboard-id")
+                    var kb = $(keyboardID).getkeyboard();
+                    //var kb = $('#searchField').getkeyboard();
+                    // change layout based on link ID
+                    kb.options.layout = this.id
+                    // open keyboard if layout is different, or time from it last closing is &gt; 200 ms
+                    if (kb.last.layout !== kb.options.layout || (new Date().getTime() - kb.last.eventTime) &gt; 200) {
+                        kb.reveal();
+                    }
+                });
+                //Change fonts
+                $('.swap-font').on('click', function(){
+                    var selectedFont = $(this).data("font-id")
+                    $('.selectableFont').not('.syr').css('font-family', selectedFont);
+                    $("*:lang(syr)").css('font-family', selectedFont)
+                });
+
+            })
+        </script>
+      </head>
+   <body id="body">
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
+         
+         <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"/>
+               <span class="icon-bar"/>
+               <span class="icon-bar"/>
+               </button>
+            <a class="navbar-brand banner-container" href="$nav-base/index.html"> 
+               <span class="syriaca-icon syriaca-syriaca banner-icon" data-template="app:logo"/>
+               <span class="banner-text" data-template="config:app-title">App Title</span>
+               </a>
+            
+         </div>
+         
+         <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
+            
+            <ul class="nav navbar-nav">
+               
+               <li>
+                  <a href="$nav-base/index.html" class="nav-text">Home</a>
+                  
+               </li>
+               
+               <li>
+                  <a href="$nav-base/browse.html" class="nav-text">Browse</a>
+                  
+               </li>
+               
+               <li>
+                  <a href="$nav-base/documentation/index.html" class="nav-text">Documentation </a>
+                  
+               </li>
+               
+               <li class="dropdown">
+                  <a href="#" class="dropdown-toggle lonely-caret" data-toggle="dropdown"> 
+                     <span class="mobile-submenu">Publications</span>  <b class="caret"/>
+                     </a>
+                  
+                  <ul class="dropdown-menu pull-right">
+                     
+                     <li>
+                        <a href="$nav-base/index.html">
+                           <span class="icon-text">Home</span>
+                           </a>
+                        
+                     </li>
+                     
+                     <li>
+                        <a href="$nav-base/geo/index.html">
+                           <span class="icon-text">Gazetteer</span>
+                           </a>
+                        
+                     </li>
+                     
+                     <li>
+                        <a href="$nav-base/bibl/index.html">
+                           <span class="icon-text">Works Cited</span>
+                           </a>
+                        
+                     </li>
+                     
+                     <li>
+                        <a href="$nav-base/d3xquery/index.html">
+                           <span class="icon-text">Relationship Visualization</span>
+                           </a>
+                        
+                     </li>
+                     
+                  </ul>
+                  
+               </li>
+               
+               <li>
+                  <a href="$nav-base/search.html" class="nav-text">Advanced Search</a>
+                  
+               </li>
+               
+               <li>
+                  
+                  <div id="search-wrapper">
+                     
+                     <form class="navbar-form navbar-right search-box" role="search" action="$nav-base/search.html" method="get">
+                        
+                        <div class="form-group">
+                           <input type="text" class="form-control keyboard" placeholder="search" name="keyword" id="keywordNav"/>
+                           <span data-template="app:keyboard-select-menu" data-template-input-id="keywordNav"/>
+                           <button class="btn btn-default search-btn" id="searchbtn" type="submit" title="Search">
+                              <span class="glyphicon glyphicon-search"/>
+                              </button>                                    
+                           
+                        </div>
+                        
+                     </form>
+                     
+                  </div>
+                  
+               </li>
+               
+               <li>
+                  
+                  <div class="btn-nav">
+                     <button class="btn btn-default navbar-btn" id="font" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                        <span class="glyphicon glyphicon-font"/>
+                        </button>  
+                     
+                     <ul class="dropdown-menu dropdown-menu-right" id="swap-font">
+                        
+                        <li>
+                           <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="#" class="swap-font" id="SertoBatnanSelect" data-font-id="SertoBatnan">Serto Batnan</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="$app-root/documentation/wiki.html?wiki-page=/How-to-view-Syriac-script&amp;wiki-uri=https://github.com/srophe/srophe-app-data/wiki">Help <span class="glyphicon glyphicon-question-sign"/>
+                              </a>
+                           
+                        </li>
+                        
+                     </ul>
+                     
+                  </div>
+                  
+               </li>
+               
+            </ul>
+            
+         </div>
+         
+      </nav>
+      <div xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
+         
+         <div class="home-page">
+            
+            <div class="home-page-text">
+               
+               <h1>The Srophé Application</h1>
+               
+               <h2>An open source TEI publishing framework</h2>
+               <a class="btn btn-default btn-rounded btn-light" href="documentation/index.html">Read the Docs</a>
+               
+            </div>
+            <span class="img-credit">
+               <label>Photo Credit:</label> ©2016 Michelle Bukowski 
+               <button class="btn btn-link white-link" data-toggle="collapse" data-target="#img-rights">
+                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"/>
+                  </button>
+               
+               <div id="img-rights" class="collapse">
+                  Licensed under a Creative Commons Attribution 4.0 International License.
+                  
+               </div>
+               </span>
+            
+         </div>
+         
+         <div class="container">
+            
+            <h2>Features</h2>     
+            
+            <div class="row home-about">
+               
+               <div class="col-md-4">
+                  
+                  <div class="bg-light feature">
+                     
+                     <h3>
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"/> Search/Browse
+                     </h3>
+                     
+                     <p>
+                        <small>Multi-lingual, customizable search and browse for TEI records. </small>
+                        
+                     </p>
+                     <br/>  <a class="btn btn-default btn-rounded btn-light btn-sm pull-right" href="documentation/index.html">Read the Docs</a>
+                     
+                  </div>
+                  
+               </div>
+               
+               <div class="col-md-4">
+                  
+                  <div class="bg-light feature">
+                     
+                     <h3>
+                        <span class="glyphicon glyphicon-globe" aria-hidden="true"/> Maps
+                     </h3>
+                     
+                     <p>
+                        <small>Add TEI records with coordinates to Leaflet or Google maps. [link to documentation]</small>
+                        
+                     </p>
+                     <br/>
+                     <a class="btn btn-default btn-rounded btn-light btn-sm pull-right" href="documentation/index.html">Read the Docs</a>
+                     
+                  </div>
+                  
+               </div>
+               
+               <div class="col-md-4">
+                  
+                  <div class="bg-light feature">
+                     
+                     <h3>
+                        <span class="glyphicon glyphicon-download-alt" aria-hidden="true"/> Multi-format publishing
+                     </h3>
+                     
+                     <p>
+                        <small>Publish TEI content as  HTML, TEI, geoJSON, KML, JSON-LD, RDF/XML, RDF/TTL and Plain
+                           text</small>
+                        
+                     </p>
+                     <a class="btn btn-default btn-rounded btn-light btn-sm pull-right" href="documentation/index.html">Read the Docs</a>
+                     
+                  </div>
+                  
+               </div>
+               
+            </div>
+            
+            <hr/>
+            
+            <h2>About the Application</h2>
+            
+            <p>The Srophé Application is an open source TEI publishing framework. Originally developed
+               as a digital publication platform for Syriaca.org [http://syriaca.org/] the Srophé
+               software has been generalize for use with any TEI publications. 
+               Additional features include customizable faceted search and browse functions, D3js
+               visualizations for TEI relationships and a bibliography module with a Zotero API integration.
+               
+            </p>
+            <a class="btn btn-default btn-rounded btn-light btn-sm pull-right" href="https://github.com/srophe/srophe">Get the code</a>
+            <br/>
+            
+            <hr/>
+            
+            <h2>Active projects</h2>
+            
+            <ul class="list-inline projects">
+               
+               <li>
+                  <img src="resources/images/syriaca.png" title="Syriaca.org website"/>
+                  <a href="http://syriaca.org/">Syriaca.org</a>
+                  
+               </li>
+               
+               <li>
+                  <img src="resources/images/corpus.png" title="Digital Syriac Corpus website"/>
+                  <a href="https://syriaccorpus.org/index.html">Digital Syriac Corpus</a>
+                  
+               </li>
+               
+               <li>
+                  <img src="resources/images/hugoye.png" title="Hugoye: Journal of Syriac Studies website"/>
+                  <a href="https://hugoye.bethmardutho.org/index.html">Hugoye: Journal of Syriac Studies</a>
+                  
+               </li>
+               
+               <li>
+                  <img src="resources/images/gedsh.png" title="Gorgias Encyclopedic Dictionary of the Syriac Heritage: Electronic Edition website"/>
+                  <a href="https://gedsh.bethmardutho.org/index.html">Gorgias Encyclopedic Dictionary of the Syriac Heritage: 
+                     Electronic Edition</a>
+                  
+               </li>
+               
+               <li>
+                  <img src="resources/images/logar.png" title="LOGAR: Linked Open Gazetteer of the Andean Region website"/>
+                  <a href="http://logarandes.org/">LOGAR: Linked Open Gazetteer of the Andean Region</a>
+                  
+               </li>
+               
+               <li>
+                  <img src="resources/images/sinica.png" title="Architectura Sinica website"/>
+                  <a href="https://architecturasinica.org/index.html">Architectura Sinica</a>
+                  
+               </li>
+               
+               <li>
+                  <img src="resources/images/poetess.png" title="The Poetess Archive website"/>
+                  <a href="http://poetess.dh.tamu.edu/index.html">The Poetess Archive</a>
+                  
+               </li>
+               
+            </ul>
+            
+         </div>
+         
+      </div>
+   </body>
+   <footer>
+      <a class="poweredby" href="http://srophe.org">
+         <img src="$nav-base/resources/images/srophe.svg" alt="Srophe"/>
+         </a>
+      
+   </footer><script type="text/javascript" src="/resources/js/jquery.validate.min.js"/><script type="text/javascript" src="/resources/js/srophe.js"/></html>
