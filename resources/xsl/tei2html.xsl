@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:srophe="https://srophe.app" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:srophe="https://srophe.app" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University  
@@ -145,7 +145,8 @@
     <!-- =================================================================== -->
     <!-- Root -->
     <xsl:template match="/">
-        <xsl:apply-templates/>
+<!--        <xsl:apply-templates/>-->
+        <xsl:apply-templates select="//t:ab"></xsl:apply-templates>
     </xsl:template>
     
     <!-- =================================================================== -->
@@ -1778,7 +1779,7 @@
                     </xsl:choose>
                     -->
                     <xsl:for-each select="t:bibl">
-                        <xsl:sort select="xs:integer(translate(substring-after(@xml:id,'-'),translate(substring-after(@xml:id,'-'), '0123456789', ''), ''))"/>
+                        <xsl:sort select="if(contains(@xml:id,'-')) then xs:integer(translate(substring-after(@xml:id,'-'),translate(substring-after(@xml:id,'-'), '0123456789', ''), '')) else position()"/>
                         <xsl:apply-templates select="." mode="footnote"/>
                     </xsl:for-each>
                 </ul>
