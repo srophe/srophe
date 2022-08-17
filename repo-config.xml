@@ -5,7 +5,7 @@
     <config>
         <!-- Application title -->
         <title>The Srophe web application</title>
-        <srophe-version>v1.01</srophe-version>
+        <srophe-version>v1.0.1</srophe-version>
         <!-- App description -->
         <description>A collaborative research project publishling online reference works concerning the
             culture, history, and literature of Syriac communities from antiquity to the present.</description>
