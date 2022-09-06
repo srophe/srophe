@@ -5,6 +5,7 @@
     <config>
         <!-- Application title -->
         <title>The Srophe web application</title>
+        <srophe-version>v1.0.1</srophe-version>
         <!-- App description -->
         <description>A collaborative research project publishling online reference works concerning the
             culture, history, and literature of Syriac communities from antiquity to the present.</description>
@@ -34,7 +35,7 @@
             <document-ids type="document-url">document-url</document-ids>
             URI example: <document-ids type="URI">tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='URL']</document-ids
         -->
-        <document-ids type="document-url">document-url</document-ids>
+        <id-path type="URI">tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='URL']</id-path>
         <!--<html-render type="xquery"></html-render>-->
         <html-render type="xslt"/>
         <!-- Map rendering -->
@@ -64,9 +65,8 @@
                 record-URI-pattern="URI for building links to record views."
                 app-root="folder name in app" 
                 data-root="folder name in data"/>-->
-            <collection name="places" title="The Syriac Gazetteer" app-root="/geo/" data-root="places" record-URI-pattern="https://majlis.net/place/"/>
+            <collection name="places" title="Gazetteer" app-root="/geo/" data-root="places" record-URI-pattern="https://majlis.net/place/"/>
             <collection name="persons" title="Persons Data" app-root="/persons/" data-root="persons" record-URI-pattern="https://majlis.net/person/"/>
-            <collection name="works" title="NHSL" app-root="/" data-root="works" record-URI-pattern="https://majlis.net/work/"/>
             <collection name="bibl" title="Works Cited" app-root="/bibl/" data-root="bibl" record-URI-pattern="https://majlis.net/bibl/"/>
         </collections>
         <!-- Configure Sort fields for the whole app. 
