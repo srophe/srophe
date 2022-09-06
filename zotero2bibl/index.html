@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title data-template="config:app-title">Covert Zotero Bibliography to TEI</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta data-template="config:app-meta"/>
+        <link rel="shortcut icon" href="$shared/resources/images/exist_icon_16x16.ico"/>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>            
+        <!-- Optional theme -->    
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>                
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"/>
+        <!-- Latest compiled and minified JavaScript -->        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"/>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#loadingmessage').hide();
+                $('#zoteroResults').load('get-zotero-data.xql');
+                 
+                $(document).on("click", '.zotero', function(event) { 
+                    event.preventDefault();
+                    var url = $(this).attr("href");
+                    $('#loadingmessage').show();
+                    
+                    $.ajax({
+                        type:"get",
+                        dataType: "html",
+                        url:url,
+                        success:function(data){
+                               $('#loadingmessage').hide();
+                               $("#zoteroResults").html(data);
+                          }
+                      });
+                });
+            });
+        </script>
+    </head>
+    <body id="body">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"/>
+                    <span class="icon-bar"/>
+                    <span class="icon-bar"/>
+                </button>
+                <a class="navbar-brand" href="." style="height:75px;margin-top:0;padding-top:0;">
+                    <img src="srophe-logo.svg" width="65px" style="display:inline;"/> Powered by Srophe Software</a>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-collapse-1">
+                <!--
+                <ul class="nav navbar-nav">
+                    <li class="dropdown" id="about">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Home</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="index.html">Home</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                -->
+            </div>
+        </nav>
+        <div id="content" class="container">
+            <h1>Srophe Zotero to TEI bibliography</h1>
+            <div class="container">
+                <p class="alert alert-info">Accesses Zotero API to load Zotero library into eXistdb and keep the eXistdb version up to date with the Zotero library. Canonical data lives in Zotero. Data stored in eXist uses the zotero2tei.xqm to transform Zotero records into Syriaca.org compliant TEI records. To change the TEI output edit zotero2tei.xqm.</p>
+                <div class="alert alert-warning">
+                    <b>Instructions: </b>
+                    <ul>
+                        <li>Edit zotero-config.xml
+                            <ul>
+                                <li>Add your Zotero group id</li>
+                                <li>Specify Zotero export format, TEI or JSON <br/>
+                                    <span class="small"><em>JSON will allow access to notes and tags. Note and tag rendering maybe repository specific and may need serialization may need to be changed in zotero2tei.xqm to match your needs.</em></span>
+                                </li>
+                                <li>
+                                    Add the path to the data directory where you want to store Zotero bibliographic records in eXist.<br/>
+                                    <span class="small">
+                                        <em>*This application will overwrite any files in eXistdb that have been updated in Zotero.</em>
+                                    </span>
+                                </li>
+                                <li>Add the URI pattern to base an incremental URI on. example: http://syriaca.org/bibl</li>
+                                <li>Change TEI header information to be specific to your repository.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <h4>Status</h4>
+                <div id="zoteroResults" class="container"/>
+                <div class="progress" id="loadingmessage">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">Loading...</div>
+                </div>
+                <a href="get-zotero-data.xql?action=initiate" class="btn btn-info zotero">Initiate</a>
+                <a href="get-zotero-data.xql?action=update" class="btn btn-info zotero">Update</a>
+                <p> </p>
+            </div>
+        </div>
+        <hr/>
+        
+        <footer>
+            <!--<p>Rights...</p>-->
+        </footer>
+    </body>
+</html>

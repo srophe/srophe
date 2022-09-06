@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:srophe="https://srophe.app" data-template="app:get-work" lang="en">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+      
+      <title data-template="app:record-title" data-template-collection="places">App Title</title>
+      
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      
+      <meta data-template="config:app-meta"/>
+      
+      <!-- DC -->
+      
+      <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"/>
+      
+      <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/"/>
+      
+      <meta name="DC.subject" property="dc.subject" content="Geography, Ancient"/>
+      
+      <meta name="DC.type" property="dc.type" content="Text"/>
+      
+      <meta name="DC.isPartOf" property="dc.ispartof" content="Syriaca.org: The Syriac Reference Portal"/>
+      
+      <meta name="DC.isPartOf" property="dc.ispartof" content="The Syriac Gazetteer"/>
+      
+      <!-- Bootstrap 3 -->
+      
+      <link rel="stylesheet" type="text/css" href="$nav-base/resources/bootstrap/css/bootstrap.min.css"/>
+      
+      <!-- Smart menus -->
+      
+      <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/sm-core-css.css"/>
+      
+      <!-- Srophe styles -->
+      
+      <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/syr-icon-fonts.css"/>
+      
+      <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/style.css"/>
+      
+      <link rel="stylesheet" type="text/css" media="print" href="$nav-base/resources/css/print.css"/>
+      
+      <!-- Leaflet -->
+      
+      <link rel="stylesheet" href="$nav-base/resources/leaflet/leaflet.css"/>
+      
+      <link rel="stylesheet" href="$nav-base/resources/leaflet/leaflet.awesome-markers.css"/>
+      
+      <!-- JQuery -->
+      
+      <link href="$nav-base/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet"/>
+      <script type="text/javascript" src="$nav-base/resources/js/jquery.min.js"/>
+      <script type="text/javascript" src="$nav-base/resources/jquery-ui/jquery-ui.min.js"/>
+      <script type="text/javascript" src="$nav-base/resources/js/jquery.smartmenus.min.js"/>
+      <script type="text/javascript" src="$nav-base/resources/js/clipboard.min.js"/>
+      
+      <!-- Bootstrap -->
+      <script type="text/javascript" src="$nav-base/resources/bootstrap/js/bootstrap.min.js"/>
+      
+      <!-- ReCaptcha -->
+      <script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"/>
+      
+      <!-- keyboard widget css & script -->
+      <link href="$nav-base/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
+      
+      <link href="$nav-base/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet"/>
+      
+      <link href="$nav-base/resources/keyboard/syr/syr.css" rel="stylesheet"/>
+      <script type="text/javascript" src="$nav-base/resources/keyboard/syr/jquery.keyboard.js"/>
+      <script type="text/javascript" src="$nav-base/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"/>
+      <script type="text/javascript" src="$nav-base/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"/>
+      <script type="text/javascript" src="$nav-base/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"/>
+      <script type="text/javascript" src="$nav-base/resources/keyboard/syr/keyboardSupport.js"/>
+      <script type="text/javascript" src="$nav-base/resources/keyboard/syr/syr.js"/>
+      <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Greek.min.js"/>
+      <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Russian.min.js"/>
+      <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Arabic.min.js"/>
+      <script type="text/javascript">
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
+
+                $('.keyboard').keyboard({
+                    openOn: null,
+                    stayOpen: false,
+                    alwaysOpen: false,
+                    autoAccept: true,
+                    usePreview: false,
+                    initialFocus: true,
+                    rtl : true,
+                    layout: 'syriac-phonetic',
+                    hidden: function(event, keyboard, el){
+                       //  keyboard.destroy();
+                     }
+                });
+
+                $('.keyboard-select').click(function () {
+                    var keyboardID = '#' + $(this).data("keyboard-id")
+                    var kb = $(keyboardID).getkeyboard();
+                    //var kb = $('#searchField').getkeyboard();
+                    // change layout based on link ID
+                    kb.options.layout = this.id
+                    // open keyboard if layout is different, or time from it last closing is &gt; 200 ms
+                    if (kb.last.layout !== kb.options.layout || (new Date().getTime() - kb.last.eventTime) &gt; 200) {
+                        kb.reveal();
+                    }
+                });
+                //Change fonts
+                $('.swap-font').on('click', function(){
+                    var selectedFont = $(this).data("font-id")
+                    $('.selectableFont').not('.syr').css('font-family', selectedFont);
+                    $("*:lang(syr)").css('font-family', selectedFont)
+                });
+
+            })
+        </script>
+      </head>
+   <body id="body">
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
+         
+         <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"/>
+               <span class="icon-bar"/>
+               <span class="icon-bar"/>
+               </button>
+            <a class="navbar-brand banner-container" href="$nav-base/geo/index.html"> 
+               <span class="syriaca-icon syriaca-syriaca banner-icon" data-template="app:logo"/>
+               <span class="banner-text" data-template="config:collection-title" data-template-collection="places">Collection Title</span>
+               </a>
+            
+         </div>
+         
+         <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
+            
+            <ul class="nav navbar-nav">
+               
+               <li>
+                  <a href="$nav-base/geo/browse.html" class="nav-text">Browse</a>
+                  
+               </li>
+               
+               <li class="dropdown">
+                  <a href="#" class="dropdown-toggle lonely-caret" data-toggle="dropdown"> 
+                     <span class="mobile-submenu">Publications</span>  <b class="caret"/>
+                     </a>
+                  
+                  <ul class="dropdown-menu pull-right">
+                     
+                     <li>
+                        <a href="$nav-base/index.html">
+                           <span class="icon-text">Home</span>
+                           </a>
+                        
+                     </li>
+                     
+                     <li>
+                        <a href="$nav-base/geo/index.html">
+                           <span class="icon-text">Gazetteer</span>
+                           </a>
+                        
+                     </li>
+                     
+                     <li>
+                        <a href="$nav-base/bibl/index.html">
+                           <span class="icon-text">Works Cited</span>
+                           </a>
+                        
+                     </li>
+                     
+                     <li>
+                        <a href="$nav-base/d3xquery/index.html">
+                           <span class="icon-text">Visualize relationships</span>
+                           </a>
+                        
+                     </li>
+                     
+                  </ul>
+                  
+               </li>
+               
+               <li>
+                  <a href="$nav-base/search.html" class="nav-text">Advanced Search</a>
+                  
+               </li>
+               
+               <li>
+                  
+                  <div id="search-wrapper">
+                     
+                     <form class="navbar-form navbar-right search-box" role="search" action="$nav-base/search.html" method="get">
+                        
+                        <div class="form-group">
+                           <input type="text" class="form-control keyboard" placeholder="search" name="keyword" id="keywordNav"/>
+                           <span data-template="app:keyboard-select-menu" data-template-input-id="keywordNav"/>
+                           <button class="btn btn-default search-btn" id="searchbtn" type="submit" title="Search">
+                              <span class="glyphicon glyphicon-search"/>
+                              </button>                                    
+                           
+                        </div>
+                        
+                     </form>
+                     
+                  </div>
+                  
+               </li>
+               
+               <li>
+                  
+                  <div class="btn-nav">
+                     <button class="btn btn-default navbar-btn" id="font" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                        <span class="glyphicon glyphicon-font"/>
+                        </button>  
+                     
+                     <ul class="dropdown-menu dropdown-menu-right" id="swap-font">
+                        
+                        <li>
+                           <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="#" class="swap-font" id="SertoBatnanSelect" data-font-id="SertoBatnan">Serto Batnan</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="$app-root/documentation/wiki.html?wiki-page=/How-to-view-Syriac-script&amp;wiki-uri=https://github.com/srophe/srophe-app-data/wiki">Help <span class="glyphicon glyphicon-question-sign"/>
+                              </a>
+                           
+                        </li>
+                        
+                     </ul>
+                     
+                  </div>
+                  
+               </li>
+               
+            </ul>
+            
+         </div>
+         
+      </nav>
+      <div xmlns:xi="http://www.w3.org/2001/XInclude">
+         <div class="grey-dark">
+            <div class="section main-content-block white">
+               <div class="row">
+                  <div class="col-md-8 column1"><span class="tei-desc" xml:lang="en" lang="en" dir="ltr" id="abstract586-1">The capital of the Byzantine Empire.</span><div class="well"><span class="tei-desc" xml:lang="en" lang="en" dir="ltr" id="abstract586-1">The capital of the Byzantine Empire.</span><div class="row">
+                           <div class="col-md-7"/>
+                           <div class="col-md-5">
+                              <div class="clearfix">
+                                 <div id="type">
+                                    <p><strong>Place Type: </strong><a href="../documentation/place-types.html#settlement" class="no-print-link">settlement</a></p>
+                                 </div>
+                                 <div id="location">
+                                    <span class="tei-geo">41.008548 28.979938</span>
+                                    
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div/>
+                     <div style="margin-bottom:1em;"><button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button> 
+                        
+                        <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">
+                           Is this record complete?
+                           </a><div class="modal fade" id="selection" tabindex="-1" role="dialog" aria-labelledby="selectionLabel" aria-hidden="true">
+                           <div class="modal-dialog">
+                              <div class="modal-content">
+                                 <div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"> x </span><span class="sr-only">Close</span></button><h2 class="modal-title" id="selectionLabel">Is this record complete?</h2>
+                                 </div>
+                                 <div class="modal-body">
+                                    <div>
+                                       <div id="recComplete" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
+                                    </div>
+                                 </div>
+                                 <div class="modal-footer"><a class="btn" href="../documentation/faq.html" aria-hidden="true">See all FAQs</a><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="well">
+                        <div id="sources">
+                           <h3>Works Cited</h3>
+                           <p><small>Any information without attribution has been created following the Syriaca.org <a href="http://syriaca.org/documentation/">editorial guidelines</a>.</small></p>
+                           <ul/>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-4 column2">
+                     <div id="placenames" class="well">
+                        <h3>Names</h3>
+                        <ul/>
+                     </div>
+                  </div>
+               </div>
+               <div class="citationinfo">
+                  <h3>How to Cite This Entry</h3>
+                  <div id="citation-note" class="well"><span> Thomas A. Carlson</span>, “<span class="title-analytic">Constantinople
+                        — <span class="tei-foreign" xml:lang="syr" lang="syr" dir="rtl">ܩܘܣܛܢܛܝܢܘܦܘܠܝܣ</span>
+                        </span>” in ,  last modified June 30, 2014, <a href="http://syriaca.org/place/586">http://syriaca.org/place/586</a>.
+                     <div class="collapse" id="showcit">
+                        <div id="citation-bibliography">
+                           <h4>Bibliography:</h4><span class="editor">Thomas A. Carlson</span>, “<span class="title-analytic">Constantinople
+                              — <span class="tei-foreign" xml:lang="syr" lang="syr" dir="rtl">ܩܘܣܛܢܛܝܢܘܦܘܠܝܣ</span>
+                              </span>.” In , edited by ., edited by <span> <span> David A. Michelson</span></span> et al.. Syriaca.org: The Syriac Reference Portal,
+                           2014.
+                            Entry published June 30, 2014. <a href="http://syriaca.org/place/586">http://syriaca.org/place/586</a>.
+                        </div>
+                        <div id="about">
+                           <h3>About this Entry</h3>
+                           <p><span class="heading-inline">Entry Title:</span> <span class="title-analytic">Constantinople
+                                 — <span class="tei-foreign" xml:lang="syr" lang="syr" dir="rtl">ܩܘܣܛܢܛܝܢܘܦܘܠܝܣ</span>
+                                 </span></p>
+                           <div>
+                              <h4>Additional Credit:</h4>
+                              <ul>
+                                 <li>Data merging, Pleiades and Wikipedia linking, and XML by <span> Thomas A. Carlson</span></li>
+                                 <li>Wilmshurst index information entry by <span> Anthony Davis</span></li>
+                                 <li>Record validation, normalization, and revisions for the second edition (2.0) by <span> David A. Michelson</span></li>
+                                 <li>Record validation, normalization, and revisions for the second edition (2.0) by <span> William L. Potter</span></li>
+                                 <li>Record validation, normalization, and revisions for the second edition (2.0) by <span> Daniel L. Schwartz</span></li>
+                              </ul>
+                           </div>
+                        </div>
+                        <div id="license">
+                           <h3>Copyright and License for Reuse</h3>
+                           <div>Except otherwise noted, this page is © 2014.
+                              
+                           </div><span class="tei-licence">
+                              
+                              <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
+                              
+                              <p>This entry incorporates copyrighted material from the following work(s):
+                                 <span class="tei-listBibl">
+                                    
+                                    
+                                    
+                                    </span>
+                                 
+                                 <div class="tei-note"><span>used under a Creative Commons Attribution license <a href="http://creativecommons.org/licenses/by/3.0/"/>
+                                       </span></div>
+                                 
+                              </p>
+                              </span></div>
+                     </div><a class="togglelink pull-right btn-link" data-toggle="collapse" data-target="#showcit" data-text-swap="Hide citation">Show full citation information...</a></div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,49 @@
+{
+    "key": "YCHDEJJ8",
+    "version": 981,
+    "library": {
+        "type": "group",
+        "id": 538215,
+        "name": "Biblia Arabica",
+        "links": {
+            "alternate": {
+                "href": "https://www.zotero.org/groups/biblia_arabica",
+                "type": "text/html"
+            }
+        }
+    },
+    "links": {
+        "self": {
+            "href": "https://api.zotero.org/groups/538215/items/YCHDEJJ8",
+            "type": "application/json"
+        },
+        "alternate": {
+            "href": "https://www.zotero.org/groups/biblia_arabica/items/YCHDEJJ8",
+            "type": "text/html"
+        }
+    },
+    "meta": {
+        "createdByUser": {
+            "id": 752752,
+            "username": "nathanpgibson",
+            "name": "",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/nathanpgibson",
+                    "type": "text/html"
+                }
+            }
+        }
+    },
+    "data": {
+        "key": "YCHDEJJ8",
+        "version": 981,
+        "itemType": "note",
+        "note": "<p>STATUS AND TASKS:</p>\n<ul>\n<li>Nathan is currently cleaning up the subject tags so that you can easily see which entries you are responsible for. In the meantime you can still work on the ones you know are related to your area.</li>\n<li>At this stage, you can\n<ul>\n<li>Correct any and all bibliographic details.</li>\n<li>Add/correct abstracts.</li>\n<li>Add new items.</li>\n<li>Add a \"tag\" to show you are working on a particular item. Use the format \"Assigned: [Your Name]\", e.g., \"Assigned: Nathan\".</li>\n<li>Add/correct manuscript tags, but change the prefix to \"MSC:\" for \"manuscript corrected.\" The automatic manuscript tagging did not go well, so I will need to remove manuscript tags from a lot of items and I don't want to remove the ones you've already corrected.</li>\n</ul>\n</li>\n<li>At this stage, please do NOT:\n<ul>\n<li>&nbsp;Edit tags starting with \"Subject: \".</li>\n</ul>\nAdditional Tasks: Suggest beautiful manuscripts for bibliography home page.</li>\n</ul>",
+        "tags": [],
+        "collections": [],
+        "relations": {},
+        "dateAdded": "2017-10-16T11:50:40Z",
+        "dateModified": "2017-10-16T13:14:20Z"
+    }
+}
