@@ -85,18 +85,15 @@ declare function sf:build-index(){
                     <field name="author" expression="sf:field(descendant-or-self::tei:body, 'author')"/>)
             }
             </text>
+            <text qname="tei:teiHeader" boost="5.0"/>
             <text qname="tei:fileDesc"/>
             <text qname="tei:biblStruct"/>
-            <text qname="tei:div"/>
             <text qname="tei:author" boost="5.0"/>
             <text qname="tei:persName" boost="5.0"/>
             <text qname="tei:placeName" boost="5.0"/>
             <text qname="tei:title" boost="10.5"/>
-            <text qname="tei:location"/>
             <text qname="tei:desc" boost="2.0"/>
-            <text qname="tei:event"/>
-            <text qname="tei:note"/>
-            <text qname="tei:term"/>
+            <text qname="tei:div"/>
         </lucene> 
         <range>
             <create qname="@syriaca-computed-start" type="xs:date"/>

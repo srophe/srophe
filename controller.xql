@@ -8,6 +8,21 @@ declare variable $exist:controller external;
 declare variable $exist:prefix external;
 declare variable $exist:root external;
 
+(:
+<div>
+    $exist:path : {$exist:path}<br/>
+    $exist:resource : {$exist:resource } <br/>
+    $exist:controller : {$exist:controller} <br/>
+    $exist:prefix : {$exist:prefix} <br/>
+    $exist:root : {$exist:root}
+</div>
+
+<div>
+$exist:record-uris : {$exist:record-uris} <br/>
+$exist:collection-uris : {$exist:collection-uris}
+</div>
+:)
+
 (: Get variables for Srophe collections. :)
 declare variable $exist:record-uris  := 
     distinct-values(for $collection in $config:get-config//repo:collection
@@ -20,6 +35,13 @@ declare variable $exist:collection-uris  :=
     distinct-values(for $collection in $config:get-config//repo:collection
     let $short-path := replace($collection/@app-root,$config:base-uri,'')
     return concat('/',$short-path,'/'))    
+; 
+
+(: Get variables for Srophe collections. :)
+declare variable $exist:app-root  := 
+    distinct-values(for $collection in $config:get-config//repo:collection
+    let $app-root := string($collection/@app-root)
+    return string($collection/@app-root))    
 ; 
 
 (: Send to content negotiation:)
@@ -80,11 +102,11 @@ else if(contains($exist:path,'/documentation/') and ends-with($exist:path,('.tei
 else if (contains($exist:path,'/api/')) then
   if (ends-with($exist:path,"/")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-        <redirect url="/api-documentation/index.html"/>
+        <redirect url="{concat($config:nav-base,'/api-documentation/index.html')}"/>
     </dispatch> 
    else if($exist:resource = 'index.html') then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-        <redirect url="/api-documentation/index.html"/>
+        <redirect url="{concat($config:nav-base,'/api-documentation/index.html')}"/>
     </dispatch>
     else if($exist:resource = 'oai') then
      <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
@@ -113,10 +135,10 @@ else if (contains($exist:path,'/api/')) then
                 <add-parameter name="format" value="{if($format = 'json') then 'geojson' else if($format='kml') then 'kml' else 'xml'}"/>
             </forward>
         </dispatch>
-    else 
+    else
         <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-            <redirect url="/api-documentation/index.html"/>
-        </dispatch> 
+            <redirect url="{concat($config:nav-base,'/api-documentation/index.html')}"/>
+        </dispatch>
 (: Passes data to content negotiation module:)
 else if(request:get-parameter('format', '') != '' and request:get-parameter('format', '') != 'html') then
     local:content-negotiation($exist:path, $exist:resource)
@@ -135,7 +157,7 @@ else if(request:get-parameter('doc', '') != '') then
        		</error-handler>
         </dispatch>
 (: Checks for any record uri patterns as defined in repo.xml :)    
-else if(replace($exist:path, $exist:resource,'') =  $exist:record-uris) then
+else if(replace($exist:path, $exist:resource,'') =  $exist:record-uris or replace($exist:path, $exist:resource,'') = $exist:app-root) then
     if($exist:resource = ('index.html','search.html','browse.html','about.html')) then    
         <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
             <view>
@@ -151,12 +173,16 @@ else if(replace($exist:path, $exist:resource,'') =  $exist:record-uris) then
         let $record-uri-root := replace($exist:path,$exist:resource,'')
         let $id := if($config:get-config//repo:collection[ends-with(@record-URI-pattern, $record-uri-root)]) then
                         concat($config:get-config//repo:collection[ends-with(@record-URI-pattern, $record-uri-root)][1]/@record-URI-pattern,$id)
+                   else if($config:get-config//repo:collection[ends-with(@app-root, $record-uri-root)]) then      
+                        concat($config:get-config//repo:collection[ends-with(@app-root, $record-uri-root)][1]/@record-URI-pattern,$id)
                    else $id
-        let $html-path := concat($config:get-config//repo:collection[ends-with(@record-URI-pattern, $record-uri-root)][1]/@app-root,'record.html')
+        let $html-path := if($config:get-config//repo:collection[ends-with(@record-URI-pattern, $record-uri-root)]) then 
+                            concat($config:get-config//repo:collection[ends-with(@record-URI-pattern, $record-uri-root)][1]/@app-root,'record.html')
+                          else concat($config:get-config//repo:collection[ends-with(@app-root, $record-uri-root)][1]/@app-root,'record.html')
         let $format := fn:tokenize($exist:resource, '\.')[fn:last()]
         return 
-        (:<div>HTML page for id: {$id} root: {$record-uri-root} HTML: {$html-path}</div>:)
-            <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+        (:<div>HTML page for id: [{$id}] root: [{$record-uri-root}] HTML: [{$html-path}] controler: [{$exist:controller}]</div>:)
+           <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
                 <forward url="{$exist:controller}{$html-path}"></forward>
                 <view>
                     <forward url="{$exist:controller}/modules/view.xql">
