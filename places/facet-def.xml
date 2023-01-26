@@ -1,0 +1,17 @@
+<facets xmlns="http://expath.org/ns/facet">
+    <!-- A simple facet for browsing by Syriaca.org series -->
+    <facet-definition name="type" label="Type">
+        <group-by function="type">
+            <sub-path>descendant::tei:place/@type</sub-path>
+        </group-by>
+        <max-values show="10">60</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <facet-definition name="bibl" label="Sources">
+        <group-by>
+            <sub-path>descendant::tei:bibl/tei:ptr/@target</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>
+</facets>

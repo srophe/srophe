@@ -49,6 +49,7 @@
  <!-- =================================================================== -->
  <!-- import component stylesheets for HTML page portions -->
  <!-- =================================================================== -->
+    <xsl:import href="majlis.xsl"/>
     <xsl:import href="citation.xsl"/>
     <xsl:import href="bibliography.xsl"/>
     <!-- Calls Srophe specific display XSLT, you can add your own or edit this one. -->
@@ -145,8 +146,7 @@
     <!-- =================================================================== -->
     <!-- Root -->
     <xsl:template match="/">
-<!--        <xsl:apply-templates/>-->
-        <xsl:apply-templates select="//t:ab"></xsl:apply-templates>
+        <xsl:apply-templates mode="majlis"/>
     </xsl:template>
     
     <!-- =================================================================== -->

@@ -1,0 +1,25 @@
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
+    <div class="container top-padding">
+    <h1 class="banner">Browse Manuscripts </h1>
+    <div class="main-content-block">
+        <div data-template="browse:get-all" data-template-collection="manuscripts">
+            <div class="tabbable"> 
+                <ul class="nav nav-tabs" id="nametabs">
+                    <li>
+                        <a href="browse.html" default="default">All</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <div class="row">
+                            <div data-template="browse:show-hits" data-template-collection="manuscripts"/>
+                        </div>
+                        <div data-template="app:pageination" data-template-collection="manuscripts"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    </div>
+</div>

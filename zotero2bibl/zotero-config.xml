@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <zotero-config>
     <!-- Used by get-zotero-data.pp.xql-->
     <groupid>4419449</groupid>
-    <api-key></api-key>
+    <api-key/>
     <last-modified-version>4209</last-modified-version>
     <!-- format json or tei -->
     <format>json</format>

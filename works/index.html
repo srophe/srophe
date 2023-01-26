@@ -1,0 +1,22 @@
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
+    <div class="top-padding contentPadding">
+        <h1>Browse Works</h1>
+        <div data-template="browse:get-all" data-template-collection="works">
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="nametabs">
+                    <li>
+                        <a href="browse.html" default="default">All</a>
+                    </li>
+                </ul>
+                <div class="tab-content whiteBoxwShadow">
+                    <div class="tab-pane active">
+                        <div class="row">
+                            <div data-template="browse:show-hits" data-template-collection="works"/>
+                        </div>
+                        <div data-template="app:pageination" data-template-collection="works"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

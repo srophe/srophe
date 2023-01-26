@@ -1,0 +1,39 @@
+<facets xmlns="http://expath.org/ns/facet">
+    <facet-definition name="subjects" label="Subjects">
+        <group-by>
+            <sub-path>descendant::tei:relation[@ref="dc:subject" and @type="subject"]/tei:desc</sub-path>
+        </group-by>
+        <max-values show="5">100</max-values>
+        <order-by direction="descending">value</order-by>
+    </facet-definition>
+    <facet-definition name="author" label="Authors">
+        <group-by function="biblAuthors">
+            <sub-path>descendant::tei:biblStruct/descendant::tei:surname</sub-path>
+        </group-by>
+        <max-values show="5">100</max-values>
+        <order-by direction="descending">count</order-by>
+    </facet-definition>
+    <facet-definition name="publicationDate" label="Publication Date">
+        <range type="xs:year">
+            <bucket gt="2000-01-01" name="2000 &gt;" order="14"/>
+            <bucket gt="1975-01-01" lt="2000-01-01" name="1975-2000" order="13"/>
+            <bucket gt="1950-01-01" lt="1975-01-01" name="1950-1975" order="12"/>
+            <bucket gt="1925-01-01" lt="1950-01-01" name="1925-1950" order="11"/>
+            <bucket gt="1900-01-01" lt="1925-01-01" name="1900-1925" order="10"/>
+            <bucket gt="1850-01-01" lt="1900-01-01" name="1850-1900" order="9"/>
+            <bucket gt="1800-01-01" lt="1850-01-01" name="1800-1850" order="8"/>
+            <bucket gt="1750-01-01" lt="1800-01-01" name="1750-1800" order="7"/>
+            <bucket gt="1700-01-01" lt="1750-01-01" name="1700-1750" order="6"/>
+            <bucket gt="1650-01-01" lt="1700-01-01" name="1650-1700" order="5"/>
+            <bucket gt="1600-01-01" lt="1650-01-01" name="1600-1650" order="4"/>
+            <bucket gt="1550-01-01" lt="1600-01-01" name="1550-1600" order="3"/>
+            <bucket gt="1500-01-01" lt="1550-01-01" name="1500-1550" order="2"/>
+            <bucket gt="1450-01-01" lt="1500-01-01" name="1450-1500" order="1"/>
+        </range>
+        <group-by type="xs:date">
+            <sub-path>descendant::tei:biblStruct/descendant::tei:imprint/tei:date</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="descending">order</order-by>
+    </facet-definition>
+</facets>

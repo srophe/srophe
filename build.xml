@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project default="xar" name="majlis">
     <xmlproperty file="expath-pkg.xml"/>
     <property name="project.version" value="${package(version)}"/>

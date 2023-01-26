@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <meta xmlns="http://exist-db.org/xquery/repo">
   <description>Accesses Zotero API to load Zotero library into eXistdb and keep the eXistdb version up to date with the Zotero library. Canonical data lives in Zotero.</description>
   <author>Srophe Software</author>
