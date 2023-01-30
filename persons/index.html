@@ -1,11 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/persons.html" data-template-at="content">
-    <div class="top-padding">
-        <div class="container">
-            <h1>Persons Module</h1>
-            <hr/>
-            <p>Use these pages to model your own subcollection pages.</p>
-            <h2>Example entries</h2>
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
+    <div class="top-padding contentPadding">
+        <h1>Browse Persons</h1>
+        <div data-template="browse:get-all" data-template-collection="persons">
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="nametabs">
+                    <li>
+                        <a href="browse.html" default="default">All</a>
+                    </li>
+                </ul>
+                <div class="tab-content whiteBoxwShadow">
+                    <div class="tab-pane active">
+                        <div class="row">
+                            <div data-template="browse:show-hits" data-template-collection="persons"/>
+                        </div>
+                        <div data-template="app:pageination" data-template-collection="persons"/>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

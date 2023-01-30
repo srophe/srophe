@@ -56,9 +56,9 @@ declare function app:get-work($node as node(), $model as map(*)) {
     if(request:get-parameter('id', '') != '' or request:get-parameter('doc', '') != '') then
         let $rec := data:get-document()
         return 
-            if(empty($rec)) then 
-                ('No record found. ',xmldb:encode-uri($config:data-root || "/" || request:get-parameter('doc', '') || '.xml'))
-                (: Debugging ('No record found. ',xmldb:encode-uri($config:data-root || "/" || request:get-parameter('doc', '') || '.xml')):)
+            if(empty($rec)) then request:get-parameter('id', '')
+                (:('No record found. ',request:get-parameter('id', '')):)
+                (:  ('No record found. ',xmldb:encode-uri($config:data-root || "/" || request:get-parameter('id', '') || '.xml')):)
                (:response:redirect-to(xs:anyURI(concat($config:nav-base, '/404.html'))):)
             else map {"hits" : $rec }
     else map {"hits" : 'Output plain HTML page'}

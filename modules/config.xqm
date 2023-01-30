@@ -59,7 +59,8 @@ declare function config:expath-descriptor() as element(expath:package) {
 };
 
 declare %templates:wrap function config:app-title($node as node(), $model as map(*)) as text() {
-    $config:expath-descriptor/expath:title/text()
+    (:$config:expath-descriptor/expath:title/text():)
+    $config:get-config//repo:title/text()
 };
 
 declare function config:app-meta($node as node(), $model as map(*)) as element()* {

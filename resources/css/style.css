@@ -220,6 +220,7 @@ footer .poweredby img { width: 75px; }
 .feature h3 {font-size:1.25em;}
 .feature p {margin:1em 2em;}
 /* I */
+.interior-content{padding:1.5em;}
 .indent {margin-left: 1em;}
 img{ margin:0px }
 .img-credit{
@@ -243,7 +244,7 @@ img{ margin:0px }
 .keboard-btn {margin-left:-1em;}
 
 /* L */
-.label {color:black;}
+.label {color:black; font-size:inherit;}
 /* Styles for languages and scripts for Syriac styles */
 /* styles for languages and scripts */
 :lang(en) {
@@ -353,6 +354,7 @@ img{ margin:0px }
 .message {font-size:large;}
 
 /* O */
+.otherDataFormats {margin-top:4em; margin-bottom:-1em;}
 .overlay {
     font-weight:200;
     background: rgb(34,34,34); /* for IE */

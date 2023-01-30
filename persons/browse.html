@@ -1,16 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/persons.html" data-template-at="content">
-    <div class="container top-padding">
-    <h1 class="banner">Browse Persons </h1>
-    <div class="main-content-block">
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
+    <div class="top-padding contentPadding">
+        <h1>Browse Persons</h1>
         <div data-template="browse:get-all" data-template-collection="persons">
-            <div class="tabbable"> 
+            <div class="tabbable">
                 <ul class="nav nav-tabs" id="nametabs">
                     <li>
                         <a href="browse.html" default="default">All</a>
                     </li>
                 </ul>
-                <div class="tab-content">
+                <div class="tab-content whiteBoxwShadow">
                     <div class="tab-pane active">
                         <div class="row">
                             <div data-template="browse:show-hits" data-template-collection="persons"/>
@@ -20,7 +18,5 @@
                 </div>
             </div>
         </div>
-        
-    </div>
     </div>
 </div>

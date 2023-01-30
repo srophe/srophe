@@ -1,0 +1,93 @@
+/* Application styles */
+/*
+ * Colors:
+ * background:   #ebe6f5 or #eeedf5
+ */
+ 
+/* restyle default buttons */
+.btn {
+    border-radius: 25px;
+    padding: .5em 1.5em;
+}
+.btn-grey {
+    background-color: #ccc !important;
+}
+.btn-grey:active, .btn-grey:hover, .btn-grey:visited {
+    background-color: #fff !important;
+}
+
+.row div {vertical-align:top;}
+/* White box with drop shadow */
+.whiteBoxwShadow {
+    padding:1em;
+    display:block; 
+    background-color:white;
+    box-shadow: 0px 5px 5px rgba(0,0,0,0.4);
+}
+.whiteBoxwShadow div {padding:0 1em;}
+
+body {background-color: #eeedf5;}
+.contentPadding {padding:5em;}
+.navbar-default {background-color: #fff;}
+.navbar {
+    border:none !important;
+    box-shadow: 0px 5px 5px rgba(0,0,0,0.4);
+}
+
+/* record styles */
+/* 
+.titleStmt .btn-default {
+    border-radius: 12px;
+    margin-right: .5em;
+    }
+*/
+
+.actionButtons {text-align:right;}
+.actionButtons .btn{margin-right:.25em;}
+.titleStmt .item {border-top:1px solid #ccc; border-bottom: 1px solid #ccc; }
+.mainDesc {
+    display:block; 
+    background-color:white;
+    box-shadow: 0px 5px 5px rgba(0,0,0,0.4);
+}
+.mainDesc .item {
+    margin: 1em;
+    padding-top: .5em; 
+    border-top:1px solid #ccc; 
+}
+
+.inline-h4 {font-weight:600;}
+
+.listEntities{
+    width:100%;
+    margin-top:2em;
+    margin-bottom:2em;
+}
+
+#mainMenu {
+    width:100%;
+    margin-top:2em;
+}
+
+#mainMenu button {
+  background-color: #ccc !important;  
+  color:black;
+  border-color: #ccc;
+  border-radius: 4px 4px 0 0 ;
+  border-right: 1px solid #666;
+}
+
+#mainMenu button[aria-expanded="true"]{
+  background-color: #fff !important;
+}
+
+.mainMenuContent {
+    margin-top: 2em;
+}
+.mainMenuContent .whiteBoxwShadow {margin-top:2em;}
+.entityList {
+    text-align:left;
+    margin-top:1em;
+}
+h3 a {text-decoration:none; color:black;}
+.tei-q {margin: .5em 1.5em;}

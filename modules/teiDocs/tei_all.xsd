@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:dcr="http://www.isocat.org/ns/dcr" xmlns:examples="http://www.tei-c.org/ns/Examples" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tei-c.org/ns/1.0" elementFormDefault="qualified" targetNamespace="http://www.tei-c.org/ns/1.0">
     <xs:import namespace="http://www.isocat.org/ns/dcr" schemaLocation="dcr.xsd"/>
     <xs:import namespace="http://www.tei-c.org/ns/Examples" schemaLocation="examples.xsd"/>
