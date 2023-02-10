@@ -145,8 +145,7 @@
     <!-- =================================================================== -->
     <!-- Root -->
     <xsl:template match="/">
-<!--        <xsl:apply-templates/>-->
-        <xsl:apply-templates select="//t:ab"></xsl:apply-templates>
+            <xsl:apply-templates/>
     </xsl:template>
     
     <!-- =================================================================== -->
