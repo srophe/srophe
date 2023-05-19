@@ -67,12 +67,12 @@
                 record-URI-pattern="URI for building links to record views."
                 app-root="folder name in app" 
                 data-root="folder name in data"/>-->
-            <collection name="manuscripts" title="Manuscripts" app-root="/manuscripts/" data-root="manuscripts" record-URI-pattern="https://majlis.net/manuscript/"/>
-            <collection name="places" title="Places" app-root="/places/" data-root="places" record-URI-pattern="https://majlis.net/place/"/>
-            <collection name="persons" title="Persons" app-root="/persons/" data-root="persons" record-URI-pattern="https://majlis.net/person/"/>
-            <collection name="works" title="Works" app-root="/works/" data-root="works" record-URI-pattern="https://majlis.net/bibl/"/>
-            <collection name="relations" title="Relations" app-root="/relations/" data-root="relations" record-URI-pattern="https://majlis.net/relations/"/>
-            <collection name="texts" title="Texts" app-root="/texts/" data-root="texts" record-URI-pattern="https://majlis.net/text/"/>
+            <collection name="manuscripts" title="Manuscripts" app-root="/manuscripts/" data-root="manuscripts" record-URI-pattern="https://jalit.org/manuscript/"/>
+            <collection name="places" title="Places" app-root="/places/" data-root="places" record-URI-pattern="https://jalit.org/place/"/>
+            <collection name="persons" title="Persons" app-root="/persons/" data-root="persons" record-URI-pattern="https://jalit.org/person/"/>
+            <collection name="works" title="Works" app-root="/works/" data-root="works" record-URI-pattern="https://jalit.org/bibl/"/>
+            <collection name="relations" title="Relations" app-root="/relations/" data-root="relations" record-URI-pattern="https://jalit.org/relations/"/>
+            <collection name="texts" title="Texts" app-root="/texts/" data-root="texts" record-URI-pattern="https://jalit.org/text/"/>
         </collections>
         <!-- Configure Sort fields for the whole app. 
             Sort fields are used for sorting in browse and search. Facets should be defined separately in a facet-conf.xml document.
