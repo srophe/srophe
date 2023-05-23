@@ -67,6 +67,7 @@ declare function local:search-element($element as xs:string?, $q as xs:string*, 
                                 if($element = 'citation') then 
                                     <bibl xmlns="http://www.tei-c.org/ns/1.0">
                                         <bibl>
+                                            <title type="citation">{$hit/ancestor-or-self::tei:TEI/descendant::tei:bibl[@type='formatted'][@subtype='citation']//text()}</title>
                                             {for $title in $hit/ancestor-or-self::tei:TEI/descendant::tei:biblStruct/child::*/tei:title
                                             return $title}
                                             {for $author in $hit/ancestor-or-self::tei:TEI/descendant::tei:biblStruct/child::*/tei:author
