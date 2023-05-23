@@ -13,6 +13,7 @@ import module namespace config="http://srophe.org/srophe/config" at "../config.x
 import module namespace data="http://srophe.org/srophe/data" at "data.xqm";
 import module namespace tei2html="http://srophe.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
 import module namespace timeline = "http://srophe.org/srophe/timeline" at "lib/timeline.xqm";
+import module namespace global="http://srophe.org/srophe/global" at "lib/global.xqm";
 import module namespace sf="http://srophe.org/srophe/facets" at "facets.xql";
 import module namespace maps="http://srophe.org/srophe/maps" at "maps.xqm";
 import module namespace page="http://srophe.org/srophe/page" at "paging.xqm";
@@ -73,7 +74,20 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                     if($browse:alpha-filter != '') then $browse:alpha-filter else 'A')}</h3>,
                 <div class="results {if($browse:lang = 'syr' or $browse:lang = 'ar') then 'syr-list' else 'en-list'}">
                     {if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else()}
-                    {browse:display-hits($hits)}
+                    
+                    {
+                    let $facet-config := global:facet-definition-file($collection)
+                    return 
+                        if(not(empty($facet-config))) then
+                            (
+                            <div class="col-md-4" xmlns="http://www.w3.org/1999/xhtml">
+                                {sf:display($model("hits"),$facet-config)}
+                            </div>,
+                            <div class="col-md-8" xmlns="http://www.w3.org/1999/xhtml">
+                                {browse:display-hits($hits)}
+                           </div>)
+                        else browse:display-hits($hits)
+                    }
                 </div>
             )}
         </div>

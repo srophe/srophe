@@ -1,2 +1,104 @@
 <facets xmlns="http://expath.org/ns/facet">
+    <facet-definition name="library" label="Library">
+        <group-by>
+            <sub-path>descendant::tei:listBibl/tei:msDesc/tei:msIdentifier/tei:repository</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <facet-definition name="country" label="Country">
+        <group-by>
+            <sub-path>descendant::tei:listBibl/tei:msDesc/te:msIdentifier/tei:country</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <facet-definition name="city" label="City">
+        <group-by>
+            <sub-path>descendant::tei:listBibl/tei:msDesc/te:msIdentifier/tei:settlement</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <facet-definition name="language" label="Language">
+        <group-by>
+            <sub-path>descendant::tei:listBibl/tei:msDesc/te:msContents/tei:msItem/tei:textLang</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <facet-definition name="material" label="Material">
+        <group-by>
+            <sub-path>descendant::tei:listBibl/tei:msDesc/tei:physDesc/tei:objectDesc/tei:supportDesc/tei:support/tei:material</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <facet-definition name="dateOfOrigin" label="Date of Origin">
+        <group-by>
+            <sub-path>descendant::tei:listBibl/tei:msDesc/tei:physDesc/tei:objectDesc/tei:supportDesc/tei:support/tei:origDate</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <facet-definition name="placeOfOrigin" label="Place of Origin">
+        <group-by>
+            <sub-path>descendant::tei:listBibl/tei:msDesc/tei:physDesc/tei:objectDesc/tei:supportDesc/tei:support/tei:origPlace</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <facet-definition name="typeOfManuscript" label="Type of Manuscript">
+        <group-by>
+            <sub-path>descendant::tei:listBibl/tei:msDesc/tei:physDesc/tei:ab/@subtype</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <facet-definition name="scriptType" label="Script Type">
+        <group-by>
+            <sub-path>descendant::tei:listBibl/tei:msDesc/tei:physDesc/tei:scriptDesc/tei:scriptNote/@script</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <facet-definition name="scriptMode" label="Script Mode">
+        <group-by>
+            <sub-path>descendant::tei:listBibl/tei:msDesc/tei:physDesc/tei:scriptDesc/tei:scriptNote/@rend</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <facet-definition name="scriptQuality" label="Script Quality">
+        <group-by>
+            <sub-path>descendant::tei:listBibl/tei:msDesc/tei:physDesc/tei:scriptDesc/tei:scriptNote/@style</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <facet-definition name="binding" label="Binding">
+        <group-by>
+            <sub-path>descendant::tei:listBibl/tei:msDesc/tei:physDesc/tei:bindingDesc/tei:binding/tei:decoNote/tei:objectType</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <facet-definition name="incodicatedDocument" label="Incodicated Document">
+        <group-by>
+            <sub-path>descendant::tei:listBibl/tei:msDesc/tei:physDesc/tei:additions/tei:list/tei:item/tei:objectType</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>---
+    <facet-definition name="reproductions" label="Reproductions">
+        <group-by>
+            <sub-path>descendant::tei:listBibl/tei:msDesc/tei:physDesc/tei:additions/tei:list/tei:item/tei:objectType</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <!-- 
+Reproductions (2 options, "Yes/No" that indicate if this element exists) /TEI/facsimile/graphic
+    
+    -->
 </facets>
