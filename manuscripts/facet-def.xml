@@ -89,15 +89,16 @@
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
-    </facet-definition>---
+    </facet-definition>
     <facet-definition name="reproductions" label="Reproductions">
-        <group-by>
-            <sub-path>descendant::tei:listBibl/tei:msDesc/tei:physDesc/tei:additions/tei:list/tei:item/tei:objectType</sub-path>
+        <group-by function="reproductions">
+            <sub-path>ancestor::tei:TEI/descendant::tei:facsimile/tei:graphic</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
     </facet-definition>
     <!-- 
+        function="eraComposed"
 Reproductions (2 options, "Yes/No" that indicate if this element exists) /TEI/facsimile/graphic
     
     -->

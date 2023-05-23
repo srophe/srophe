@@ -578,3 +578,8 @@ declare function sf:facet-authors($element as item()*, $facet-definition as item
 
 
 (: Custom Fields and facets:)
+declare function sf:facet-reproductions($element as item()*, $facet-definition as item(), $name as xs:string){
+    if($element/ancestor-or-self::tei:TEI/descendant::tei:facsimile/tei:graphic) then 
+        'YES'
+    else 'NO'
+};
