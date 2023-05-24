@@ -55,24 +55,15 @@
                 <br/>
             </div>
         </form>
-        <div data-template="search:search-data" data-template-collection="manuscripts" id="search-results-panel">   
+        <div data-template="search:search-data" data-template-collection="manuscripts" id="search-results-panel" style="background-color:white;">   
             <div class="container padding-top">
                 <br/>
                 <div data-template="app:pageination" data-template-collection="manuscripts" data-template-search-string="yes" data-template-sort-options="title,author,pubDate,pubPlace"/>
                 <div class="row">
-                    <div class="col-md-4 facet-display">
-                        <div class="slider-container">
-                            <div id="slider" data-template="app:display-slider" data-template-date-element="descendant::tei:imprint[1]/tei:date"/>
-                        </div>
-                        <div data-template="app:display-facets" data-template-collection="manuscripts"/>
-                    </div>
-                    <div class="col-md-8">
-                        <div data-template="app:display-map" data-template-collection="manuscripts"/>
-                        <div data-template="search:show-hits" data-template-collection="manuscripts"/>
-                        <div class="page-bottom">
-                            <div data-template="app:pageination" data-template-collection="manuscripts"/>
-                        </div>
-                    </div>
+                    <div data-template="search:show-hits" data-template-collection="manuscripts"/>  
+                </div>
+                <div class="page-bottom">
+                    <div data-template="app:pageination" data-template-collection="manuscripts"/>
                 </div>
                 <br/>
             </div>

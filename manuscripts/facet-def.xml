@@ -8,21 +8,21 @@
     </facet-definition>
     <facet-definition name="country" label="Country">
         <group-by>
-            <sub-path>descendant::tei:listBibl/tei:msDesc/te:msIdentifier/tei:country</sub-path>
+            <sub-path>descendant::tei:listBibl/tei:msDesc/tei:msIdentifier/tei:country</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
     </facet-definition>
     <facet-definition name="city" label="City">
         <group-by>
-            <sub-path>descendant::tei:listBibl/tei:msDesc/te:msIdentifier/tei:settlement</sub-path>
+            <sub-path>descendant::tei:listBibl/tei:msDesc/tei:msIdentifier/tei:settlement</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
     </facet-definition>
     <facet-definition name="language" label="Language">
         <group-by>
-            <sub-path>descendant::tei:listBibl/tei:msDesc/te:msContents/tei:msItem/tei:textLang</sub-path>
+            <sub-path>descendant::tei:listBibl/tei:msDesc/tei:msContents/tei:msItem/tei:textLang</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
