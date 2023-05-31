@@ -30,11 +30,11 @@
             </div>
             <div class="col-md-4 actionButtons">
                 <xsl:if test="//t:TEI/t:facsimile/t:graphic/@url">
-                    <button type="button" class="btn btn-default btn-grey btn-sm">Scan</button>                    
+                    <a type="button" class="btn btn-default btn-grey btn-sm" href="">Scan</a>                    
                 </xsl:if>
-                <button type="button" class="btn btn-default btn-grey btn-sm">Feedback</button>
-                <button type="button" class="btn btn-default btn-grey btn-sm">XML</button>
-                <button type="button" class="btn btn-default btn-grey btn-sm">Print</button>
+                <a type="button" class="btn btn-default btn-grey btn-sm" href="">Feedback</a>
+                <a class="btn btn-default btn-grey btn-sm" href="{concat($nav-base,substring-after(//t:idno[@type='URI'][1], $base-uri))}">XML</a>
+                <a class="btn btn-default btn-grey btn-sm" href="javascript:window.print();">Print</a>
             </div>
         </div>
         <xsl:choose>
@@ -175,7 +175,7 @@
                     <button type="button" class="btn btn-default btn-grey btn-lg" href="#mainMenuCredits" data-toggle="collapse">Credits</button>
                 </div>
             </div>
-            <div class="mainMenuContent clearfix">
+            <div class="mainMenuContent">
                 <xsl:apply-templates select="t:listBibl/t:msDesc/t:msContents" mode="majlis"/>
                 <xsl:apply-templates select="t:listBibl/t:msDesc/t:physDesc/t:objectDesc" mode="majlis"/>
                 <xsl:apply-templates select="t:listBibl/t:msDesc/t:physDesc/t:handDesc" mode="majlis"/>
