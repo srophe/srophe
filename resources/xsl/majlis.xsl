@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
     <!-- ================================================================== 
        MAJLIS custom srophe XSLT
@@ -30,7 +30,7 @@
             </div>
             <div class="col-md-4 actionButtons">
                 <xsl:if test="//t:TEI/t:facsimile/t:graphic/@url">
-                    <a type="button" class="btn btn-default btn-grey btn-sm" href="">Scan</a>                    
+                    <a type="button" class="btn btn-default btn-grey btn-sm" href="{//t:TEI/t:facsimile/t:graphic/@url}" target="_blank">Scan</a>                    
                 </xsl:if>
                 <a type="button" class="btn btn-default btn-grey btn-sm" href="">Feedback</a>
                 <a class="btn btn-default btn-grey btn-sm" href="{concat($nav-base,substring-after(//t:idno[@type='URI'][1], $base-uri))}">XML</a>
