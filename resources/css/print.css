@@ -1,5 +1,15 @@
 @media print {
 
+/* Majlis styles */
+    .whiteBoxwShadow {
+        display:block;
+        box-shadow: 0px;
+        }
+    .collapse {
+        display:block;
+    }
+    .listEntities {display:none;}
+    #mainMenu .btn-group {display:none;}
   * {
     text-shadow: none !important;
     color: #000 !important; // Black prints faster: h5bp.com/s
