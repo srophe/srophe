@@ -583,3 +583,12 @@ declare function sf:facet-reproductions($element as item()*, $facet-definition a
         'YES'
     else 'NO'
 };
+
+(:~
+ : TEI author facet, specific to bibl module
+ :)
+declare function sf:facet-biblAuthors($element as item()*, $facet-definition as item(), $name as xs:string){
+    if($element/ancestor-or-self::tei:TEI/descendant::tei:biblStruct) then 
+        $element/ancestor-or-self::tei:TEI/descendant::tei:biblStruct/descendant::tei:author | $element/ancestor-or-self::tei:TEI/descendant::tei:biblStruct/descendant::tei:editor
+    else $element/ancestor-or-self::tei:TEI/descendant::tei:titleStmt/descendant::tei:author
+}; 
