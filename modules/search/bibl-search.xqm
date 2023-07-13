@@ -28,12 +28,12 @@ declare variable $bibls:online {request:get-parameter('online', '')};
 
 
 declare function bibls:title() as xs:string? {
-    if($bibls:title != '') then concat("[ft:query(descendant::tei:title,'",data:clean-string($bibls:title),"',sf:facet-query())]")
+    if($bibls:title != '') then concat("[ft:query(descendant::tei:title,'",data:clean-string($bibls:title),"',data:search-options())]")
     else ()    
 };
 
 declare function bibls:author() as xs:string? {
-    if($bibls:author != '') then concat("[ft:query(descendant::tei:author,'",data:clean-string($bibls:author),"',sf:facet-query()) or ft:query(descendant::tei:editor,'",data:clean-string($bibls:author),"',sf:facet-query())]")
+    if($bibls:author != '') then concat("[ft:query(descendant::tei:author,'",data:clean-string($bibls:author),"',data:search-options()) or ft:query(descendant::tei:editor,'",data:clean-string($bibls:author),"',data:search-options())]")
     else ()    
 };
 
@@ -58,19 +58,19 @@ declare function bibls:idno() as xs:string? {
 
 declare function bibls:pub-place() as xs:string? {
     if($bibls:pub-place != '') then 
-        concat("[ft:query(descendant::tei:imprint/tei:pubPlace,'",data:clean-string($bibls:pub-place),"',sf:facet-query())]")
+        concat("[ft:query(descendant::tei:imprint/tei:pubPlace,'",data:clean-string($bibls:pub-place),"',data:search-options())]")
     else ()  
 };
 
 declare function bibls:publisher() as xs:string? {
     if($bibls:publisher != '') then 
-        concat("[ft:query(descendant::tei:imprint/tei:publisher,'",data:clean-string($bibls:publisher),"',sf:facet-query())]")
+        concat("[ft:query(descendant::tei:imprint/tei:publisher,'",data:clean-string($bibls:publisher),"',data:search-options())]")
     else ()  
 };
 
 declare function bibls:date() as xs:string? {
     if($bibls:date != '') then 
-        concat("[ft:query(descendant::tei:imprint/tei:date,'",data:clean-string($bibls:date),"',sf:facet-query())]")
+        concat("[ft:query(descendant::tei:imprint/tei:date,'",data:clean-string($bibls:date),"',data:search-options())]")
     else ()  
 };
 
@@ -99,7 +99,7 @@ declare function bibls:date-range() as xs:string?{
 declare function bibls:subject() as xs:string?{
     if(request:get-parameter('subject', '') != '' or request:get-parameter('subject-exact', '')) then 
         if(request:get-parameter('subject', '')) then 
-            concat("[descendant::tei:relation[@ref='dc:subject']/descendant::tei:desc[ft:query(.,'",data:clean-string(request:get-parameter('subject', '')),"',sf:facet-query())]]")     
+            concat("[descendant::tei:relation[@ref='dc:subject']/descendant::tei:desc[ft:query(.,'",data:clean-string(request:get-parameter('subject', '')),"',data:search-options())]]")     
         else if(request:get-parameter('subject-exact', '')) then 
             concat("[descendant::tei:relation[@ref='dc:subject']/descendant::tei:desc[. = '",request:get-parameter('subject-exact', ''),"']]")
         else()
@@ -108,7 +108,7 @@ declare function bibls:subject() as xs:string?{
 
 declare function bibls:mss() as xs:string?{
     if(request:get-parameter('mss', '') != '') then
-        concat("[descendant::tei:relation[@ref='dcterms:references']/descendant::tei:desc[ft:query(.,'",data:clean-string(request:get-parameter('mss', '')),"',sf:facet-query())]]")
+        concat("[descendant::tei:relation[@ref='dcterms:references']/descendant::tei:desc[ft:query(.,'",data:clean-string(request:get-parameter('mss', '')),"',data:search-options())]]")
     else ()  
 };
 
