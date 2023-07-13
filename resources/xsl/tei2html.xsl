@@ -147,7 +147,6 @@
     <!-- Root -->
     <xsl:template match="/">
         <xsl:apply-templates mode="majlis"/>
-
     </xsl:template>
     
     <!-- =================================================================== -->
