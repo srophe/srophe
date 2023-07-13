@@ -1,4 +1,4 @@
-<package xmlns="http://expath.org/ns/pkg" name="http://syriaca.org/majlis" abbrev="majlis" version="2.01" spec="1.0">
+<package xmlns="http://expath.org/ns/pkg" name="http://syriaca.org/majlis" abbrev="majlis" version="2.02" spec="1.0">
     <title>MAJLIS</title>
     <dependency package="http://exist-db.org/apps/shared"/>
 </package>

@@ -33,7 +33,7 @@
                     <a type="button" class="btn btn-default btn-grey btn-sm" href="{//t:TEI/t:facsimile/t:graphic/@url}" target="_blank">Scan</a>                    
                 </xsl:if>
                 <a type="button" class="btn btn-default btn-grey btn-sm" href="">Feedback</a>
-                <a class="btn btn-default btn-grey btn-sm" href="{concat($nav-base,substring-after(//t:idno[@type='URI'][1], $base-uri))}">XML</a>
+                <a class="btn btn-default btn-grey btn-sm" href="{concat($nav-base,substring-after(/descendant::t:idno[@type='URI'][1], $base-uri))}">XML</a>
                 <a class="btn btn-default btn-grey btn-sm" href="javascript:window.print();">Print</a>
             </div>
         </div>
