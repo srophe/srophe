@@ -104,9 +104,9 @@
                                 </span>
                             </div>
                         </xsl:for-each>
-                        <xsl:for-each select="t:physDesc/t:objectDesc/@form">
+                        <xsl:for-each select="t:physDesc/t:ab/t:objectType">
                             <div class="item row">
-                                <span class="inline-h4 col-md-3">Object Type</span>
+                                <span class="inline-h4 col-md-3">Manuscript type</span>
                                 <span class="col-md-9">
                                     <xsl:apply-templates select="."/>
                                 </span>
@@ -177,6 +177,7 @@
             </div>
             <div class="mainMenuContent">
                 <xsl:apply-templates select="t:listBibl/t:msDesc/t:msContents" mode="majlis"/>
+                <xsl:apply-templates select="t:listBibl/t:msDesc/t:physDesc/t:ab" mode="majlis"/>
                 <xsl:apply-templates select="t:listBibl/t:msDesc/t:physDesc/t:objectDesc" mode="majlis"/>
                 <xsl:apply-templates select="t:listBibl/t:msDesc/t:physDesc/t:handDesc" mode="majlis"/>
                 <xsl:apply-templates select="t:listBibl/t:msDesc/t:physDesc/t:additions" mode="majlis"/>
@@ -228,6 +229,26 @@
                     </div>
                 </div>
             </xsl:for-each>
+            </div>
+        </div>
+    </xsl:template>
+    <xsl:template match="t:ab" mode="majlis">
+        <div class="whiteBoxwShadow">
+            <h3><a aria-expanded="true" href="#mainMenuCodicology" data-toggle="collapse">Codicological definition</a></h3>
+            <div class="collapse" id="mainMenuCodicology">
+                <div class="row">
+                    <div class="col-md-2 inline-h4">Manuscript type </div>
+                    <div class="col-md-10"><xsl:value-of select="t:objectType"/></div>    
+                </div>
+                <div class="row">
+                    <div class="col-md-2 inline-h4">Format </div>
+                    <div class="col-md-10"><xsl:value-of select="t:objectType/@form"/></div>    
+                </div>
+                <div class="row">
+                    <div class="col-md-2 inline-h4">Book form </div>
+                    <div class="col-md-10"><xsl:value-of select="t:objectType/@style"/></div>    
+                </div>
+                <!--Add manuscript joins here-->
             </div>
         </div>
     </xsl:template>
@@ -288,6 +309,7 @@
         </div>
     </xsl:template>
     <xsl:template match="t:handDesc" mode="majlis">
+        <!--Incorporate scriptDesc/scriptNote-->
         <div class="whiteBoxwShadow">
             <h3><a aria-expanded="true" href="#mainMenuPaleography" data-toggle="collapse">Paleography</a></h3>
             <div class="collapse" id="mainMenuPaleography">
@@ -340,14 +362,6 @@
         <div class="whiteBoxwShadow">
             <h3><a aria-expanded="true" href="#mainMenuHistory" data-toggle="collapse">History</a></h3>
             <div class="collapse" id="mainMenuHistory">
-        <xsl:for-each select="t:origin">
-            <div class="row">
-                <div class="col-md-1 inline-h4">Production </div>
-                <div class="col-md-10">
-                    <xsl:apply-templates select="."/>
-                </div>    
-            </div>    
-        </xsl:for-each>
         <xsl:for-each select="t:provenance">
             <div class="row">
                 <div class="col-md-1 inline-h4">Provenance <xsl:value-of select="position()"/></div>
@@ -419,7 +433,7 @@
             <div class="whiteBoxwShadow entityList">
             <h4>Persons referenced</h4>
             <ul>
-                <xsl:for-each select="//t:persName">
+                <xsl:for-each select="//t:msDesc//t:persName">
                     <li><xsl:apply-templates select="."/></li>    
                 </xsl:for-each>
             </ul>
@@ -431,7 +445,7 @@
             <div class="whiteBoxwShadow entityList">
             <h4>Places referenced</h4>
             <ul>
-                <xsl:for-each select="//t:placeName">
+                <xsl:for-each select="//t:msDesc//t:placeName">
                     <li><xsl:apply-templates select="."/></li>    
                 </xsl:for-each>
             </ul>
@@ -443,7 +457,7 @@
             <div class="whiteBoxwShadow entityList">
             <h4>Works referenced</h4>
             <ul>
-                <xsl:for-each select="//t:bibl">
+                <xsl:for-each select="//t:msItem/t:title">
                     <li><xsl:apply-templates select="."/></li>    
                 </xsl:for-each>
             </ul>
