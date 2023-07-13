@@ -140,7 +140,6 @@
     <xsl:variable name="resource-title">
         <xsl:apply-templates select="/descendant-or-self::t:titleStmt/t:title[1]"/>
     </xsl:variable>
- 
     <!-- =================================================================== -->
     <!-- Templates -->
     <!-- =================================================================== -->
