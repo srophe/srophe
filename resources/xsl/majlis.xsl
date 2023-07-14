@@ -154,7 +154,10 @@
                     <button aria-expanded="true" type="button" class="btn btn-default btn-grey btn-lg" href="#mainMenuContent" data-toggle="collapse">Content</button>
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-grey btn-lg" data-toggle="collapse" href="#mainMenuCodicology">Codicology</button>
+                    <button type="button" class="btn btn-default btn-grey btn-lg" href="#mainMenuCodDefinition" data-toggle="collapse">Codicological Definition</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-grey btn-lg" href="#mainMenuCodicology" data-toggle="collapse">Codicology</button>
                 </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-default btn-grey btn-lg" href="#mainMenuPaleography" data-toggle="collapse">Paleography</button>
@@ -234,8 +237,8 @@
     </xsl:template>
     <xsl:template match="t:ab" mode="majlis">
         <div class="whiteBoxwShadow">
-            <h3><a aria-expanded="true" href="#mainMenuCodicology" data-toggle="collapse">Codicological definition</a></h3>
-            <div class="collapse" id="mainMenuCodicology">
+            <h3><a aria-expanded="true" href="#mainMenuCodDefinition" data-toggle="collapse">Codicological definition</a></h3>
+            <div class="collapse" id="mainMenuCodDefinition">
                 <div class="row">
                     <div class="col-md-2 inline-h4">Manuscript type </div>
                     <div class="col-md-10"><xsl:value-of select="t:objectType"/></div>    
