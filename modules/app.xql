@@ -32,9 +32,15 @@ declare namespace html="http://www.w3.org/1999/xhtml";
 declare namespace srophe="https://srophe.app";
 
 (: Global Variables:)
-declare variable $app:start {request:get-parameter('start', 1) cast as xs:integer};
-declare variable $app:perpage {request:get-parameter('perpage', 25) cast as xs:integer};
-
+declare variable $app:start {
+    if(request:get-parameter('start', 1)[1] castable as xs:integer) then 
+        xs:integer(request:get-parameter('start', 1)[1]) 
+    else 1};
+declare variable $app:perpage {
+    if(request:get-parameter('perpage', 25)[1] castable as xs:integer) then 
+        xs:integer(request:get-parameter('perpage', 25)[1]) 
+    else 25
+    };
 (:~
  : Get app logo. Value passed from repo-config.xml  
 :)

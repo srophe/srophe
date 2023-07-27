@@ -26,10 +26,16 @@ import module namespace bibls="http://srophe.org/srophe/bibls" at "bibl-search.x
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 (:declare namespace facet="http://expath.org/ns/facet";:)
 
-(: Variables:)
-declare variable $search:start {request:get-parameter('start', 1) cast as xs:integer};
-declare variable $search:perpage {request:get-parameter('perpage', 20) cast as xs:integer};
-
+(: Global Variables:)
+declare variable $search:start {
+    if(request:get-parameter('start', 1)[1] castable as xs:integer) then 
+        xs:integer(request:get-parameter('start', 1)[1]) 
+    else 1};
+declare variable $search:perpage {
+    if(request:get-parameter('perpage', 25)[1] castable as xs:integer) then 
+        xs:integer(request:get-parameter('perpage', 25)[1]) 
+    else 25
+    };
 (:~
  : Builds search result, saves to model("hits") for use in HTML display
 :)

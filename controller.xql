@@ -181,6 +181,20 @@ else if(replace($exist:path, $exist:resource,'') =  $exist:record-uris or replac
                           else concat($config:get-config//repo:collection[ends-with(@app-root, $record-uri-root)][1]/@app-root,'record.html')
         let $format := fn:tokenize($exist:resource, '\.')[fn:last()]
         return 
+        if(doc-available(xs:anyURI($document-uri))) then
+                <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+                    <forward url="{$exist:controller}{$path2html}"></forward>
+                    <view>
+                        <forward url="{$exist:controller}/modules/view.xql">
+                           <add-parameter name="id" value="{$id}"/>
+                        </forward>
+                    </view>
+                    <error-handler>
+                        <forward url="{$exist:controller}/error-page.html" method="get"/>
+                        <forward url="{$exist:controller}/modules/view.xql"/>
+                    </error-handler>
+                </dispatch>
+            else 
         (:<div>HTML page for id: [{$id}] root: [{$record-uri-root}] HTML: [{$html-path}] controler: [{$exist:controller}]</div>:)
            <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
                 <forward url="{$exist:controller}{$html-path}"></forward>

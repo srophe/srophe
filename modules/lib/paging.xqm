@@ -22,13 +22,21 @@ declare namespace xlink = "http://www.w3.org/1999/xlink";
 :)
 declare function page:pages(
     $hits as node()*, 
-    $collection as xs:string?,
-    $start as xs:integer?, 
-    $perpage as xs:integer?, 
-    $search-string as xs:string*,
-    $sort-options as xs:string*){
-let $perpage := if($perpage) then xs:integer($perpage) else 20
-let $start := if($start) then $start else 1
+    $collection,
+    $start, 
+    $perpage, 
+    $search-string,
+    $sort-options){
+let $perpage := if($perpage) then 
+                    if($perpage[1] castable as xs:integer) then 
+                        xs:integer($perpage[1]) 
+                    else 20
+                 else 20
+let $start := if($start) then 
+                if($start[1] castable as xs:integer) then 
+                    xs:integer($start[1]) 
+                else 1 
+              else 1               
 let $total-result-count := count($hits)
 let $end := 
     if ($total-result-count lt $perpage) then 
@@ -37,11 +45,30 @@ let $end :=
         $start + $perpage
 let $number-of-pages :=  xs:integer(ceiling($total-result-count div $perpage))
 let $current-page := xs:integer(($start + $perpage) div $perpage)
-(: get all parameters to pass to paging function, strip start parameter :)
-let $url-params := replace(replace(request:get-query-string(), '&amp;start=\d+', ''),'start=\d+','')
-let $param-string := if($url-params != '') then concat('?',$url-params,'&amp;start=') else '?start='        
-let $pagination-links := 
-    (<div class="row alpha-pages" xmlns="http://www.w3.org/1999/xhtml">
+let $cleanParams :=
+        string-join(
+        for $pramName in request:get-parameter-names()
+        return 
+            if($pramName = ('start','perpage','sort-element','sort')) then () 
+            else 
+                for $param in request:get-parameter($pramName, '')
+                where $param != ''
+                return ($pramName || '=' || $param)
+                ,'&amp;')
+let $sortParams := 
+        if(request:get-parameter('sort-element', '') != '') then 
+            ('sort-element'|| '=' || request:get-parameter('sort-element', '')[1])
+        else()
+let $param-string := 
+        if($cleanParams != '' and $sortParams != '') then 
+            ('?' || $cleanParams || '&amp;' || $sortParams ||'&amp;start=')
+        else if($cleanParams != '') then 
+            ('?' || $cleanParams ||'&amp;start=')
+        else if($sortParams != '') then 
+            ('?' || $sortParams || '&amp;start=')
+        else '?start='
+return 
+    <div class="row alpha-pages" xmlns="http://www.w3.org/1999/xhtml">
             {
             if($search-string = ('yes','Yes')) then  
                 if(page:display-search-params($collection) != '') then 
@@ -98,7 +125,6 @@ let $pagination-links :=
                         else <li><a href="{concat($param-string, $start + $perpage)}">Next</a></li>,
                         if($sort-options != '') then page:sort($param-string, $start, $sort-options)
                         else(),
-                        <li><a href="{concat($param-string,'1&amp;perpage=',$total-result-count)}">All</a></li>,
                         if($search-string != '') then
                             <li class="pull-right search-new"><a href="search.html"><span class="glyphicon glyphicon-search"/> New</a></li>
                         else ()    
@@ -117,8 +143,6 @@ let $pagination-links :=
                 }
             </div>
     </div>
-    )    
-return $pagination-links
 };
 
 (:~
@@ -128,6 +152,21 @@ return $pagination-links
  : $param @options include search options a comma separated list
 :)
 declare function page:sort($param-string as xs:string?, $start as xs:integer?, $options as xs:string*){
+let $cleanParams :=
+        string-join(
+        for $pramName in request:get-parameter-names()
+        return 
+            if($pramName = ('start','perpage','sort-element','sort')) then () 
+            else 
+                for $param in request:get-parameter($pramName, '')
+                where $param != ''
+                return ($pramName || '=' || $param)
+                ,'&amp;')
+let $param-string := 
+        if($cleanParams != '') then 
+            ('?' || $cleanParams ||'&amp;start=')
+        else '?start='                
+return 
 <li xmlns="http://www.w3.org/1999/xhtml">
     <div class="btn-group">
         <div class="dropdown"><button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">Sort <span class="caret"/></button>
@@ -136,7 +175,7 @@ declare function page:sort($param-string as xs:string?, $start as xs:integer?, $
                     for $option in tokenize($options,',')
                     return 
                     <li role="presentation">
-                        <a role="menuitem" tabindex="-1" href="{concat(replace($param-string,'&amp;sort-element=(\w+)', ''),$start,'&amp;sort-element=',$option)}" id="rel">
+                        <a role="menuitem" tabindex="-1" href="{($param-string || $start || '&amp;sort-element=' || $option)}" id="rel">
                             {
                                 if($option = 'pubDate' or $option = 'persDate') then 'Date'
                                 else if($option = 'pubPlace') then 'Place of publication'
