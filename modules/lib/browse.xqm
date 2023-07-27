@@ -6,7 +6,7 @@ xquery version "3.1";
 module namespace browse="http://srophe.org/srophe/browse";
 
 (:eXist templating module:)
-import module namespace templates="http://exist-db.org/xquery/templates" ;
+import module namespace templates="http://exist-db.org/xquery/html-templating" ;
 
 (: Import Srophe application modules. :)
 import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";

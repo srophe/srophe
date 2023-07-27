@@ -36,7 +36,7 @@ import module namespace tei2txt="http://srophe.org/srophe/tei2txt" at "tei2txt.x
 
 (: These are needed for rending as HTML via existdb templating module, can be removed if not using 
 import module namespace config="http://syriaca.org/config" at "config.xqm";
-import module namespace templates="http://exist-db.org/xquery/templates" ;
+import module namespace templates="http://exist-db.org/xquery/html-templating" ;
 :)
 
 (: Namespaces :)

@@ -58,6 +58,10 @@ declare function config:expath-descriptor() as element(expath:package) {
     $config:expath-descriptor
 };
 
+declare %templates:wrap function config:app-title($node as node(), $model as map(*)) as text() {
+    $config:expath-descriptor/expath:title/text()
+};
+
 declare function config:app-meta($node as node(), $model as map(*)) as element()* {
     <meta xmlns="http://www.w3.org/1999/xhtml" name="description" content="{$config:repo-descriptor/repo:description/text()}"/>,
     for $author in $config:repo-descriptor/repo:author
@@ -96,10 +100,6 @@ declare function config:app-info($node as node(), $model as map(*)) {
 (: Srophe variables :)
 (: Get repo-config.xml to parse global varaibles :)
 declare variable $config:get-config := doc($config:app-root || '/repo-config.xml');
-
-declare %templates:wrap function config:app-title($node as node(), $model as map(*)) as text() {
-    $config:get-config//repo:title/text()
-};
 
 (: Get access-config.xml to parse global varaibles for git-sync and recaptcha  :)
 declare variable $config:get-access-config := doc($config:app-root || '/access-config.xml');

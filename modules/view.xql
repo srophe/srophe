@@ -1,12 +1,15 @@
 (:~
- : This is the main XQuery which will (by default) be called by controller.xql
+ : This is the main XQuery which will (by default) be called by controller.xq
  : to process any URI ending with ".html". It receives the HTML from
- : the controller and passes it to the templating system.
+ : the controller and passes it to the templating framework.
  :)
 xquery version "3.1";
-
-import module namespace templates="http://exist-db.org/xquery/templates" ;
-
+declare namespace output="http://www.w3.org/2010/xslt-xquery-serialization";
+import module namespace templates="http://exist-db.org/xquery/html-templating";
+(: 
+ : The following modules provide functions which will be called by the 
+ : templating framework.
+ :)
 (: 
  : The following modules provide functions which will be called by the 
  : templating.
@@ -18,7 +21,8 @@ import module namespace app="http://srophe.org/srophe/templates" at "app.xql";
 import module namespace browse="http://srophe.org/srophe/browse" at "lib/browse.xqm";
 import module namespace search="http://srophe.org/srophe/search" at "search/search.xqm";
 
-declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
+(: Syriaca.org specific module :)
+import module namespace spear="http://srophe.org/srophe/spear" at "spear.xqm";
 
 declare option output:method "html5";
 declare option output:media-type "text/html";
@@ -42,8 +46,9 @@ let $lookup := function($functionName as xs:string, $arity as xs:int) {
 }
 (:
  : The HTML is passed in the request from the controller.
- : Run it through the templating system and return the result.
+ : Run it through the templating framework and return the result.
  :)
 let $content := request:get-data()
 return
+    (:templates:apply($content, $lookup, ()):)
     templates:apply($content, $lookup, (), $config)

@@ -5,7 +5,7 @@ xquery version "3.1";
 module namespace search="http://srophe.org/srophe/search";
 
 (:eXist templating module:)
-import module namespace templates="http://exist-db.org/xquery/templates" ;
+import module namespace templates="http://exist-db.org/xquery/html-templating" ;
 
 (: Import KWIC module:)
 import module namespace kwic="http://exist-db.org/xquery/kwic";
