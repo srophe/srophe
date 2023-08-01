@@ -72,6 +72,12 @@ declare function local:search-element($element as xs:string?, $q as xs:string*, 
                                         </bibl>
                                         {$hit/ancestor-or-self::tei:TEI/descendant::tei:bibl[@type='formatted'][@subtype='citation']}
                                     </bibl>
+                                else if(request:get-parameter('wrapElement', '') != '') then
+                                    element {xs:QName(request:get-parameter('wrapElement', ''))}
+                                        {attribute { "ref" } { $recID }, 
+                                            element {xs:QName($element)}
+                                            {attribute { "ref" } { $recID }, $headword[1] }
+                                        }
                                 else 
                                     element {xs:QName($element)}
                                         {attribute { "ref" } { $recID }, $headword[1] }
