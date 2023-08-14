@@ -35,11 +35,10 @@ declare namespace srophe="https://srophe.app";
  : @param $author accepts string value. May only be used when $element = 'title'    
 :)
 declare function local:search-element($element as xs:string?, $q as xs:string*, $collection as xs:string*){                     
-    let $e := if($element = 'citation') then 
-                        'biblStruct'
-                    else if($element != '') then 
-                        $element
-                    else 'body' 
+    let $e := if($element = 'citation') then 'biblStruct'
+              else if($element = 'titleBibl') then  'title'
+              else if($element != '') then $element
+              else 'body' 
     let $hits := data:apiSearch($collection, $e, $q, ())
     return 
         if(count($hits) gt 0) then 
@@ -72,6 +71,11 @@ declare function local:search-element($element as xs:string?, $q as xs:string*, 
                                         </bibl>
                                         {$hit/ancestor-or-self::tei:TEI/descendant::tei:bibl[@type='formatted'][@subtype='citation']}
                                     </bibl>
+                                else if($element = 'titleBibl') then 
+                                    <bibl xmlns="http://www.tei-c.org/ns/1.0">
+                                        <idno>{$hit/ancestor-or-self::tei:TEI/descendant::tei:title[@level='a']//text()}</idno>
+                                        <ptr target="{$recID}"/>
+                                    </bibl>    
                                 else if(request:get-parameter('wrapElement', '') != '') then
                                     element {xs:QName(request:get-parameter('wrapElement', ''))}
                                         {attribute { "ref" } { $recID }, 
