@@ -182,10 +182,11 @@ declare function data:search($collection as xs:string*, $queryString as xs:strin
             if(request:get-parameter-names() = '' or empty(request:get-parameter-names())) then 
                 collection($config:data-root || '/' || $collection)//tei:body[ft:query(., (),sf:facet-query())]
             else util:eval($eval-string)//tei:body[ft:query(., (),sf:facet-query())]      
-    let $sort := if($sort-element != '') then 
+    let $sort := 
+                if(request:get-parameter('sort-element', '') != '') then
+                    request:get-parameter('sort-element', '')[1]
+                else if($sort-element != '') then 
                     $sort-element
-                 else if(request:get-parameter('sort-element', '') != '') then
-                    request:get-parameter('sort-element', '')
                  else ()
     return
         if((request:get-parameter('sort-element', '') != '' and request:get-parameter('sort-element', '') != 'relevance') or ($sort-element != '' and $sort-element != 'relevance')) then 
@@ -195,14 +196,14 @@ declare function data:search($collection as xs:string*, $queryString as xs:strin
                     else if(request:get-parameter('sort', '') = 'title') then 
                         if(request:get-parameter('lang', '') = 'syr') then ft:field($hit, "titleSyriac")[1]
                         else if(request:get-parameter('lang', '') = 'ar') then ft:field($hit, "titleArabic")[1]
-                        else ft:field($hit, "title")
+                        else ft:field($hit, "title")[1]
                     else if(request:get-parameter('sort', '') = $data:SORT_FIELDS) then
                         ft:field($hit, request:get-parameter('sort', ''))[1]
                     else if(request:get-parameter('sort', '') != '' and request:get-parameter('sort', '') != 'title' and not(contains($sort, 'author'))) then
                         if($collection = 'bibl') then
                             data:add-sort-options-bibl($hit, $sort)
                         else data:add-sort-options($hit, $sort)                    
-                    else ft:field($hit, "title")                
+                    else ft:field($hit, "title")[1]                
             order by $s collation 'http://www.w3.org/2013/collation/UCA'
             return $hit
         else 
