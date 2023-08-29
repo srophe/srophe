@@ -8,21 +8,6 @@ declare variable $exist:controller external;
 declare variable $exist:prefix external;
 declare variable $exist:root external;
 
-(:
-<div>
-    $exist:path : {$exist:path}<br/>
-    $exist:resource : {$exist:resource } <br/>
-    $exist:controller : {$exist:controller} <br/>
-    $exist:prefix : {$exist:prefix} <br/>
-    $exist:root : {$exist:root}
-</div>
-
-<div>
-$exist:record-uris : {$exist:record-uris} <br/>
-$exist:collection-uris : {$exist:collection-uris}
-</div>
-:)
-
 (: Get variables for Srophe collections. :)
 declare variable $exist:record-uris  := 
     distinct-values(for $collection in $config:get-config//repo:collection
@@ -35,13 +20,6 @@ declare variable $exist:collection-uris  :=
     distinct-values(for $collection in $config:get-config//repo:collection
     let $short-path := replace($collection/@app-root,$config:base-uri,'')
     return concat('/',$short-path,'/'))    
-; 
-
-(: Get variables for Srophe collections. :)
-declare variable $exist:app-root  := 
-    distinct-values(for $collection in $config:get-config//repo:collection
-    let $app-root := string($collection/@app-root)
-    return string($collection/@app-root))    
 ; 
 
 (: Send to content negotiation:)
@@ -157,7 +135,7 @@ else if(request:get-parameter('doc', '') != '') then
        		</error-handler>
         </dispatch>
 (: Checks for any record uri patterns as defined in repo.xml :)    
-else if(replace($exist:path, $exist:resource,'') =  $exist:record-uris or replace($exist:path, $exist:resource,'') = $exist:app-root) then
+else if(replace($exist:path, $exist:resource,'') =  $exist:record-uris) then
     if($exist:resource = ('index.html','search.html','browse.html','about.html')) then    
         <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
             <view>
@@ -173,30 +151,12 @@ else if(replace($exist:path, $exist:resource,'') =  $exist:record-uris or replac
         let $record-uri-root := replace($exist:path,$exist:resource,'')
         let $id := if($config:get-config//repo:collection[ends-with(@record-URI-pattern, $record-uri-root)]) then
                         concat($config:get-config//repo:collection[ends-with(@record-URI-pattern, $record-uri-root)][1]/@record-URI-pattern,$id)
-                   else if($config:get-config//repo:collection[ends-with(@app-root, $record-uri-root)]) then      
-                        concat($config:get-config//repo:collection[ends-with(@app-root, $record-uri-root)][1]/@record-URI-pattern,$id)
                    else $id
-        let $html-path := if($config:get-config//repo:collection[ends-with(@record-URI-pattern, $record-uri-root)]) then 
-                            concat($config:get-config//repo:collection[ends-with(@record-URI-pattern, $record-uri-root)][1]/@app-root,'record.html')
-                          else concat($config:get-config//repo:collection[ends-with(@app-root, $record-uri-root)][1]/@app-root,'record.html')
+        let $html-path := concat($config:get-config//repo:collection[ends-with(@record-URI-pattern, $record-uri-root)][1]/@app-root,'record.html')
         let $format := fn:tokenize($exist:resource, '\.')[fn:last()]
         return 
-        if(doc-available(xs:anyURI($document-uri))) then
-                <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-                    <forward url="{$exist:controller}{$path2html}"></forward>
-                    <view>
-                        <forward url="{$exist:controller}/modules/view.xql">
-                           <add-parameter name="id" value="{$id}"/>
-                        </forward>
-                    </view>
-                    <error-handler>
-                        <forward url="{$exist:controller}/error-page.html" method="get"/>
-                        <forward url="{$exist:controller}/modules/view.xql"/>
-                    </error-handler>
-                </dispatch>
-            else 
-        (:<div>HTML page for id: [{$id}] root: [{$record-uri-root}] HTML: [{$html-path}] controler: [{$exist:controller}]</div>:)
-           <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+        (:<div>HTML page for id: {$id} root: {$record-uri-root} HTML: {$html-path}</div>:)
+            <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
                 <forward url="{$exist:controller}{$html-path}"></forward>
                 <view>
                     <forward url="{$exist:controller}/modules/view.xql">

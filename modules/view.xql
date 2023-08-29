@@ -21,9 +21,6 @@ import module namespace app="http://srophe.org/srophe/templates" at "app.xql";
 import module namespace browse="http://srophe.org/srophe/browse" at "lib/browse.xqm";
 import module namespace search="http://srophe.org/srophe/search" at "search/search.xqm";
 
-(: Syriaca.org specific module :)
-import module namespace spear="http://srophe.org/srophe/spear" at "spear.xqm";
-
 declare option output:method "html5";
 declare option output:media-type "text/html";
 
