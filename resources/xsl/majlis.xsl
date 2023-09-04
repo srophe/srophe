@@ -29,8 +29,8 @@
                 </h1>
             </div>
             <div class="col-md-4 actionButtons">
-                <xsl:if test="//t:TEI/t:facsimile/t:graphic/@url">
-                    <a type="button" class="btn btn-default btn-grey btn-sm" href="{//t:TEI/t:facsimile/t:graphic/@url}" target="_blank">Scan</a>                    
+                <xsl:if test="//t:surrogates//t:ptr/@target">
+                    <a type="button" class="btn btn-default btn-grey btn-sm" href="{//t:surrogates//t:ptr/@target}" target="_blank">Scan</a>                    
                 </xsl:if>
                 <a type="button" class="btn btn-default btn-grey btn-sm" href="">Feedback</a>
                 <a class="btn btn-default btn-grey btn-sm" href="{concat($nav-base,substring-after(/descendant::t:idno[@type='URI'][1], $base-uri))}">XML</a>
@@ -54,7 +54,7 @@
             <xsl:for-each select="t:listBibl/t:msDesc[1]">
                 <div class="mainDesc row">
                     <div class="col-md-6">
-                        <xsl:for-each select="t:msContents/t:msItem[1]/t:title[@xml:lang='en'] | t:msContents/t:msItem[1]/t:author | t:msContents/t:msItem[1]/t:textLang ">
+                        <xsl:for-each select="t:msContents/t:msItem[1]/t:title | t:msContents/t:msItem[1]/t:author | t:msContents/t:msItem[1]/t:textLang/@xml:mainLang ">
                             <div class="item row">
                                 <span class="inline-h4 col-md-3">
                                     <xsl:choose>
@@ -71,7 +71,7 @@
                            WS: NOTE - missing xpath for script heading
                             -->
                         </xsl:for-each>
-                        <xsl:for-each select="t:history/t:origin/t:persName[@role='scribe']">
+                        <xsl:for-each select="t:handDesc/t:handNote/t:persName[@role='scribe']">
                             <div class="item row">
                                 <span class="inline-h4 col-md-3">Scribe</span>
                                 <span class="col-md-9">
@@ -88,7 +88,7 @@
                             /TEI/text/body/listBibl/msDesc/physDesc/objectDesc/supportDesc/support/material
                             /TEI/text/body/listBibl/msDesc/physDesc/objectDesc/supportDesc/extent/measure
                         -->
-                        <xsl:for-each select="t:history/t:origin/t:origDate">
+                        <xsl:for-each select="t:handDesc/t:handNote/t:origDate">
                             <div class="item row">
                                 <span class="inline-h4 col-md-3">Date</span>
                                 <span class="col-md-9">
@@ -96,7 +96,7 @@
                                 </span>
                             </div>
                         </xsl:for-each>
-                        <xsl:for-each select="t:history/t:origin/t:origPlace">
+                        <xsl:for-each select="t:handDesc/t:handNote/t:origPlace">
                             <div class="item row">
                                 <span class="inline-h4 col-md-3">Place</span>
                                 <span class="col-md-9">
@@ -109,6 +109,7 @@
                                 <span class="inline-h4 col-md-3">Manuscript type</span>
                                 <span class="col-md-9">
                                     <xsl:apply-templates select="."/>
+                                    <xsl:value-of select="@rend | @style"/>
                                 </span>
                             </div>
                         </xsl:for-each>
@@ -320,10 +321,11 @@
            <div class="row">
                <div class="col-md-1 inline-h4">Hand <xsl:value-of select="position()"/> </div>
                <div class="col-md-10">
-                   <div class="row">
+     <!-- Moved to scriptDesc        
+         <div class="row">
                        <div class="col-md-2 inline-h4">Script </div>
                        <div class="col-md-10"><xsl:value-of select="@script | @mode | @quality"/></div>
-                   </div>
+                   </div>-->
                    <div class="row">
                        <div class="col-md-2 inline-h4">Description </div>
                        <div class="col-md-10">
@@ -436,7 +438,7 @@
             <div class="whiteBoxwShadow entityList">
             <h4>Persons referenced</h4>
             <ul>
-                <xsl:for-each select="//t:msDesc//t:persName">
+                <xsl:for-each select="//t:msDesc//t:persName | //t:msDesc//t:author">
                     <li><xsl:apply-templates select="."/></li>    
                 </xsl:for-each>
             </ul>
@@ -448,7 +450,7 @@
             <div class="whiteBoxwShadow entityList">
             <h4>Places referenced</h4>
             <ul>
-                <xsl:for-each select="//t:msDesc//t:placeName">
+                <xsl:for-each select="//t:msDesc//t:placeName | //t:msDesc//t:origPlace">
                     <li><xsl:apply-templates select="."/></li>    
                 </xsl:for-each>
             </ul>
