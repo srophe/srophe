@@ -1,93 +1,347 @@
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
-    <div class="home-page">
-            <div class="home-page-text">
-                <h1>The Transformation of Jewish Literature in Arabic in the Islamicate World</h1>
-                <h2>An open source TEI publishing framework</h2>
-                <a class="btn btn-default btn-rounded btn-light" href="documentation/index.html">Read the Docs</a>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <title data-template="app:record-title">JALit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="The Transformation of Jewish Literature in Arabic in the Islamicate World"/>
+    <meta name="creator" content="srophe.org"/>
+    <link rel="shortcut icon" href="$nav-base/favicon.ico"/>
+    <!-- Bootstrap 3 -->
+    <link rel="stylesheet" type="text/css" href="$nav-base/resources/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/sm-core-css.css"/>
+    <!-- Srophe styles -->
+    <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/syr-icon-fonts.css"/>
+    <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/app.css"/>
+    <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/app-home.css"/>
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="$nav-base/resources/leaflet/leaflet.css"/>
+    <link rel="stylesheet" href="$nav-base/resources/leaflet/leaflet.awesome-markers.css"/>
+    <!-- JQuery -->
+    <link href="$nav-base/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="$nav-base/resources/js/jquery.min.js"></script>
+    <script type="text/javascript" src="$nav-base/resources/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="$nav-base/resources/js/jquery.smartmenus.min.js"></script>
+    <script type="text/javascript" src="$nav-base/resources/js/clipboard.min.js"></script>
+    <script type="text/javascript" src="$nav-base/resources/js/app-home.js"></script>
+    <!-- Bootstrap -->
+    <script type="text/javascript" src="$nav-base/resources/bootstrap/js/bootstrap.min.js"></script>
+    <!-- keyboard widget css & script -->
+    <link href="$nav-base/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
+    <link href="$nav-base/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet"/>
+    <link href="$nav-base/resources/keyboard/syr/syr.css" rel="stylesheet"/>
+    <script type="text/javascript" src="$nav-base/resources/keyboard/syr/jquery.keyboard.js"></script>
+    <script type="text/javascript" src="$nav-base/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"></script>
+    <script type="text/javascript" src="$nav-base/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"></script>
+    <script type="text/javascript" src="$nav-base/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"></script>
+    <script type="text/javascript" src="$nav-base/resources/keyboard/syr/keyboardSupport.js"></script>
+    <script type="text/javascript" src="$nav-base/resources/keyboard/syr/syr.js"></script>
+    <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Greek.min.js"></script>
+    <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Russian.min.js"></script>
+    <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Arabic.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
+
+            $('.keyboard').keyboard({
+                openOn: null,
+                stayOpen: false,
+                alwaysOpen: false,
+                autoAccept: true,
+                usePreview: false,
+                initialFocus: true,
+                rtl : true,
+                layout: 'syriac-phonetic',
+                hidden: function(event, keyboard, el){
+                   //  keyboard.destroy();
+                 }
+            });
+
+            $('.keyboard-select').click(function () {
+                var keyboardID = '#' + $(this).data("keyboard-id")
+                var kb = $(keyboardID).getkeyboard();
+                //var kb = $('#searchField').getkeyboard();
+                // change layout based on link ID
+                kb.options.layout = this.id
+                // open keyboard if layout is different, or time from it last closing is > 200 ms
+                if (kb.last.layout !== kb.options.layout || (new Date().getTime() - kb.last.eventTime) > 200) {
+                    kb.reveal();
+                }
+            });
+            //Change fonts
+            $('.swap-font').on('click', function(){
+                var selectedFont = $(this).data("font-id")
+                $('.selectableFont').not('.syr').css('font-family', selectedFont);
+                $("*:lang(syr)").css('font-family', selectedFont)
+            });
+
+        })
+    </script>
+</head>
+<body id="body" class="homepage">
+    <nav id="navbarhome" class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links" style="display:none;"><div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/exist/apps/majlis/index.html" class="navbar-brand banner-container"> 
+                <img src="/exist/apps/majlis/$nav-base/resources/images/images_HN/logo-JALit.png" alt="logo" />
+            </a>
+        </div>
+        <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="/exist/apps/majlis/manuscripts/index.html" class="nav-text">Manuscripts</a>
+                </li>
+                <li>
+                    <a href="/exist/apps/majlis/persons/index.html" class="nav-text">Persons</a>
+                </li>
+                <li>
+                    <a href="/exist/apps/majlis/places/index.html" class="nav-text">Places</a>
+                </li>
+                <li>
+                    <a href="/exist/apps/majlis/works/index.html" class="nav-text">Works</a>
+                </li>
+                <li>
+                    <a href="/exist/apps/majlis/relations/index.html" class="nav-text">Relations</a>
+                </li>
+                <li>
+                    <a href="/exist/apps/majlis/texts/index.html" class="nav-text">Texts</a>
+                </li>
+                <li>
+                    <a href="/exist/apps/majlis/about.html" class="nav-text">About</a>
+                </li>
+                <li>
+                    <div id="search-wrapper">
+                        <form action="/exist/apps/majlis/search.html" class="navbar-form search-box" role="search" method="get">
+                            <div class="form-group">
+                                <input type="text" class="form-control keyboard" placeholder="search" name="keyword" id="keywordNav"/>
+                                <span data-template="app:keyboard-select-menu" data-template-input-id="keywordNav"><span class="keyboard-menu"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    <span class="syriaca-icon syriaca-keyboard"></span><span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="keywordNav">Syriac Phonetic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="keywordNav">Syriac Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Arabic (101)" data-keyboard-id="keywordNav">Arabic Mod. Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="keywordNav">English QWERTY</a></li>
+                                    </ul></span></span>
+                                <button class="btn btn-default search-btn" id="searchbtn" type="submit" title="Search">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>                                    
+                            </div>
+                        </form>
+                    </div>
+                </li>
+                <li class="hide">
+                    <div class="btn-nav">
+                        <button class="btn btn-default navbar-btn" id="font" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                            <span class="glyphicon glyphicon-font"></span>
+                        </button>  
+                        <ul class="dropdown-menu dropdown-menu-right" id="swap-font">
+                            <li>
+                                <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
+                            </li>
+                            <li>
+                                <a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a>
+                            </li>
+                            <li>
+                                <a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a>
+                            </li>
+                            <li>
+                                <a href="#" class="swap-font" id="SertoBatnanSelect" data-font-id="SertoBatnan">Serto Batnan</a>
+                            </li>
+                            <li>
+                                <a href="%24app-root/documentation/wikiffd5.html?wiki-page=/How-to-view-Syriac-script&amp;wiki-uri=https://github.com/srophe/srophe-app-data/wiki">Help <span class="glyphicon glyphicon-question-sign"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="btn-nav">
+                        <a href="/exist/apps/majlis/search.html" class="btn btn-default navbar-btn">Advanced Search</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div></nav>
+    <div class="container-fluid section" id="headerhome"><div id="homemenu" class="col-12 col-md-6 ">
+                <div class="row">
+                    <a href="index.html" class="navbar-brand banner-container"> 
+                        <img src="$nav-base/resources/images/images_HN/logo-JALit.png" />
+                    </a>
+                </div>
+				<div id="znmenuhomechoice" class="row">
+					<div class="col-md-4 col-6"><div class="blochome">
+					<object width="50" height="50" class="logo-filtered" data="$nav-base/resources/images/images_HN/ico_manuscripts.svg" type="image/svg+xml"></object>
+					<h2>Manuscripts</h2>
+					<p><a href="/exist/apps/majlis/manuscripts/index.html" class="cta_rnd">Browse manuscripts</a></p>
+					</div></div>
+					<div class="col-md-4 col-6"><div class="blochome">
+					<object width="50" height="50" class="logo-filtered" data="resources/images/images_HN/ico_peoples.svg" type="image/svg+xml"></object>
+					<h2>Persons</h2>
+					<p><a href="/exist/apps/majlis/persons/index.html" class="cta_rnd">Browse persons</a></p>
+					</div></div>
+					<div class="col-md-4 col-6"><div class="blochome">
+					<object width="50" height="50" class="logo-filtered" data="resources/images/images_HN/ico_places.svg" type="image/svg+xml"></object>
+					<h2>Places</h2>
+					<p><a href="/exist/apps/majlis/places/index.html" class="cta_rnd">Browse places</a></p>
+					</div></div>
+					<div class="col-md-4 col-6"><div class="blochome">
+					<object width="50" height="50" class="logo-filtered" data="resources/images/images_HN/ico_works.svg" type="image/svg+xml"></object>
+					<h2>Works</h2>
+					<p><a href="/exist/apps/majlis/works/index.html" class="cta_rnd">Browse works</a></p>
+					</div></div>
+					<div class="col-md-4 col-6"><div class="blochome">
+					<object width="50" height="50" class="logo-filtered" data="resources/images/images_HN/ico_relations.svg" type="image/svg+xml"></object>
+					<h2>Relations</h2>
+					<p><a href="/exist/apps/majlis/relations/index.html" class="cta_rnd">Browse relations</a></p>
+					</div></div>
+					<div class="col-md-4 col-6"><div class="blochome">
+					<object width="50" height="50" class="logo-filtered" data="resources/images/images_HN/ico_texts.svg" type="image/svg+xml"></object>
+					<h2>Texts</h2>
+					<p><a href="/exist/apps/majlis/texts/index.html" class="cta_rnd">Browse texts</a></p>
+					</div></div>
+				</div>
+	</div><div id="homecomm" class="col-12 col-md-6">
+	    <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/exist/apps/majlis/texts/index.html" class="nav-text">Projects</a>
+                    </li>
+                    <li>
+                        <a href="/exist/apps/majlis/about.html" class="nav-text">About</a>
+                    </li>
+                    <li>
+                        <div id="search-wrapper">
+                            <form action="/exist/apps/majlis/search.html" class="navbar-form search-box" role="search" method="get">
+                                <div class="form-group">
+                                    <input type="text" class="form-control keyboard ui-keyboard-input ui-widget-content ui-corner-all" placeholder="search" name="keyword" id="keywordNav" aria-haspopup="true" role="textbox"/>
+                                    <span data-template="app:keyboard-select-menu" data-template-input-id="keywordNav"><span class="keyboard-menu">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                <span class="syriaca-icon syriaca-keyboard"> </span><span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="keywordNav">Syriac Phonetic</a></li>
+                                            <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="keywordNav">Syriac Standard</a></li>
+                                            <li><a href="#" class="keyboard-select" id="ms-Arabic (101)" data-keyboard-id="keywordNav">Arabic Mod. Standard</a></li>
+                                            <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="keywordNav">English QWERTY</a></li>
+                                        </ul>
+                                    </span></span>
+                                    <button class="btn btn-default search-btn" id="searchbtn" type="submit" title="Advanced search">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>                                    
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                    <li class="hide">
+                        <div class="btn-nav">
+                            <button class="btn btn-default navbar-btn" id="font" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                                <span class="glyphicon glyphicon-font"></span>
+                            </button>  
+                            <ul class="dropdown-menu dropdown-menu-right" id="swap-font">
+                                <li>
+                                    <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="swap-font" id="SertoBatnanSelect" data-font-id="SertoBatnan">Serto Batnan</a>
+                                </li>
+                                <li>
+                                    <a href="$app-root/documentation/wiki.html?wiki-page=/How-to-view-Syriac-script&amp;wiki-uri=https://github.com/srophe/srophe-app-data/wiki">Help <span class="glyphicon glyphicon-question-sign"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="btn-nav">
+                            <a href="/exist/apps/majlis/search.html" class="btn btn-default navbar-btn">Advanced Search</a>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <span class="img-credit">
-                <label>Photo Credit:</label> ©2016 Michelle Bukowski 
-                <button class="btn btn-link white-link" data-toggle="collapse" data-target="#img-rights">
-                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"/>
-                </button>
-                <div id="img-rights" class="collapse">
-                    Licensed under a Creative Commons Attribution 4.0 International License.
-                </div>
-            </span>
-    </div>
-    <div class="container">
-        <h2>Features</h2>     
-        <div class="row home-about">
-            <div class="col-md-4">
-                <div class="bg-light feature">
-                <h3>
-                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"/> Search/Browse</h3>
-                <p>
-                        <small>Multi-lingual, customizable search and browse for TEI records. </small>
-                    </p>
-                    <br/>  <a class="btn btn-default btn-rounded btn-light btn-sm pull-right" href="documentation/index.html">Read the Docs</a>
-                </div>
+        </nav>
+        <div class="row" id="zntitle">
+            <h1>Digital Handbook of Jewish Authors Writing in Arabic - beta</h1>
+        </div>
+    </div></div>
+    <div class="container section"><div class="col-12">
+        <h2>About the application</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div></div>
+    <div class="container-fluid quinconce"><div class="col-12">
+        <h2 class="withunderline">Active projects</h2>
+        <div class="row section"><div class="col-12 col-md-6"> 
+            <a href="http://syriaca.org/"><img src="resources/images/syriaca.png" /></a>
+        </div><div class="col-12 col-md-6">
+            <h3>About the application</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <a href="http://syriaca.org/" class="cta_rnd">Visit website</a>
+        </div></div>
+        <div class="row section"><div class="col-12 col-md-6">
+            <a href="http://syriaca.org/"><img src="resources/images/syriaca.png" /></a>
+        </div><div class="col-12 col-md-6">
+            <h3>About the application</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <a href="" class="cta_rnd">Visit website</a>
+        </div></div>
+        <div class="row section"><div class="col-12 col-md-6"> 
+            <a href="http://syriaca.org/"><img src="resources/images/syriaca.png" /></a>
+        </div><div class="col-12 col-md-6">
+            <h3>About the application</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <a href="http://syriaca.org/" class="cta_rnd">Visit website</a>
+        </div></div>
+        <div class="row section"><div class="col-12 col-md-6">
+            <a href="http://syriaca.org/"><img src="resources/images/syriaca.png" /></a>
+        </div><div class="col-12 col-md-6">
+            <h3>About the application</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <a href="" class="cta_rnd">Visit website</a>
+        </div></div>
+    </div></div>
+    <div id="footer">
+        <div class="container-fluid">
+            <div class="col-12 col-md-5 text-left">
+                <a href="/exist/apps/majlis/index.html" class="navbar-brand banner-container"> 
+                    <img class="footerlogo" src="/exist/apps/majlis/$nav-base/resources/images/images_HN/logo-JALit.png" />
+                </a>
             </div>
-            <div class="col-md-4">
-                <div class="bg-light feature">
-                <h3>
-                        <span class="glyphicon glyphicon-globe" aria-hidden="true"/> Maps</h3>
-                <p>
-                        <small>Add TEI records with coordinates to Leaflet or Google maps. [link to documentation]</small>
-                    </p>
-                    <br/>
-                    <a class="btn btn-default btn-rounded btn-light btn-sm pull-right" href="documentation/index.html">Read the Docs</a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="bg-light feature">
-                    <h3>
-                        <span class="glyphicon glyphicon-download-alt" aria-hidden="true"/> Multi-format publishing</h3>
-                    <p>
-                        <small>Publish TEI content as  HTML, TEI, geoJSON, KML, JSON-LD, RDF/XML, RDF/TTL and Plain text</small>
-                    </p>
-                    <a class="btn btn-default btn-rounded btn-light btn-sm pull-right" href="documentation/index.html">Read the Docs</a>
-                </div>
+            <div class="col-12 col-md-7 text-right">
+                <img height="110" src="resources/images/images_HN/DEgov-BMBF-Logo_en.svg" />
+                <img height="82" src="resources/images/images_HN/mpg_logo_final_minerva_stiftung_rgb_mpg-green.png" />
+                <img height="82" src="resources/images/images_HN/Logo_LMU.svg" />
+                <img height="120" src="resources/images/images_HN/logo-ERC.svg" />
             </div>
         </div>
-        <hr/>
-        <h2>About the Application</h2>
-        <p>The Srophé Application is an open source TEI publishing framework. Originally developed as a digital publication platform for Syriaca.org [http://syriaca.org/] the Srophé software has been generalize for use with any TEI publications. 
-        Additional features include customizable faceted search and browse functions, D3js visualizations for TEI relationships and a bibliography module with a Zotero API integration.  </p>
-        <a class="btn btn-default btn-rounded btn-light btn-sm pull-right" href="https://github.com/srophe/srophe">Get the code</a>
-        <br/>
-        <hr/>
-        <h2>Active projects</h2>
-        <ul class="list-inline projects">
-            <li>
-                <img src="resources/images/syriaca.png" title="Syriaca.org website"/>
-                <a href="http://syriaca.org/">Syriaca.org</a>
-            </li>
-            <li>
-                <img src="resources/images/corpus.png" title="Digital Syriac Corpus website"/>
-                <a href="https://syriaccorpus.org/index.html">Digital Syriac Corpus</a>
-            </li>
-            <li>
-                <img src="resources/images/hugoye.png" title="Hugoye: Journal of Syriac Studies website"/>
-                <a href="https://hugoye.bethmardutho.org/index.html">Hugoye: Journal of Syriac Studies</a>
-            </li>
-            <li>
-                <img src="resources/images/gedsh.png" title="Gorgias Encyclopedic Dictionary of the Syriac Heritage: Electronic Edition website"/>
-                <a href="https://gedsh.bethmardutho.org/index.html">Gorgias Encyclopedic Dictionary of the Syriac Heritage: 
-                Electronic Edition</a>
-            </li>
-            <li>
-                <img src="resources/images/logar.png" title="LOGAR: Linked Open Gazetteer of the Andean Region website"/>
-                <a href="http://logarandes.org/">LOGAR: Linked Open Gazetteer of the Andean Region</a>
-            </li>
-            <li>
-                <img src="resources/images/sinica.png" title="Architectura Sinica website"/>
-                <a href="https://architecturasinica.org/index.html">Architectura Sinica</a>
-            </li>
-            <li>
-                <img src="resources/images/poetess.png" title="The Poetess Archive website"/>
-                <a href="http://poetess.dh.tamu.edu/index.html">The Poetess Archive</a>
-            </li>
-        </ul>
+        <div class="container-fluid">
+            <div class="col-12">
+                <ul id="secondarymenu">
+                    <li><a href="">About</a></li>
+                    <li><a href="">Project</a></li>
+                    <li><a href="">Site map</a></li>
+                </ul>
+                <ul id="copyrighted">
+                    <li>&#xA9; 2023 Munich Resarch Centre</li>
+                    <li><a href="">Impressum</a></li>
+                    <li><a href="">Privacy policy</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-</div>
+</body>
+</html>

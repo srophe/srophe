@@ -11,6 +11,7 @@
         <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/syr-icon-fonts.css"/>
         <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/style.css"/>
         <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/majlis.css"/>
+        <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/app.css"/>
         <link rel="stylesheet" type="text/css" media="print" href="$nav-base/resources/css/print.css"/>
         <!-- Leaflet -->
         <link rel="stylesheet" href="$nav-base/resources/leaflet/leaflet.css"/>
@@ -29,6 +30,7 @@
         <link href="$nav-base/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
         <link href="$nav-base/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet"/>
         <link href="$nav-base/resources/keyboard/syr/syr.css" rel="stylesheet"/>
+        <script type="text/javascript" src="$nav-base/resources/js/app.js"/>
         <script type="text/javascript" src="$nav-base/resources/keyboard/syr/jquery.keyboard.js"/>
         <script type="text/javascript" src="$nav-base/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"/>
         <script type="text/javascript" src="$nav-base/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"/>
@@ -78,7 +80,7 @@
         </script>
     </head>
     <body id="body">
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
+        <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
@@ -86,9 +88,8 @@
                     <span class="icon-bar"/>
                     <span class="icon-bar"/>
                 </button>
-                <a class="navbar-brand banner-container" href="$nav-base/index.html"> 
-                    <span class="syriaca-icon syriaca-syriaca banner-icon" data-template="app:logo"/>
-                    <span class="banner-text" data-template="config:app-title">App Title</span>
+                <a href="/exist/apps/majlis/index.html" class="navbar-brand banner-container"> 
+                    <img src="/exist/apps/majlis/$nav-base/resources/images/images_HN/logo-JALit.png" />
                 </a>
             </div>
             <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
@@ -155,7 +156,7 @@
                 </ul>
             </div>
         </nav>
-        <div id="content" class="text"/>
+        <div id="content" class="container-fluid"/>
         <footer>
             <a class="poweredby" href="http://srophe.org">
                 <img src="$nav-base/resources/images/srophe.svg" alt="Srophe"/>
