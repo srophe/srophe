@@ -6,7 +6,8 @@ xquery version "3.0";
  :)
 module namespace config="http://srophe.org/srophe/config";
 
-declare namespace templates="http://exist-db.org/xquery/templates";
+import module namespace templates="http://exist-db.org/xquery/html-templating";
+import module namespace lib="http://exist-db.org/xquery/html-templating/lib";
 
 declare namespace repo="http://exist-db.org/xquery/repo";
 declare namespace expath="http://expath.org/ns/pkg";
@@ -78,6 +79,7 @@ declare function config:app-info($node as node(), $model as map(*)) {
     let $repo := config:repo-descriptor()
     return
         <table class="app-info">
+            <caption>Application Info</caption>
             <tr>
                 <td>app collection:</td>
                 <td>{$config:app-root}</td>
@@ -85,7 +87,8 @@ declare function config:app-info($node as node(), $model as map(*)) {
             {
                 for $attr in ($expath/@*, $expath/*, $repo/*)
                 return
-                    <tr>
+                    if ($attr eq '')
+                then (<tr>
                         <td>{node-name($attr)}:</td>
                         <td>{$attr/string()}</td>
                     </tr>

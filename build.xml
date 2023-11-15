@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project default="xar" name="srophe">
-    <xmlproperty file="expath-pkg.xml"/>
-    <property name="project.version" value="${package(version)}"/>
-    <property name="project.app" value="srophe"/>
-    <property name="build.dir" value="build"/>
-    <target name="xar">
-        <mkdir dir="${build.dir}"/>
-        <zip basedir="." destfile="${build.dir}/${project.app}-${project.version}.xar" excludes="${build.dir}/*"/>
-    </target>
+<project default="all" name="srophe">
+  <description>The Srophé web application</description>
+  <xmlproperty file="expath-pkg.xml" />
+  <property name="project.version" value="${package(version)}" />
+  <property name="project.app" value="srophe" />
+  <property name="build.dir" value="build" />
+  <!-- Start it -->
+  <target name="init" description="create build directory">
+    <tstamp />
+    <mkdir dir="${build.dir}" />
+    <copy file="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" todir="resources/scripts" />
+    <copy file="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js.map" todir="resources/scripts" />
+    <copy file="node_modules/bootstrap/dist/css/bootstrap.min.css" todir="resources/css" />
+    <copy file="node_modules/bootstrap/dist/css/bootstrap.min.css.map" todir="resources/css" />
+  </target>
+  <!-- Dev build (includes everything unoptimized) -->
+  <target name="dev" depends="init" description="compile all source files">
+    <zip basedir="." destfile="${build.dir}/${project.app}-${project.version}-dev.xar" excludes="**/${build.dir}/**, **/node_modules/**" />
+  </target>
+  <!-- Release build -->
+  <target name="deploy" depends="init" description="compile release build">
+    <zip basedir="." destfile="${build.dir}/${project.app}-${project.version}.xar" excludes="**/${build.dir}/**, .existdb.json, .yo-rc.json, **/node_modules/**, **/reports/**, README.md, **/.git*/** " />
+  </target>
+  <target name="all" depends="dev, deploy">
+    <tstamp />
+  </target>
 </project>
