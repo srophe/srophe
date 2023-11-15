@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< Updated upstream
-<package xmlns="http://expath.org/ns/pkg" name="http://syriaca.org/srophe" abbrev="srophe" version="2.0.2" spec="1.0">
-    <title>The Srophé web application</title>
-    <dependency package="http://exist-db.org/apps/shared"/>
-=======
 <package 
   xmlns="http://expath.org/ns/pkg" name="http://syriaca.org//apps/srophe"
   abbrev="srophe" version="3.0.0" spec="1.0">
   <title>The Srophé web application</title>
-  <dependency processor="http://exist-db.org" semver-min="6.2.0"/>
+  <dependency processor="http://exist-db.org" semver-min="6.0.0"/>
   <dependency package="http://exist-db.org/html-templating" semver-min="1.0.2"/>
->>>>>>> Stashed changes
 </package>
