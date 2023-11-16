@@ -15,7 +15,7 @@ import module namespace lib="http://exist-db.org/xquery/html-templating/lib";
  : templating.
  :)
 import module namespace config="http://srophe.org/srophe/config" at "config.xqm";
-import module namespace app="http://srophe.org/srophe/templates" at "app.xql";
+import module namespace app="http://srophe.org/srophe/templates" at "app.xqm";
 
 (: Srophe specific modules :)
 import module namespace browse="http://srophe.org/srophe/browse" at "lib/browse.xqm";

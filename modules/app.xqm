@@ -4,6 +4,7 @@ xquery version "3.1";
  : Output TEI to HTML via eXist-db templating system. 
  : Add your own custom modules at the end of the file. 
 :)
+module namespace app="http://srophe.org/srophe/templates";
 import module namespace templates="http://exist-db.org/xquery/html-templating";
 import module namespace lib="http://exist-db.org/xquery/html-templating/lib";
 

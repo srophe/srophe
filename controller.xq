@@ -1,10 +1,5 @@
 xquery version "3.1";
 
-(:~ The controller library contains URL routing functions.
- :
- : @see http://www.exist-db.org/exist/apps/doc/urlrewrite.xml
- :)
-
 import module namespace config="http://srophe.org/srophe/config" at "modules/config.xqm";
 
 declare variable $exist:path external;
@@ -57,31 +52,25 @@ declare function local:content-negotiation($exist:path, $exist:resource){
                 </forward>
             </dispatch>
 };
-
 if ($exist:path eq '') then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <redirect url="{request:get-uri()}/"/>
     </dispatch>
-    
 else if ($exist:path eq "/") then
     (: forward root path to index.xql :)
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <redirect url="index.html"/>
-    </dispatch>
-
+    </dispatch> 
 else if(contains($exist:path,'/d3xquery/')) then
     (: everything else is passed through :)
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <cache-control cache="yes"/>
-    </dispatch>
-    
+    </dispatch>  
 else if(contains($exist:path,'/documentation/') and ends-with($exist:path,('.tei','.xml','.txt','.pdf'))) then
     (: Pass though XML,pdf and txt records everything else is passed through :)
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <cache-control cache="yes"/>
     </dispatch>
-    
-(: Passes any api requests to correct endpoint:)    
 else if (contains($exist:path,'/api/')) then
   if (ends-with($exist:path,"/")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
@@ -122,33 +111,29 @@ else if (contains($exist:path,'/api/')) then
         <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
             <redirect url="{concat($config:nav-base,'/api-documentation/index.html')}"/>
         </dispatch>
-(: Passes data to content negotiation module:)
 else if(request:get-parameter('format', '') != '' and request:get-parameter('format', '') != 'html') then
-    local:content-negotiation($exist:path, $exist:resource)
+    local:content-negotiation($exist:path, $exist:resource)        
 else if(ends-with($exist:path,('/tei','/xml','/txt','/pdf','/json','/geojson','/kml','/jsonld','/rdf','/ttl','/atom'))) then
-    local:content-negotiation($exist:path, $exist:resource)
-else if(ends-with($exist:resource,('.tei','.xml','.txt','.pdf','.json','.geojson','.kml','.jsonld','.rdf','.ttl','.atom'))) then
     local:content-negotiation($exist:path, $exist:resource)
 else if(request:get-parameter('doc', '') != '') then
      <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
             <view>
-                <forward url="{$exist:controller}/modules/view.xql"/>
+                <forward url="{$exist:controller}/modules/view.xq"/>
             </view>
             <error-handler>
        			<forward url="{$exist:controller}/error-page.html" method="get"/>
-       			<forward url="{$exist:controller}/modules/view.xql"/>
+       			<forward url="{$exist:controller}/modules/view.xq"/>
        		</error-handler>
         </dispatch>
-(: Checks for any record uri patterns as defined in repo.xml :)    
 else if(replace($exist:path, $exist:resource,'') =  $exist:record-uris) then
     if($exist:resource = ('index.html','search.html','browse.html','about.html')) then    
         <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
             <view>
-                <forward url="{$exist:controller}/modules/view.xql"/>
+                <forward url="{$exist:controller}/modules/view.xq"/>
             </view>
             <error-handler>
        			<forward url="{$exist:controller}/error-page.html" method="get"/>
-       			<forward url="{$exist:controller}/modules/view.xql"/>
+       			<forward url="{$exist:controller}/modules/view.xq"/>
        		</error-handler>
         </dispatch>
     else 
@@ -164,27 +149,27 @@ else if(replace($exist:path, $exist:resource,'') =  $exist:record-uris) then
             <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
                 <forward url="{$exist:controller}{$html-path}"></forward>
                 <view>
-                    <forward url="{$exist:controller}/modules/view.xql">
+                    <forward url="{$exist:controller}/modules/view.xq">
                        <add-parameter name="id" value="{$id}"/>
                     </forward>
                 </view>
                 <error-handler>
                     <forward url="{$exist:controller}/error-page.html" method="get"/>
-                    <forward url="{$exist:controller}/modules/view.xql"/>
+                    <forward url="{$exist:controller}/modules/view.xq"/>
                 </error-handler>
             </dispatch>
 else if (ends-with($exist:resource, ".html")) then
-    (: the html page is run through view.xql to expand templates :)
+    (: the html page is run through view.xq to expand templates :)
+    (: HERE :)
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <view>
-            <forward url="{$exist:controller}/modules/view.xql"/>
+            <forward url="{$exist:controller}/modules/view.xq"/>
         </view>
 		<error-handler>
 			<forward url="{$exist:controller}/error-page.html" method="get"/>
-			<forward url="{$exist:controller}/modules/view.xql"/>
+			<forward url="{$exist:controller}/modules/view.xq"/>
 		</error-handler>
-    </dispatch>
-
+    </dispatch>  
 (: Resource paths starting with $nav-base are resolved relative to app :)
 else if (contains($exist:path, "/$nav-base/")) then
         <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
@@ -217,4 +202,4 @@ else
     (: everything else is passed through :)
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <cache-control cache="yes"/>
-    </dispatch>
+    </dispatch>    

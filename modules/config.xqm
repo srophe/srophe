@@ -6,8 +6,7 @@ xquery version "3.0";
  :)
 module namespace config="http://srophe.org/srophe/config";
 
-import module namespace templates="http://exist-db.org/xquery/html-templating";
-import module namespace lib="http://exist-db.org/xquery/html-templating/lib";
+declare namespace templates="http://exist-db.org/xquery/templates";
 
 declare namespace repo="http://exist-db.org/xquery/repo";
 declare namespace expath="http://expath.org/ns/pkg";
@@ -34,6 +33,47 @@ declare variable $config:repo-descriptor := doc(concat($config:app-root, "/repo.
 
 declare variable $config:expath-descriptor := doc(concat($config:app-root, "/expath-pkg.xml"))/expath:package;
 
+(: Get repo-config.xml to parse global varaibles :)
+declare variable $config:get-config := doc($config:app-root || '/repo-config.xml');
+
+(: Get access-config.xml to parse global varaibles for git-sync and recaptcha  :)
+declare variable $config:get-access-config := doc($config:app-root || '/access-config.xml');
+
+(: Establish eXist-db data root defined in repo.xml 'data-root':)
+declare variable $config:data-root := 
+    let $app-root := $config:get-config//repo:app-root/text()  
+    let $data-root := concat($config:get-config//repo:data-root/text(),'/data') 
+    return replace($config:app-root, $app-root, $data-root);
+
+(: Establish main navigation for app, used in templates for absolute links. :)
+declare variable $config:nav-base := 
+    if($config:get-config//repo:nav-base/text() != '') then $config:get-config//repo:nav-base/text()
+    else if($config:get-config//repo:nav-base/text() = '/') then ''
+    else '';
+
+(: Base URI used in record tei:idno :)
+declare variable $config:base-uri := $config:get-config//repo:base_uri/text();
+
+(: Webapp title :)
+declare variable $config:app-title := $config:get-config//repo:title/text();
+
+(: Webapp URL :)
+declare variable $config:app-url := $config:get-config//repo:url/text();
+
+(: Element to use as id xml:id or idno :)
+declare variable $config:document-id := $config:get-config//repo:document-ids/text();
+
+(: Map rendering, google or leaflet :)
+declare variable $config:app-map-option := $config:get-config//repo:maps/repo:option[@selected='true']/text();
+declare variable $config:map-api-key := $config:get-config//repo:maps/repo:option[@selected='true']/@api-key;
+
+
+(: Recaptcha Key :)
+declare variable $config:recaptcha := 
+    if($config:get-access-config//recaptcha/site-key-variable != '') then 
+        environment-variable($config:get-access-config//recaptcha/site-key-variable/text())
+    else if($config:get-access-config//private-key/text() != '') then $config:get-access-config//private-key/text() 
+    else ();
 (:~
  : Resolve the given path using the current application context.
  : If the app resides in the file system,
@@ -79,7 +119,6 @@ declare function config:app-info($node as node(), $model as map(*)) {
     let $repo := config:repo-descriptor()
     return
         <table class="app-info">
-            <caption>Application Info</caption>
             <tr>
                 <td>app collection:</td>
                 <td>{$config:app-root}</td>
@@ -87,8 +126,7 @@ declare function config:app-info($node as node(), $model as map(*)) {
             {
                 for $attr in ($expath/@*, $expath/*, $repo/*)
                 return
-                    if ($attr eq '')
-                then (<tr>
+                    <tr>
                         <td>{node-name($attr)}:</td>
                         <td>{$attr/string()}</td>
                     </tr>
@@ -99,49 +137,6 @@ declare function config:app-info($node as node(), $model as map(*)) {
             </tr>
         </table>
 };
-
-(: Srophe variables :)
-(: Get repo-config.xml to parse global varaibles :)
-declare variable $config:get-config := doc($config:app-root || '/repo-config.xml');
-
-(: Get access-config.xml to parse global varaibles for git-sync and recaptcha  :)
-declare variable $config:get-access-config := doc($config:app-root || '/access-config.xml');
-
-(: Establish eXist-db data root defined in repo.xml 'data-root':)
-declare variable $config:data-root := 
-    let $app-root := $config:get-config//repo:app-root/text()  
-    let $data-root := concat($config:get-config//repo:data-root/text(),'/data') 
-    return replace($config:app-root, $app-root, $data-root);
-
-(: Establish main navigation for app, used in templates for absolute links. :)
-declare variable $config:nav-base := 
-    if($config:get-config//repo:nav-base/text() != '') then $config:get-config//repo:nav-base/text()
-    else if($config:get-config//repo:nav-base/text() = '/') then ''
-    else '';
-
-(: Base URI used in record tei:idno :)
-declare variable $config:base-uri := $config:get-config//repo:base_uri/text();
-
-(: Webapp title :)
-declare variable $config:app-title := $config:get-config//repo:title/text();
-
-(: Webapp URL :)
-declare variable $config:app-url := $config:get-config//repo:url/text();
-
-(: Element to use as id xml:id or idno :)
-declare variable $config:document-id := $config:get-config//repo:document-ids/text();
-
-(: Map rendering, google or leaflet :)
-declare variable $config:app-map-option := $config:get-config//repo:maps/repo:option[@selected='true']/text();
-declare variable $config:map-api-key := $config:get-config//repo:maps/repo:option[@selected='true']/@api-key;
-
-
-(: Recaptcha Key :)
-declare variable $config:recaptcha := 
-    if($config:get-access-config//recaptcha/site-key-variable != '') then 
-        environment-variable($config:get-access-config//recaptcha/site-key-variable/text())
-    else if($config:get-access-config//private-key/text() != '') then $config:get-access-config//private-key/text() 
-    else ();
 
 (:~
  : Get collection data
