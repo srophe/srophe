@@ -73,7 +73,6 @@ query-results
 .yo-rc.json
 node_modules/
 coverage/
-build/
 bower_components/
 reports/
 
