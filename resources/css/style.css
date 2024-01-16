@@ -250,28 +250,28 @@ img{ margin:0px }
     font-size: 1em;
 	font-family: arial, sans-serif;
 }
-
+/* SyrCOMAdiabene SyrCOMTalada SyrCOMAntioch */
 :lang(syr),:lang(syc) {
- font-family: "EstrangeloEdessa", "Estrangelo Edessa", Verdana, Arial, Helvetica, sans-serif;
-  /*font-size:large;*/
+  font-family: "SyrCOMTalada", "Estrangela Talada", Verdana, Arial, Helvetica, sans-serif;
   font-size:1.25em; 
   line-height:1em;
   
 }
 
 :lang(syr-Syrj), :lang(syc-Syrj) {
- font-family: "SertoBatnan", "Serto Batnan", Verdana, Arial, Helvetica, sans-serif;
+  font-family: "SyrCOMAntioch", "Serto Antioch", Verdana, Arial, Helvetica, sans-serif;
   font-size:1.25em; 
   line-height:1em;
  
 }
 
 :lang(syr-Syre), :lang(syc-Syre) {
- font-family: "EastSyriacAdiabene", "East Syriac Adiabene", Verdana, Arial, Helvetica, sans-serif;
+ font-family: "SyrCOMAdiabene", "East Syriac Adiabene", Verdana, Arial, Helvetica, sans-serif;
  font-size:1.25em; 
  line-height:1em;
 
 }
+
 
 :lang(ar) {
  font-family: arial, sans-serif;
