@@ -30,9 +30,12 @@ declare variable $data:SORT_FIELDS := $config:get-config//*:sortFields/*:fields;
 declare function data:get-document() {
     (: Get document by id or tei:idno:)
     if(request:get-parameter('id', '') != '') then  
-        if($config:document-id) then 
-           collection($config:data-root)//tei:idno[. = request:get-parameter('id', '')][@type='URI']/ancestor::tei:TEI
-        else collection($config:data-root)/id(request:get-parameter('id', ''))/ancestor::tei:TEI
+        let $id := request:get-parameter('id', '')
+        return 
+        (collection($config:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI | 
+        collection($config:data-root)//tei:idno[@type='URI'][ends-with(.,substring-after($id,'://'))] |
+        collection($config:data-root)//tei:idno[@type='URI'][. = concat($id,'/')]/ancestor::tei:TEI |
+        collection($config:data-root)//tei:idno[@type='URI'][. = concat($id,'/tei')]/ancestor::tei:TEI)[1]
     (: Get document by document path. :)
     else if(request:get-parameter('doc', '') != '') then 
         if(starts-with(request:get-parameter('doc', ''),$config:data-root)) then 
@@ -52,9 +55,12 @@ declare function data:get-document() {
 :)
 declare function data:get-document($id as xs:string?) {
     if(starts-with($id,'http')) then
-        if($config:document-id) then 
-            collection($config:data-root)//tei:idno[. = $id][@type='URI']/ancestor::tei:TEI
-        else collection($config:data-root)/id($id)/ancestor::tei:TEI
+        let $id := request:get-parameter('id', '')
+        return 
+        (collection($config:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI | 
+        collection($config:data-root)//tei:idno[@type='URI'][ends-with(.,substring-after($id,'://'))] |
+        collection($config:data-root)//tei:idno[@type='URI'][. = concat($id,'/')]/ancestor::tei:TEI |
+        collection($config:data-root)//tei:idno[@type='URI'][. = concat($id,'/tei')]/ancestor::tei:TEI)[1]
     else if(starts-with($id,$config:data-root)) then 
             doc(xmldb:encode-uri($id || '.xml'))
     else doc(xmldb:encode-uri($config:data-root || "/" || $id || '.xml'))
