@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://expath.org/ns/pkg" name="${package-name}" abbrev="${package-abbrev}" version="${project.version}"
+    spec="1.0">
+  <title>${package-title}</title>
+  <description>${project.description}</description>
+  <author id="wsalesky">Winona Salesky</author>
+  <website>${project.url}</website>
+  <license>Copyright ${project.inceptionYear} ${project.organization.name}</license>
+  <copyright>true</copyright>
+
+  <type>application</type>
+
+  <status>alpha</status>
+
+  <tag>${project.artifactId}</tag>
+  <tag>application</tag>
+  <category id="apps">Applications</category>
+
+  <dependency processor="http://elemental.xyz" semver-min="${elemental.version}" />
+  <dependency package="http://expath.org/ns/crypto" version="${crypto.xar.version}"/>
+  <dependency package="http://exist-db.org/lib/githubxq" semver-min="${githubxq.xar.version}"/>
+  <dependency package="http://exist-db.org/apps/shared" semver-min="${shared.xar.version}"/>
+
+  <target>${package-target}</target>
+
+  <prepare>pre-install.xq</prepare>
+  <finish>post-install.xq</finish>
+
+  <permissions user="majlis" group="dba" mode="rw-rw-r--"/>
+
+  <!-- includes everything in README.md, and LICENSE, and everything in target/classes/xar-resources -->
+  <fileSets>
+    <fileSet>
+      <directory>${basedir}</directory>
+      <includes>
+        <include>README.md</include>
+        <include>LICENSE</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>${project.build.outputDirectory}/xar-resources</directory>
+    </fileSet>
+  </fileSets>
+
+</package>
+
