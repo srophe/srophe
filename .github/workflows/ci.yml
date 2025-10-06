@@ -1,0 +1,69 @@
+name: Build
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build and Test
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        jdk: [11,17,21,25]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'liberica'
+          java-version: ${{ matrix.jdk }}
+      - name: Build, Test, and Package
+        run: mvn clean package
+      - name: Persist built XAR
+        if: matrix.os == 'ubuntu-latest' && matrix.jdk == '11' && github.ref != 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: xar
+          path: target/majlis-*.xar
+          if-no-files-found: error
+          retention-days: 1
+          overwrite: true
+
+  deploy-staging:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: manuforma-staging
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'liberica'
+          java-version: 11
+      - name: Bump Version Number
+        run: mvn versions:set -DnewVersion="$(date -u '+%Y.%m.%d').$(git rev-parse --short HEAD)"
+      - name: Build Deploy Scripts and Package
+        run: mvn package -DskipTests -Pbuild-deploy-scripts
+      - name: Set Deploy Scripts as executable
+        run: chmod +x target/classes/deploy-resources/upload-remote-tmp-xar.sh target/classes/deploy-resources/redeploy-xar-package.sh target/classes/deploy-resources/delete-remote-tmp-xar.sh
+      - name: Upload temp XAR to Remote Database Server
+        env:
+          REMOTE_EDB_SERVER_USERNAME: ${{ secrets.REMOTE_EDB_SERVER_USERNAME }}
+          REMOTE_EDB_SERVER_PASSWORD: ${{ secrets.REMOTE_EDB_SERVER_PASSWORD }}
+          REMOTE_EDB_SERVER_URL: ${{ secrets.REMOTE_EDB_SERVER_URL }}
+        run: target/classes/deploy-resources/upload-remote-tmp-xar.sh
+      - name: Redeploy XAR on Remote Database Server
+        env:
+          REMOTE_EDB_SERVER_USERNAME: ${{ secrets.REMOTE_EDB_SERVER_USERNAME }}
+          REMOTE_EDB_SERVER_PASSWORD: ${{ secrets.REMOTE_EDB_SERVER_PASSWORD }}
+          REMOTE_EDB_SERVER_URL: ${{ secrets.REMOTE_EDB_SERVER_URL }}
+        run: target/classes/deploy-resources/redeploy-xar-package.sh
+      - name: Delete temp XAR from Remote Database Server
+        env:
+          REMOTE_EDB_SERVER_USERNAME: ${{ secrets.REMOTE_EDB_SERVER_USERNAME }}
+          REMOTE_EDB_SERVER_PASSWORD: ${{ secrets.REMOTE_EDB_SERVER_PASSWORD }}
+          REMOTE_EDB_SERVER_URL: ${{ secrets.REMOTE_EDB_SERVER_URL }}
+        run: target/classes/deploy-resources/delete-remote-tmp-xar.sh
+

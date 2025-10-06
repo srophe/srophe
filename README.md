@@ -1,4 +1,7 @@
 # Srophé Application
+[![Build Status](https://github.com/majlis-erc/srophe/actions/workflows/ci.yml/badge.svg)](https://github.com/majlis-erc/srophe/actions/workflows/ci.yml)
+[![Java 11+](https://img.shields.io/badge/java-11+-blue.svg)](https://bell-sw.com/pages/downloads/)
+
 A TEI publishing application.
 
 The Srophé Application is an open source TEI publishing framework. Originally developed as a digital publication platform for 
