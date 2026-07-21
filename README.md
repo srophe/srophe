@@ -1,3 +1,5 @@
+2026-07-21: Archiving this repository as no longer needed. Syriaca.org has migrated from the Srophe application infrastructure to the [Gaddel](https://github.com/srophe/Gaddel/) infrastructure. The upstream Srophe application (this repository) is no longer being developed or maintained, though several project forks remain under active development. 
+
 # Srophé Application
 A TEI publishing application.
 
