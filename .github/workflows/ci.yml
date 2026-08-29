@@ -1,0 +1,23 @@
+name: Build
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build and Test
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        jdk: [8]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'liberica'
+          java-version: ${{ matrix.jdk }}
+      - name: Build, and Package
+        run: mvn clean package -DskipTests
+      - name: Test
+        run: mvn clean package -Pintegration-test

@@ -1,15 +1,14 @@
 {
-  "name": "srophe",
-  "version": "3.0.0",
+  "name": "Srophé",
+  "version": "3.1.0-SNAPSHOT",
   "description": "The Srophé web application",
-  "homepage": "https://github.com/wsalesky/srophe#readme",
-  "bugs": "https://github.com/wsalesky/srophe/issues",
+  "homepage": "https://github.com/srophe/srophe#readme",
+  "bugs": "https://github.com/srophe/srophe/issues",
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=22.15.0",
+    "npm": ">=10.9.2"
   },
   "keywords": [
-    "exist",
-    "exist-db",
     "xml",
     "xql",
     "xquery"
@@ -18,15 +17,14 @@
     "name": "Winona Salesky",
     "email": "wsalesky@gmail.com"
   },
-  "license": "GPL-3.0",
+  "license": "GNU General Public License version 3",
   "scripts": {
-    "test": "mocha test/mocha/ --recursive --exit && mocha test/xqs/*.js",
+    "test": "mocha src/test/mocha/ --recursive --exit",
     "cypress": "cypress run"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wsalesky/srophe",
-    "license": "GPL-3.0"
+    "url": "https://github.com/srophe/srophe"
   },
   "devDependencies": {
     "chai": "^4.3.10",

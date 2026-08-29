@@ -71,6 +71,7 @@ query-results
 # =========================
 .env
 .yo-rc.json
+node/
 node_modules/
 coverage/
 bower_components/

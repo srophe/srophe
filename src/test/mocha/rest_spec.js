@@ -3,7 +3,7 @@
 const supertest = require('supertest')
 const expect = require('chai').expect
 
-let client = supertest.agent('http://localhost:8080')
+let client = supertest.agent('http://localhost:8123')
 
 describe('rest api returns', function () {
     it('404 from random page', function (done) {
