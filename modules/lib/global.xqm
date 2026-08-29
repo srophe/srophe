@@ -15,14 +15,16 @@ declare namespace html="http://www.w3.org/1999/xhtml";
  : @param $node data passed to transform
 :)
 declare function global:tei2html($nodes as node()*) {
-  transform:transform($nodes, doc($config:app-root || '/resources/xsl/tei2html.xsl'), 
-    <parameters>
+  let $xslt-uri := $config:app-root || '/resources/xsl/tei2html.xsl'
+  let $parameters :=
+      <parameters>
         <param name="data-root" value="{$config:data-root}"/>
         <param name="app-root" value="{$config:app-root}"/>
         <param name="nav-base" value="{$config:nav-base}"/>
         <param name="base-uri" value="{$config:base-uri}"/>
     </parameters>
-    )
+  return
+    transform:transform($nodes, doc($xslt-uri), $parameters)
 };
 
 (:~
@@ -31,26 +33,22 @@ declare function global:tei2html($nodes as node()*) {
  : @collection pass collection variable to enable styling based on collection values. 
 :)
 declare function global:tei2html($nodes as node()*, $collection as xs:string?) {
-if($config:get-config//repo:collection[@name=$collection]/@xslt != '') then
-  transform:transform($nodes, doc($config:app-root || string($config:get-config//repo:collection[@name=$collection]/@xslt)), 
-    <parameters>
-        <param name="data-root" value="{$config:data-root}"/>
-        <param name="app-root" value="{$config:app-root}"/>
-        <param name="nav-base" value="{$config:nav-base}"/>
-        <param name="base-uri" value="{$config:base-uri}"/>
-        <param name="collection" value="{$collection}"/>
-    </parameters>
-    )      
-else 
-  transform:transform($nodes, doc($config:app-root || '/resources/xsl/tei2html.xsl'), 
-    <parameters>
-        <param name="data-root" value="{$config:data-root}"/>
-        <param name="app-root" value="{$config:app-root}"/>
-        <param name="nav-base" value="{$config:nav-base}"/>
-        <param name="base-uri" value="{$config:base-uri}"/>
-        <param name="collection" value="{$collection}"/>
-    </parameters>
-    )
+  let $xslt-uri :=
+      if ($config:get-config//repo:collection[@name = $collection]/@xslt ne '')
+      then
+        $config:app-root || string($config:get-config//repo:collection[@name = $collection]/@xslt)
+      else
+        $config:app-root || '/resources/xsl/tei2html.xsl'
+  let $parameters :=
+      element parameters {
+          element param { attribute name { "data-root" }, attribute value { $config:data-root } },
+          element param { attribute name { "app-root" },  attribute value { $config:app-root } },
+          element param { attribute name { "nav-base" },  attribute value { $config:nav-base } },
+          element param { attribute name { "base-uri" },  attribute value { $config:base-uri } },
+          $collection ! element param { attribute name { "collection" },  attribute value { $collection } }
+      }
+  return
+      transform:transform($nodes, doc($xslt-uri), $parameters)
 };
 
 (:~
